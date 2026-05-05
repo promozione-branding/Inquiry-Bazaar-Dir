@@ -54,7 +54,7 @@ export default function ProductPage() {
     const [popupProduct, setPopupProduct] = useState({});
     const [productDetails, setProductDetails] = useState({});
     const [relatedProducts, setRelatedProducts] = useState([]);
-    const [webpage, setWebpage] = useState();
+    const [webpage, setWebpage] = useState(null);
 
     useEffect(() => {
         if (!slug) return;
@@ -292,7 +292,7 @@ export default function ProductPage() {
                         </div>
 
                         <div className="flex-1">
-                            {webpage ?
+                            {webpage?.slug ?
                                 <Link href={`/${webpage.slug}`} className="hover:text-blue-500 hover:underline font-semibold text-lg text-gray-800 leading-tight">
                                     {business?.companyName}
                                 </Link>
