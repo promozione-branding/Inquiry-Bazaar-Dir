@@ -54,6 +54,7 @@ export default function ProductPage() {
     const [popupProduct, setPopupProduct] = useState({});
     const [productDetails, setProductDetails] = useState({});
     const [relatedProducts, setRelatedProducts] = useState([]);
+    const [webpage, setWebpage] = useState({});
 
     useEffect(() => {
         if (!slug) return;
@@ -80,6 +81,8 @@ export default function ProductPage() {
         const fetchData = async () => {
             try {
                 const res1 = await axios.get(`/api/category/${productDetails?.subCategoryId?.slug}`);
+                const res2 = await axios.get(`/api/webpage/${productDetails?.supplierId?._id}`);
+                setWebpage(res2.data)
                 const data1 = res1.data?.data.products.filter((i) => i._id != productDetails._id);
                 setRelatedProducts(data1 || []);
             } catch (err) {
@@ -289,9 +292,14 @@ export default function ProductPage() {
                         </div>
 
                         <div className="flex-1">
-                            <Link href={"/shree-shakti-infratech"} className="hover:text-blue-500 hover:underline font-semibold text-lg text-gray-800 leading-tight">
-                                {business?.companyName}
-                            </Link>
+                            {webpage ?
+                                <Link href={`/${webpage.slug}`} className="hover:text-blue-500 hover:underline font-semibold text-lg text-gray-800 leading-tight">
+                                    {business?.companyName}
+                                </Link>
+                                :
+                                <p className="font-semibold text-lg text-gray-800 leading-tight">
+                                    {business?.companyName}
+                                </p>}
 
                             <div className="flex items-center gap-1 text-sm text-gray-500 mt-1">
                                 <MapPin size={14} />

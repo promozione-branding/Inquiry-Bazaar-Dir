@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/config/db";
+import { ObjectId } from "mongodb"; // ✅ import ObjectId
 
 export async function GET(req, { params }) {
     try {
@@ -14,8 +15,10 @@ export async function GET(req, { params }) {
         }
 
         const data = await db
-            .collection("webpages") // collection name
-            .findOne({ userId });
+            .collection("webpages")
+            .findOne({ userId: new ObjectId(userId) }); // ✅ convert to ObjectId
+
+        console.log(userId, data);
 
         return NextResponse.json(data || {});
     } catch (error) {
