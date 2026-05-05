@@ -54,7 +54,7 @@ export default function ProductPage() {
     const [popupProduct, setPopupProduct] = useState({});
     const [productDetails, setProductDetails] = useState({});
     const [relatedProducts, setRelatedProducts] = useState([]);
-    const [webpage, setWebpage] = useState({});
+    const [webpage, setWebpage] = useState();
 
     useEffect(() => {
         if (!slug) return;
