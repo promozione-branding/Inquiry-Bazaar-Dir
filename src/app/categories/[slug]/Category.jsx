@@ -1,11 +1,36 @@
+"use client"
 import Footer from '@/components/Main/Footer'
 import Navbar from '@/components/Main/Navbar'
+import axios from 'axios'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import { useParams } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
 
-export default function Category({ category, industry, subCategory }) {
-  // console.log(subCategory)
+export default function Category() {
+  const { slug } = useParams()
+
+  const [category, setCategory] = useState(null);
+  const [subCategory, setSubCategory] = useState([]);
+
+  useEffect(() => {
+    if (!slug) return;
+
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`/api/category/${slug}`);
+        const data = res.data?.data;
+        setCategory(data?.category || null);
+        setSubCategory(data?.subcategories || []);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
+  }, [slug]);
+
+  // console.info(subCategory);
   return (<>
     <Navbar />
 
@@ -15,12 +40,12 @@ export default function Category({ category, industry, subCategory }) {
           Home {" "}
         </Link>
         <p>/</p>
-        <Link href={`/industries/${industry.slug}`} className='text-gray-800 font-bold'>
-          {industry.name}
+        <Link href={`/categories`} className='text-gray-800 font-bold'>
+          All Categories
         </Link>
         <p>/</p>
         <p className='text-gray-600'>
-          {category.name}
+          {category?.name}
         </p>
       </div>
 
@@ -29,7 +54,7 @@ export default function Category({ category, industry, subCategory }) {
           {category?.categoryDescription}
         </h2>
 
-        {subCategory.map((i, idx) => (
+        {subCategory?.map((i, idx) => (
           <div key={idx} className="bg-white rounded-lg border mb-4 flex gap-6 border-gray-200 shadow-md">
             <div className="w-45 flex flex-col items-center p-4 justify-center border-r border-r-gray-200 pr-4">
               <div className="w-28 h-28 relative mb-2">
@@ -52,14 +77,12 @@ export default function Category({ category, industry, subCategory }) {
             <div className="flex-1 overflow-x-auto py-3">
               <div className="flex gap-8 items-start">
                 {i.products.slice(0, 8).map((product, index) => (
-                  <Link
-                    href={`/products/${product.slug}`}
-                    key={index}
+                  <Link href={`/products/${product.slug}`} key={index}
                     className="p-2 min-w-35 flex flex-col rounded-lg group items-center text-center border border-gray-200 shadow-sm hover:border-gray-300 hover:shadow-md transition"
                   >
                     <div className="w-24 h-24 relative mb-2">
                       <Image
-                        src={product.media?.[0]?.url}
+                        src={product.media?.[0]?.url || "/noimage.png"}
                         alt={product.name}
                         fill
                         className="object-contain group-hover:scale-105 transition"

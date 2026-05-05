@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,9 +9,24 @@ import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import Link from "next/link";
+import axios from "axios";
 
-export default function IndustrySlider({ industries = [] }) {
-    // 🔥 duplicate data for smooth infinite feel
+export default function IndustrySlider() {
+    const [industries, setIndustries] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await axios.get("/api/industry");
+                setIndustries(res.data || []);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     const loopedIndustries =
         industries.length < 6
             ? [...industries, ...industries, ...industries]

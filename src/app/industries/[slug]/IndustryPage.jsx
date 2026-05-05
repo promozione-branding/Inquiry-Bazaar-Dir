@@ -1,11 +1,29 @@
+"use client"
 import Footer from '@/components/Main/Footer'
 import Navbar from '@/components/Main/Navbar'
+import axios from 'axios'
 import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import { useParams } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
 
-export default function IndustryPage({ industry }) {
+export default function IndustryPage() {
+  const { slug } = useParams()
+  const [industry, setIndustry] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`/api/industry/${slug}`);
+        setIndustry(res.data || []);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (<>
     <Navbar />
 

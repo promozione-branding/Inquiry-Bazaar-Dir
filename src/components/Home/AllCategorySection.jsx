@@ -2,8 +2,25 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-export default function IndustrySection({ industries = [] }) {
+export default function IndustrySection() {
+    const [industries, setIndustries] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await axios.get("/api/industry");
+                setIndustries(res.data || []);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     return (
         <section className="px-4 md:px-10 py-10 bg-gray-200 space-y-6">
             {industries.filter((i) => i.mainCategory && i.mainCategory.length > 0)

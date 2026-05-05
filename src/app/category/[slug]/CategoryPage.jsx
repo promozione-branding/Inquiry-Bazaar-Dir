@@ -3,15 +3,36 @@ import ContactModal from '@/components/Main/ContactModal';
 import Footer from '@/components/Main/Footer';
 import Navbar from '@/components/Main/Navbar';
 import Sidebar from '@/components/Main/Sidebar'
+import axios from 'axios';
 import { IndianRupee, MapPin, Store, Tag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from 'react'
+import { useParams } from 'next/navigation';
+import React, { useEffect, useState } from 'react'
 
-export default function CategoryPage({ subCategory, industry }) {
+export default function CategoryPage() {
+  const { slug } = useParams()
   const [open, setOpen] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
   const [popupProduct, setPopupProduct] = useState({});
+
+  const [subCategory, setSubCategory] = useState([]);
+
+  useEffect(() => {
+    if (!slug) return;
+
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`/api/category/${slug}`);
+        const data = res.data?.data;
+        setSubCategory(data || []);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
+  }, [slug]);
 
   return (<>
     <Navbar />
@@ -22,12 +43,12 @@ export default function CategoryPage({ subCategory, industry }) {
           Home {" "}
         </Link>
         <p>/</p>
-        <Link href={`/industries/${industry.slug}`} className='text-gray-800 font-bold'>
-          {industry.name}
+        <Link href={`/categories`} className='text-gray-800 font-bold'>
+          All Categories
         </Link>
         <p>/</p>
         <p className='text-gray-600'>
-          {subCategory.category.name}
+          {subCategory?.category?.name}
         </p>
       </div>
     </div>
@@ -43,21 +64,21 @@ export default function CategoryPage({ subCategory, industry }) {
         </button>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {subCategory.products.map((i, idx) => (
-            <Link href={`/products/${i.slug}`} key={idx}
+          {subCategory?.products?.map((i, idx) => (
+            <Link href={`/products/${i?.slug}`} key={idx}
               className="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition group border border-gray-200"
             >
               <div className="w-full h-40 relative mb-2">
                 <Image
-                  src={i.media?.[0]?.url}
-                  alt={i.name}
+                  src={i.media?.[0]?.url || "/noimage.png"}
+                  alt={i?.name}
                   fill
                   className="object-contain group-hover:scale-105 transition"
                 />
               </div>
 
               <p className="text-gray-800 font-semibold line-clamp-2 group-hover:text-[#0A5B93] transition">
-                {i.name}
+                {i?.name}
               </p>
 
               <div className='flex items-center justify-between mt-1'>

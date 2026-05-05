@@ -1,16 +1,20 @@
-import React from 'react'
-import IndustryPage from './IndustryPage'
-import axios from 'axios';
+import IndustryPage from "./IndustryPage";
 
 export async function generateMetadata({ params }) {
-    const { slug } = await params;
+    const { slug } = await params; // ✅ no await
+
     try {
-        const res = await axios.get("https://promote-bharat.vercel.app/api/industry");
-        const industry = res.data.find((i) => (i.slug == slug))
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/industry/${slug}`,
+            { cache: "no-store" }
+        );
+
+        const industry = await res.json();
+
         if (!industry) {
             return {
-                title: "Product Not Found",
-                description: "No product found",
+                title: "Promote Bharat",
+                description: "Promote Bharat",
             };
         }
 
@@ -23,17 +27,12 @@ export async function generateMetadata({ params }) {
 
     } catch (err) {
         return {
-            title: "Product",
-            description: "Product page",
+            title: "Promote Bharat",
+            description: "Promote Bharat",
         };
     }
 }
 
-export default async function page({ params }) {
-    const { slug } = await params
-    const res = await axios.get("https://promote-bharat.vercel.app/api/industry");
-    const industry = res.data.find((i) => (i.slug == slug))
-    return (
-        <IndustryPage industry={industry} />
-    )
+export default async function Page() {
+    return <IndustryPage />;
 }

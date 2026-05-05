@@ -1,11 +1,27 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Navbar from "@/components/Main/Navbar";
 import Footer from "@/components/Main/Footer";
+import axios from "axios";
 
-export default function Categories({ categories }) {
+export default function Categories() {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get("/api/category?type=main");
+        setCategories(res.data.data || []);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (<>
     <Navbar />
 

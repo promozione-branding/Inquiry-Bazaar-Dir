@@ -42,18 +42,51 @@ import Image from "next/image";
 import RatingsUI from "@/components/Product/ReviewSection";
 import Navbar from "@/components/Main/Navbar";
 import Footer from "@/components/Main/Footer";
+import { useParams } from "next/navigation";
+import axios from "axios";
 
-export default function ProductPage({ productDetails, relatedProducts }) {
+export default function ProductPage() {
+    const { slug } = useParams()
     const [tab, setTab] = useState("specs");
     const [activeIndex, setActiveIndex] = useState(0);
     const [swiperRef, setSwiperRef] = useState(null);
     const [openPopup, setOpenPopup] = useState(false);
     const [popupProduct, setPopupProduct] = useState({});
+    const [productDetails, setProductDetails] = useState({});
+    const [relatedProducts, setRelatedProducts] = useState([]);
+
+    useEffect(() => {
+        if (!slug) return;
+
+        const fetchData = async () => {
+            try {
+                const res = await axios.get(`/api/product/${slug}`);
+                const data = res.data.data;
+                setProductDetails(data || null);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        fetchData();
+    }, [slug]);
 
     useEffect(() => {
         if (productDetails?.media?.length) {
             setActiveIndex(0);
         }
+
+        if (productDetails == {}) return;
+        const fetchData = async () => {
+            try {
+                const res1 = await axios.get(`/api/category/${productDetails?.subCategoryId?.slug}`);
+                const data1 = res1.data?.data.products.filter((i) => i._id != productDetails._id);
+                setRelatedProducts(data1 || []);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+        fetchData();
     }, [productDetails]);
 
     const business = productDetails.supplierId?.business;
@@ -531,7 +564,7 @@ export default function ProductPage({ productDetails, relatedProducts }) {
                         >
                             <div className="w-full h-40 relative mb-2">
                                 <Image
-                                    src={i.media?.[0]?.url}
+                                    src={i.media?.[0]?.url || "/noimage.png"}
                                     alt={i.name}
                                     fill
                                     className="object-contain group-hover:scale-105 transition"

@@ -1,10 +1,26 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import axios from "axios";
 
-export default function Category({ categories = [] }) {
+export default function Category() {
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await axios.get("/api/category?type=main");
+              setCategories(res.data.data || []);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     return (
         <section className="px-4 md:px-10 py-8 bg-gray-50 w-full">
             <div className="mb-8 flex justify-between items-center">

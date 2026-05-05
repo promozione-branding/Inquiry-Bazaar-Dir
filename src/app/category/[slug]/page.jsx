@@ -1,4 +1,5 @@
-import Category from "./Category";
+import React from 'react'
+import CategoryPage from './CategoryPage'
 
 export async function generateMetadata({ params }) {
     const { slug } = await params;
@@ -34,6 +35,8 @@ export async function generateMetadata({ params }) {
     }
 }
 
-export default function Page() {
-    return <Category />;
+export default async function page() {
+    return (
+        <CategoryPage />
+    )
 }

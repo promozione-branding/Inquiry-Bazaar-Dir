@@ -4,8 +4,25 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import Navbar from "@/components/Main/Navbar";
 import Footer from "@/components/Main/Footer";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-export default function Industries({ industries }) {
+export default function Industries() {
+  const [industries, setIndustries] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get("/api/industry");
+        setIndustries(res.data || []);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (<>
     <Navbar />
 
