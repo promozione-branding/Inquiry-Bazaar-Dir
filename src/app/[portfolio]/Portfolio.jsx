@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -17,10 +17,43 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import CountUp from "react-countup";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
+import { useParams, useRouter } from "next/navigation";
+import axios from "axios";
+import { FaXTwitter } from "react-icons/fa6";
+import { BsTelegram } from "react-icons/bs";
+import Popup from "@/components/Main/Popup";
 
 export default function Portfolio() {
+    const { portfolio } = useParams()
+    const router = useRouter();
+    const [details, setDetails] = useState(null)
     const [isOpen, setIsOpen] = useState(false);
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        if (!portfolio) return;
+
+        const fetchData = async () => {
+            try {
+                const res = await axios.get(`/api/webpage/${portfolio}`);
+                if (res.status !== 200 || !res.data || Object.keys(res.data).length === 0) {
+                    router.replace("/");
+                    return;
+                }
+                setDetails(res.data);
+            } catch (err) {
+                console.error(err);
+                if (err.response?.status === 404) {
+                    router.replace("/");
+                } else {
+                    router.replace("/");
+                }
+            }
+        };
+
+        fetchData();
+    }, [portfolio, router]);
 
     const navLinks = [
         { name: "Home", href: "#home", icon: Home },
@@ -41,50 +74,27 @@ export default function Portfolio() {
     const stats = [
         {
             icon: Clock,
-            number: 15,
+            number: `${details?.work?.experience}`,
             suffix: "+",
             label: "Years Experience",
         },
         {
             icon: Users,
-            number: 1000,
+            number: `${details?.work?.clients}`,
             suffix: "+",
             label: "Happy Clients",
         },
         {
             icon: Briefcase,
-            number: 500,
+            number: `${details?.work?.projects}`,
             suffix: "+",
             label: "Projects Completed",
         },
         {
             icon: Award,
-            number: 50,
+            number: `${details?.work?.awards}`,
             suffix: "+",
             label: "Awards Won",
-        },
-    ];
-
-    const faqs = [
-        {
-            question: "What services do you offer?",
-            answer: "We provide a wide range of digital solutions including web development, design, and business automation services."
-        },
-        {
-            question: "How long does a project take?",
-            answer: "Project timelines depend on complexity, but most projects are completed within 2–6 weeks."
-        },
-        {
-            question: "Do you offer support after delivery?",
-            answer: "Yes, we provide ongoing support and maintenance to ensure your product runs smoothly."
-        },
-        {
-            question: "Can I request custom features?",
-            answer: "Absolutely! We specialize in building tailored solutions based on your specific needs."
-        },
-        {
-            question: "How can I get a quote?",
-            answer: "You can use our contact form or click the ‘Request a Quote’ button to get started."
         },
     ];
 
@@ -111,16 +121,16 @@ export default function Portfolio() {
                     {navLinks.map((link, index) => {
                         const Icon = link.icon;
                         return (
-                            <Link key={index} href={link.href}
+                            <a key={index} href={link.href}
                                 className="border border-gray-200 flex items-center gap-2 px-4 py-2 rounded-lg text-xl font-semibold bg-white hover:bg-orange-100 hover:text-orange-600 transition-all duration-200 shadow-sm hover:shadow-md"
                             >
                                 <Icon size={18} />
                                 {link.name}
-                            </Link>
+                            </a>
                         );
                     })}
 
-                    <button className="flex items-center text-xl font-semibold gap-2 bg-orange-400 hover:bg-orange-500 px-5 py-2 rounded-lg text-white">
+                    <button onClick={() => setOpen(true)} style={{ backgroundColor: details?.hero?.color }} className="flex items-center text-xl font-semibold gap-2 px-5 py-2 rounded-lg text-white">
                         <Phone size={18} />
                         Get in Touch
                     </button>
@@ -157,10 +167,10 @@ export default function Portfolio() {
             )}
         </section>
 
-        <section className="relative w-full min-h-[70vh] flex items-center justify-center">
+        <section id="home" className="relative w-full min-h-[70vh] flex items-center justify-center">
             <div className="absolute inset-0">
                 <img
-                    src="/vision.webp" // replace with your image
+                    src={`${details?.hero?.image}`} // replace with your image
                     alt="Background"
                     className="w-full h-full object-cover"
                 />
@@ -168,16 +178,15 @@ export default function Portfolio() {
                 <div className="absolute inset-0 bg-black/60"></div>
             </div>
 
-            <div className="relative z-10 max-w-7xl w-full grid md:grid-cols-2 gap-10 px-6 py-12 items-center">
+            <div className="relative z-10 max-w-7xl w-full grid md:grid-cols-2 gap-5 px-4 py-12 items-center">
                 <div className="text-white">
                     <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-2">
-                        Grow Your Business With Smart Solutions
+                        {details?.hero?.heading}
                     </h1>
                     <p className="text-gray-200 max-w-md">
-                        We help you build modern digital products that scale fast
-                        and convert better. Let’s create something powerful together.
+                        {details?.hero?.subHeading}
                     </p>
-                    <button className="bg-orange-500 mt-6 hover:bg-orange-600 px-6 py-3 rounded-lg text-white font-medium">
+                    <button onClick={() => setOpen(true)} style={{ backgroundColor: details?.hero?.color }} className={`mt-6 px-6 py-3 rounded-lg text-white font-medium`}>
                         Get Started
                     </button>
                 </div>
@@ -186,7 +195,7 @@ export default function Portfolio() {
                 <div className="bg-white rounded-xl shadow-lg px-4 py-6 space-y-4">
                     <h2 className="text-xl font-semibold text-gray-800 text-center flex justify-center items-center flex-col">
                         Get in Touch
-                        <div className="w-10 h-1 rounded-md mt-1 bg-orange-500"></div>
+                        <div style={{ backgroundColor: details?.hero?.color }} className="w-10 h-1 rounded-md mt-1"></div>
                     </h2>
 
                     <div className="flex items-center border border-gray-400 rounded-lg px-3 py-2">
@@ -233,7 +242,7 @@ export default function Portfolio() {
                         className="w-full border border-gray-400 rounded-lg px-3 py-2 outline-none text-gray-800"
                     />
 
-                    <button className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg">
+                    <button style={{ backgroundColor: details?.hero?.color }} className="w-full text-white py-2 rounded-lg">
                         Submit
                     </button>
                 </div>
@@ -276,7 +285,7 @@ export default function Portfolio() {
                             </div>
 
                             <div className="p-3 pt-0">
-                                <button className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg">
+                                <button onClick={() => setOpen(true)} style={{ backgroundColor: details?.hero?.color }} className="w-full text-white py-2 rounded-lg">
                                     Get a Quote
                                 </button>
                             </div>
@@ -287,20 +296,27 @@ export default function Portfolio() {
             </Swiper>
         </section>
 
-        <section className="bg-amber-50 px-4 py-10 md:px-10 grid grid-cols-1 lg:grid-cols-2">
+        <section id="about-us" className="bg-amber-50 px-4 py-10 md:px-10 grid grid-cols-1 lg:grid-cols-2">
             <div className="">
                 <div className="w-fit text-lg px-4 py-1 mb-2 rounded-full font-medium text-orange-600 bg-orange-200">
-                    About us
+                    {details?.about?.heading}
                 </div>
                 <h1 className="text-3xl md:text-5xl mb-4 text-black font-bold">
-                    India’s Trusted Bar Bending Machine Importer
+                    {details?.about?.subHeading}
                 </h1>
 
-                <p className="text-black">
-                    Founded in 2013, Shree Shakti Infratech has established itself as a trusted and leading Bar Bending Machine Importer in India, delivering high-performance construction machinery built for precision, durability, and long-term reliability.
-                    <br />
-                    As an ISO-certified company, we are committed to providing advanced imported machines that meet the evolving demands of modern construction and infrastructure projects. Our solutions are designed to enhance productivity, improve efficiency, and ensure superior construction quality.
-                </p>
+                <div
+                    className="
+    jodit-content 
+    prose max-w-none
+    prose-h1:text-xl prose-h1:font-bold prose-h1:leading-snug
+    prose-h2:text-lg prose-h2:font-semibold
+    prose-h3:text-base
+    prose-p:text-sm
+    md:prose-h1:text-3xl md:prose-h2:text-2xl md:prose-h3:text-xl
+  "
+                    dangerouslySetInnerHTML={{ __html: details?.about?.description }}
+                />
             </div>
 
             <div>
@@ -309,7 +325,7 @@ export default function Portfolio() {
                     height={200}
                     className="w-full h-80 object-contain"
                     alt="image"
-                    src={"/feature2.webp"}
+                    src={details?.about?.image}
                 />
             </div>
         </section>
@@ -363,7 +379,7 @@ export default function Portfolio() {
             </div>
         </section>
 
-        <section className="py-10 bg-gray-100">
+        <section id="products" className="py-10 bg-gray-100">
             <div className="max-w-7xl mx-auto px-4">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -403,7 +419,7 @@ export default function Portfolio() {
                             </div>
 
                             <div className="absolute inset-0 flex items-end justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition duration-300">
-                                <button className="bg-orange-500 hover:bg-orange-600 text-white p-3 rounded-full shadow-lg hover:scale-110 transition mb-15">
+                                <button style={{ backgroundColor: details?.hero?.color }} className="text-white p-3 rounded-full shadow-lg hover:scale-110 transition mb-15">
                                     <Eye size={20} />
                                 </button>
                             </div>
@@ -419,9 +435,7 @@ export default function Portfolio() {
             </div>
         </section>
 
-        <section className="relative py-16">
-
-            {/* Background */}
+        <section id="contact-us" className="relative py-16">
             <div className="absolute inset-0">
                 <img
                     src="/banner.png"
@@ -433,18 +447,17 @@ export default function Portfolio() {
 
             {/* Content */}
             <div className="relative z-10 max-w-5xl mx-auto text-center px-4 text-white">
-
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                     className="text-3xl md:text-4xl font-bold mb-4"
                 >
-                    Ready to Grow Your Business?
+                    {details?.cta?.heading}
                 </motion.h2>
 
-                <p className="text-gray-200 mb-8">
-                    Contact us today and get the best solutions tailored for your needs.
+                <p className="text-gray-200 mb-6">
+                    {details?.cta?.subHeading}
                 </p>
 
                 {/* Buttons */}
@@ -457,7 +470,7 @@ export default function Portfolio() {
 
                     {/* Call Now */}
                     <a
-                        href="tel:+1234567890"
+                        href={`tel:${details?.supplier?.phone}`}
                         className="flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-lg font-medium transition"
                     >
                         <Phone size={18} />
@@ -465,14 +478,14 @@ export default function Portfolio() {
                     </a>
 
                     {/* Request Quote */}
-                    <button className="flex items-center justify-center gap-2 bg-white text-black hover:bg-gray-200 px-6 py-3 rounded-lg font-medium transition">
+                    <button onClick={() => setOpen(true)} className="flex items-center justify-center gap-2 bg-white text-black hover:bg-gray-200 px-6 py-3 rounded-lg font-medium transition">
                         <FileText size={18} />
                         Request a Quote
                     </button>
 
                     {/* WhatsApp */}
                     <a
-                        href="https://wa.me/1234567890"
+                        href={details?.supplier?.business.social.whatsapp}
                         target="_blank"
                         className="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 px-6 py-3 rounded-lg font-medium transition"
                     >
@@ -488,7 +501,7 @@ export default function Portfolio() {
             <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
                 <div className="flex justify-center">
                     <img
-                        src="/feature2.webp" // replace with your image
+                        src={`${details?.faqSection?.image}`}
                         alt="machine"
                         className="max-h-112 object-contain"
                     />
@@ -507,7 +520,7 @@ export default function Portfolio() {
 
                     {/* FAQ */}
                     <div className="space-y-3">
-                        {faqs.map((faq, index) => {
+                        {details?.faqSection?.faqs.map((faq, index) => {
                             const isOpen = activeIndex === index;
 
                             return (
@@ -567,17 +580,77 @@ export default function Portfolio() {
 
                 {/* Social Icons */}
                 <div className="flex gap-6">
-                    <Link href="#" className="hover:text-white transition">
-                        <FaFacebook size={25} />
-                    </Link>
+                    {details?.supplier?.business?.social?.linkedin && (
+                        <a
+                            href={details?.supplier?.business.social.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="LinkedIn"
+                            className="p-2 rounded-lg bg-gray-100 hover:bg-blue-100 transition hover:scale-105"
+                        >
+                            <FaLinkedin size={18} className="text-blue-700" />
+                        </a>
+                    )}
 
-                    <Link href="#" className="hover:text-white transition">
-                        <FaInstagram size={25} />
-                    </Link>
+                    {details?.supplier?.business?.social?.instagram && (
+                        <a
+                            href={details?.supplier?.business.social.instagram}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="Instagram"
+                            className="p-2 rounded-lg bg-gray-100 hover:bg-pink-100 transition hover:scale-105"
+                        >
+                            <FaInstagram size={18} className="text-pink-600" />
+                        </a>
+                    )}
 
-                    <Link href="#" className="hover:text-white transition">
-                        <FaLinkedin size={25} />
-                    </Link>
+                    {details?.supplier?.business?.social?.facebook && (
+                        <a
+                            href={details?.supplier?.business.social.facebook}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="Facebook"
+                            className="p-2 rounded-lg bg-gray-100 hover:bg-blue-100 transition hover:scale-105"
+                        >
+                            <FaFacebook size={18} className="text-blue-600" />
+                        </a>
+                    )}
+
+                    {details?.supplier?.business?.social?.youtube && (
+                        <a
+                            href={details?.supplier?.business.social.youtube}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="YouTube"
+                            className="p-2 rounded-lg bg-gray-100 hover:bg-red-100 transition hover:scale-105"
+                        >
+                            <FaYoutube size={18} className="text-red-600" />
+                        </a>
+                    )}
+
+                    {details?.supplier?.business?.social?.telegram && (
+                        <a
+                            href={details?.supplier?.business.social.telegram}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="YouTube"
+                            className="p-2 rounded-lg bg-gray-100 hover:bg-blue-100 transition hover:scale-105"
+                        >
+                            <BsTelegram size={18} className="text-blue-600" />
+                        </a>
+                    )}
+
+                    {details?.supplier?.business?.social?.twitter && (
+                        <a
+                            href={details?.supplier?.business.social.twitter}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="YouTube"
+                            className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition hover:scale-105"
+                        >
+                            <FaXTwitter size={18} className="text-black" />
+                        </a>
+                    )}
                 </div>
             </div>
 
@@ -590,5 +663,7 @@ export default function Portfolio() {
                 </p>
             </div>
         </footer>
+
+        <Popup open={open} setOpen={setOpen} />
     </>)
 }

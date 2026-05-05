@@ -1,36 +1,56 @@
-import React from 'react'
-import Portfolio from './Portfolio'
-import axios from 'axios';
+import { redirect } from "next/navigation";
+import Portfolio from "./Portfolio";
 
 export async function generateMetadata({ params }) {
     const { portfolio } = await params;
+
     try {
-        const res = await axios.get("https://promote-bharat.vercel.app/api/category");
-        const portfolioData = res.data.data.find((i) => (i.slug == portfolio))
-        if (!portfolioData) {
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/webpage/${portfolio}`,
+            { cache: "no-store" }
+        );
+
+        const result = await res.json();
+
+        if (!result || Object.keys(result).length === 0) {
             return {
-                title: "Portfolio",
-                description: "Portfolio",
+                title: "Webpage - Promote Bharat",
+                description: "Webpage - Promote Bharat",
             };
         }
 
         return {
-            title: portfolioData.metaTitle || portfolioData.name,
-            description:
-                portfolioData.metaDescription ||
-                portfolioData.description?.replace(/<[^>]+>/g, "").slice(0, 150),
+            title: `${result?.supplier?.business?.companyName} - Promote Bharat`,
+            description: `${result?.supplier?.business?.companyName} - Promote Bharat`,
         };
 
-    } catch (err) {
+    } catch {
         return {
-            title: "Page",
-            description: "Page",
+            title: "Webpage - Promote Bharat",
+            description: "Webpage - Promote Bharat",
         };
     }
 }
 
-export default function page() {
-    return (
-        <Portfolio />
-    )
+export default async function Page({ params }) {
+    const { portfolio } = await params;
+
+    try {
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/webpage/${portfolio}`,
+            { cache: "no-store" }
+        );
+
+        const data = await res.json();
+
+        // 🚀 REDIRECT BEFORE PAGE LOAD
+        if (!data || Object.keys(data).length === 0) {
+            redirect("/");
+        }
+
+        return <Portfolio initialData={data} />;
+
+    } catch (err) {
+        redirect("/");
+    }
 }
