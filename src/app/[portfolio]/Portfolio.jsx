@@ -104,6 +104,8 @@ export default function Portfolio() {
         setActiveIndex(activeIndex === index ? null : index);
     };
 
+    console.log(details)
+
     return (<>
         <section className="w-full bg-gray-50 border-b border-b-gray-200 sticky top-0 z-50">
             <div className="flex justify-between items-center px-4 py-2">
@@ -111,7 +113,7 @@ export default function Portfolio() {
                     <Image
                         width={200}
                         height={200}
-                        src="/logo.webp"
+                        src={details?.supplier?.profileImage || "/no-image.webp"}
                         alt="Logo"
                         className="w-auto h-16"
                     />
@@ -570,7 +572,7 @@ export default function Portfolio() {
             <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div className="bg-white p-2 rounded-lg">
                     <Image
-                        src="/logo.webp"
+                        src={details?.supplier?.profileImage || "/no-image.webp"}
                         alt="Promote Bharat"
                         width={200}
                         height={200}

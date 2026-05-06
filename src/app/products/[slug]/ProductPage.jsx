@@ -18,6 +18,7 @@ import {
     Star,
     BadgeCheck,
     Store,
+    SquareArrowOutUpRight,
 } from "lucide-react";
 import {
     FaLinkedin,
@@ -287,21 +288,30 @@ export default function ProductPage() {
                     className="bg-white rounded-2xl shadow-md p-4 h-fit"
                 >
                     <div className="flex gap-3">
-                        <div className="w-20 h-20 rounded-lg bg-gray-100 flex items-center justify-center text-lg font-bold text-[#0A5B93]">
-                            {getInitials(business?.companyName)}
+                        <div className="w-20 h-20 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center text-lg font-bold text-[#0A5B93]">
+                            {productDetails?.supplierId?.profileImage ? (
+                                <img
+                                    src={productDetails.supplierId.profileImage}
+                                    alt="supplier"
+                                    className="w-full h-full object-contain"
+                                />
+                            ) : (
+                                getInitials(business?.companyName)
+                            )}
                         </div>
 
                         <div className="flex-1">
                             {webpage?.slug ?
-                                <Link href={`/${webpage.slug}`} className="hover:text-blue-500 hover:underline font-semibold text-lg text-gray-800 leading-tight">
+                                <Link href={`/${webpage.slug}`} className="hover:underline text-md font-semibold text-gray-800 flex items-center gap-1 cursor-pointer group hover:text-blue-500 transition">
                                     {business?.companyName}
+                                    <SquareArrowOutUpRight size={16} className="text-gray-800 group-hover:text-blue-600 transition" />
                                 </Link>
                                 :
                                 <p className="font-semibold text-lg text-gray-800 leading-tight">
                                     {business?.companyName}
                                 </p>}
 
-                            <div className="flex items-center gap-1 text-sm text-gray-500 mt-1">
+                            <div className="flex items-center gap-1 text-sm text-gray-500">
                                 <MapPin size={14} />
                                 {business?.address}
                             </div>
