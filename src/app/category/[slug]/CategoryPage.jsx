@@ -78,7 +78,6 @@ export default function CategoryPage() {
       <div className="lg:hidden block">
         <Sidebar open={open} setOpen={setOpen} />
       </div>
-      
 
       <div className="col-span-1 lg:col-span-4 px-2">
         <button
@@ -134,7 +133,6 @@ export default function CategoryPage() {
                   </div>
 
                   <div className="mt-4 border border-gray-200 rounded-lg overflow-hidden">
-
                     {i.specifications?.slice(0, 5).map((spec, index) => (
                       <div
                         key={index}
@@ -150,16 +148,12 @@ export default function CategoryPage() {
                       </div>
                     ))}
 
-                    {/* VIEW MORE */}
-                    {i.specifications?.length > 5 && (
-                      <Link
-                        href={`/products/${i?.slug}`}
-                        className="block text-center text-sm text-[#0A5B93] font-medium py-2 hover:bg-gray-50 transition"
-                      >
-                        View more details →
-                      </Link>
-                    )}
-
+                    <Link
+                      href={`/products/${i?.slug}`}
+                      className="block text-center text-sm text-[#0A5B93] font-medium py-2 hover:bg-gray-50 transition"
+                    >
+                      View more details →
+                    </Link>
                   </div>
                 </div>
 
