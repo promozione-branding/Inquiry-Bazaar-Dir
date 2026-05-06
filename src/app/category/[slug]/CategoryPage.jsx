@@ -14,7 +14,8 @@ import {
   Building2,
   Mail,
   MessageCircle,
-  User
+  User,
+  Link2
 } from "lucide-react";
 import {
   FaWhatsapp,
@@ -159,8 +160,9 @@ export default function CategoryPage() {
 
                 <div className="bg-white rounded-xl space-y-2 border">
                   <div>
-                    <h2 className="text-md font-semibold text-gray-800">
+                    <h2 className="hover:underline text-md font-semibold text-gray-800 flex items-center gap-1 cursor-pointer group hover:text-blue-500 transition">
                       {supplier?.companyName || "-"}
+                      <Link2 size={18} className="text-gray-800 group-hover:text-blue-600 transition" />
                     </h2>
 
                     <div className="flex items-center gap-1 text-sm text-gray-800">
