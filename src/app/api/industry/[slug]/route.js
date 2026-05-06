@@ -14,9 +14,7 @@ export async function GET(req, { params }) {
         }
 
         // ✅ find industry
-        const industry = await db
-            .collection("industries")
-            .findOne({ slug });
+        const industry = await db.collection("industries").findOne({ slug });
 
         if (!industry) {
             return NextResponse.json(
@@ -26,10 +24,7 @@ export async function GET(req, { params }) {
         }
 
         // ✅ get related categories
-        const categories = await db
-            .collection("categories")
-            .find({ industryId: industry._id })
-            .toArray();
+        const categories = await db.collection("categories").find({ industryId: industry._id }).toArray();
 
         // 🧠 build nested structure (same logic as before)
         const mainCategory = categories

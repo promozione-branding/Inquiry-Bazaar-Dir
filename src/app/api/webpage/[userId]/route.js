@@ -38,11 +38,7 @@ export async function GET(req, { params }) {
                     { projection: { password: 0 } }
                 );
 
-            const business = supplier
-                ? await db
-                    .collection("businesses")
-                    .findOne({ userId: supplier._id })
-                : null;
+            const business = supplier ? await db.collection("businesses").findOne({ userId: supplier._id }) : null;
 
             return NextResponse.json({
                 ...data,

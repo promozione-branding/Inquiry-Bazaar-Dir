@@ -13,9 +13,7 @@ export async function GET(req, { params }) {
       );
     }
 
-    const product = await db
-      .collection("products")
-      .findOne({ slug: id });
+    const product = await db.collection("products").findOne({ slug: id });
 
     if (!product) {
       return NextResponse.json(
@@ -24,31 +22,20 @@ export async function GET(req, { params }) {
       );
     }
 
-    const category = await db
-      .collection("categories")
-      .findOne({ _id: product.categoryId });
+    const category = await db.collection("categories").findOne({ _id: product.categoryId });
 
-    const subCategory = await db
-      .collection("categories")
-      .findOne({ _id: product.subCategoryId });
+    const subCategory = await db.collection("categories").findOne({ _id: product.subCategoryId });
 
-    const supplier = await db
-      .collection("users")
+    const supplier = await db.collection("users")
       .findOne(
         { _id: product.supplierId },
         { projection: { password: 0 } }
       );
 
     const business = supplier
-      ? await db.collection("businesses").findOne({
-        userId: supplier._id,
-      })
-      : null;
+      ? await db.collection("businesses").findOne({ userId: supplier._id, }) : null;
 
-    const media = await db
-      .collection("productmedias")
-      .find({ productId: product._id })
-      .toArray();
+    const media = await db.collection("productmedias").find({ productId: product._id }).toArray();
 
     const primaryImage = media.find((m) => m.isPrimary) || media[0] || null;
 

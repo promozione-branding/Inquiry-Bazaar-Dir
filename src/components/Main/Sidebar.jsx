@@ -13,7 +13,7 @@ export default function Sidebar({ open, setOpen }) {
                 />
             )}
 
-            <div className={`fixed lg:relative z-50 top-0 left-0 w-64 bg-white p-4 lg:h-full h-screen
+            <div className={`fixed lg:relative z-50 top-0 left-0 lg:w-auto w-64 bg-white p-4 lg:h-full h-screen
     transform transition-transform duration-300 ${open ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}>
                 <div className="flex justify-between items-center mb-4 lg:hidden">
                     <h2 className="font-semibold text-[#0A5B93]">Filters</h2>

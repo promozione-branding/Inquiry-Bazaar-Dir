@@ -42,10 +42,10 @@ export default function IndustryPage() {
         </p>
       </div>
 
-      <div className='px-4 py-2 bg-white mt-2'>
+      <div className='px-4 py-3 bg-white mt-2 rounded-lg'>
         <h2 className='text-black text-3xl mb-2'>{industry?.name}</h2>
 
-        <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 bg-gray-100 p-4 rounded-lg border-t border-t-gray-200'>
+        <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 pt-2 rounded-lg border-t border-t-gray-200'>
           {industry.mainCategory?.map((cat) => (
             <div key={cat._id}
               className="bg-white flex-col border border-gray-200 rounded-lg p-2 flex gap-2 hover:shadow-md transition h-fit"

@@ -70,7 +70,7 @@ export default function CategoryPage() {
     </div>
 
     <div className="grid grid-cols-1 lg:grid-cols-6 bg-gray-200 pb-4">
-      <div className="hidden lg:block lg:col-span-1 h-full bg-white">
+      <div className="hidden lg:block lg:col-span-1">
         <div className="lg:sticky top-17">
           <Sidebar open={open} setOpen={setOpen} />
         </div>
@@ -81,8 +81,7 @@ export default function CategoryPage() {
       </div>
 
       <div className="col-span-1 lg:col-span-4 px-2">
-        <button
-          onClick={() => setOpen(true)}
+        <button onClick={() => setOpen(true)}
           className="lg:hidden mb-4 px-4 py-2 bg-[#0A5B93] text-white rounded"
         >
           Filters
@@ -97,7 +96,7 @@ export default function CategoryPage() {
               >
                 <div className="w-full h-70 relative group" onClick={(e) => { e.preventDefault(); setOpenPopup(true); setPopupProduct(i); }}>
                   <Image
-                    src={i.media?.[0]?.url || "/noimage.png"}
+                    src={i.media?.[0]?.url || "/no-image.png"}
                     alt={i?.name}
                     fill
                     className="object-contain group-hover:scale-105 transition"
@@ -295,8 +294,7 @@ export default function CategoryPage() {
             <h2 className="font-semibold text-lg text-[#D01132] text-center">
               Contact Supplier
             </h2>
-            <div className="flex items-center border rounded-lg px-2 border-gray-400">
-              <User size={16} className="text-[#0A5B93]" />
+            <div className="flex items-center border rounded-lg border-gray-400">
               <input
                 type="text"
                 placeholder="Your Name"
@@ -304,8 +302,7 @@ export default function CategoryPage() {
               />
             </div>
 
-            <div className="flex items-center border rounded-lg px-2 border-gray-400">
-              <Mail size={16} className="text-[#0A5B93]" />
+            <div className="flex items-center border rounded-lg border-gray-400">
               <input
                 type="email"
                 placeholder="Your Email"
@@ -313,8 +310,7 @@ export default function CategoryPage() {
               />
             </div>
 
-            <div className="flex items-center border rounded-lg px-2 border-gray-400">
-              <Phone size={16} className="text-[#0A5B93]" />
+            <div className="flex items-center border rounded-lg border-gray-400">
               <input
                 type="tel"
                 placeholder="Phone Number"
@@ -322,10 +318,10 @@ export default function CategoryPage() {
               />
             </div>
 
-            <div className="flex items-start border rounded-lg px-2 border-gray-400">
-              <MessageCircle size={16} className="text-[#0A5B93] mt-3" />
+            <div className="flex items-start border rounded-lg border-gray-400">
               <textarea
                 type="text"
+                rows={3}
                 placeholder="Your Message"
                 className="w-full p-2 outline-none text-black"
               />

@@ -358,12 +358,14 @@ export default function ProductPage() {
                             </div>
                         </div>
 
-                        <div className="flex items-start gap-2">
+                        <div title={productDetails.supplierId?.email} className="flex items-start gap-2 overflow-hidden">
                             <FaEnvelope className="text-[#0A5B93] mt-1" size={14} />
                             <div>
                                 <p className="text-gray-500">Email</p>
                                 <p className="font-medium text-gray-800 wrap-break-word">
-                                    {productDetails.supplierId?.email1 || "-"}
+                                    {productDetails.supplierId?.email && productDetails.supplierId?.email.length > 26
+                                        ? productDetails.supplierId?.email.slice(0, 26) + "..."
+                                        : productDetails.supplierId?.email || "-"}
                                 </p>
                             </div>
                         </div>
@@ -378,12 +380,14 @@ export default function ProductPage() {
                             </div>
                         </div>
 
-                        <div className="flex items-start gap-2">
+                        <div title={productDetails.supplierId?.otherEmail} className="flex items-start gap-2 overflow-hidden">
                             <FaEnvelope className="text-[#0A5B93] mt-1" size={14} />
                             <div>
                                 <p className="text-gray-500">Alt Email</p>
                                 <p className="font-medium text-gray-800 wrap-break-word">
-                                    {productDetails.supplierId?.otherEmail || "-"}
+                                    {productDetails.supplierId?.otherEmail && productDetails.supplierId?.otherEmail.length > 26
+                                        ? productDetails.supplierId?.otherEmail.slice(0, 26) + "..."
+                                        : productDetails.supplierId?.otherEmail || "-"}
                                 </p>
                             </div>
                         </div>

@@ -8,7 +8,7 @@ import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
 export default function ContactModal({ open, setOpen, product }) {
-    const supplier = product?.supplier?.business;
+    const supplier = product?.supplier?.business || product?.supplierId?.business || null;
     return (
         <AnimatePresence>
             {open && (
@@ -28,7 +28,7 @@ export default function ContactModal({ open, setOpen, product }) {
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         exit={{ scale: 0.8, opacity: 0, y: 50 }}
                         transition={{ duration: 0.3 }}
-                        className="fixed z-50 top-1/2 left-1/2 w-[60%] p-4 -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-lg overflow-hidden"
+                        className="fixed z-50 top-1/2 left-1/2 md:w-[60%] w-[90%] p-4 -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-lg overflow-hidden"
                     >
 
                         <div className="grid md:grid-cols-2 gap-8 relative">

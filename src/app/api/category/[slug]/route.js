@@ -24,7 +24,6 @@ export async function GET(req, { params }) {
 
     const categoryId = category._id;
 
-    // ✅ reusable helper to enrich products with supplier+business+media
     const enrichProducts = async (products) => {
       const supplierIds = [
         ...new Set(products.map((p) => p.supplierId).filter(Boolean)),
