@@ -6,32 +6,22 @@ import { MapPin, X, IndianRupee, Briefcase } from "lucide-react";
 export default function Sidebar({ open, setOpen }) {
     return (
         <>
-            {/* Overlay (Mobile) */}
             {open && (
                 <div
-                    className="fixed inset-0 bg-black/40 z-40 md:hidden"
+                    className="fixed inset-0 bg-black/40 z-40 lg:hidden"
                     onClick={() => setOpen(false)}
                 />
             )}
 
-            {/* Sidebar */}
-            <div
-                className={`
-          fixed md:static z-50 top-0 left-0 h-screen w-64 bg-white p-4
-          transform transition-transform duration-300
-          ${open ? "translate-x-0" : "-translate-x-full"}
-          md:translate-x-0
-        `}
-            >
-                {/* Mobile Header */}
-                <div className="flex justify-between items-center mb-4 md:hidden">
+            <div className={`fixed lg:relative z-50 top-0 left-0 w-64 bg-white p-4 lg:h-full h-screen
+    transform transition-transform duration-300 ${open ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}>
+                <div className="flex justify-between items-center mb-4 lg:hidden">
                     <h2 className="font-semibold text-[#0A5B93]">Filters</h2>
-                    <button onClick={() => setOpen(false)}>
+                    <button className="text-black" onClick={() => setOpen(false)}>
                         <X />
                     </button>
                 </div>
 
-                {/* ================= LOCATION ================= */}
                 <div className="mb-6">
                     <h3 className="font-semibold mb-2 text-gray-700">Location</h3>
 
@@ -50,7 +40,6 @@ export default function Sidebar({ open, setOpen }) {
                     </div>
                 </div>
 
-                {/* ================= PRICE RANGE ================= */}
                 <div className="mb-6">
                     <h3 className="font-semibold mb-2 text-gray-700">Price Range</h3>
 
@@ -80,7 +69,6 @@ export default function Sidebar({ open, setOpen }) {
                     </div>
                 </div>
 
-                {/* ================= BUSINESS TYPE ================= */}
                 <div className="mb-6">
                     <h3 className="font-semibold mb-2 text-gray-700">
                         Business Type
@@ -110,7 +98,6 @@ export default function Sidebar({ open, setOpen }) {
                     </div>
                 </div>
 
-                {/* ================= APPLY BUTTON ================= */}
                 <button className="w-full bg-[#0A5B93] text-white py-2 rounded-lg hover:opacity-90 transition">
                     Apply Filters
                 </button>
