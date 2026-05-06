@@ -484,7 +484,7 @@ export default function ProductPage() {
                                     href={business.social.telegram}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    title="YouTube"
+                                    title="Telegram"
                                     className="p-2 rounded-lg bg-gray-100 hover:bg-blue-100 transition hover:scale-105"
                                 >
                                     <BsTelegram size={18} className="text-blue-600" />
@@ -496,7 +496,7 @@ export default function ProductPage() {
                                     href={business.social.twitter}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    title="YouTube"
+                                    title="Twitter"
                                     className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition hover:scale-105"
                                 >
                                     <FaXTwitter size={18} className="text-black" />
