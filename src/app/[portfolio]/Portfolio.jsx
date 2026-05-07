@@ -12,9 +12,6 @@ import {
     Phone, User,
     MapPin, Users, Briefcase, Award, Clock, Eye, FileText, MessageCircle, Plus, Minus
 } from "lucide-react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
-import "swiper/css";
 import CountUp from "react-countup";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
@@ -23,6 +20,9 @@ import axios from "axios";
 import { FaXTwitter } from "react-icons/fa6";
 import { BsTelegram } from "react-icons/bs";
 import Popup from "@/components/Main/Popup";
+import ProductSlider from "@/components/Webpage/ProductSlider";
+import ProductsList from "@/components/Webpage/ProductsList";
+import StickyButtons from "@/components/Webpage/StickyButtons";
 
 export default function Portfolio() {
     const { portfolio } = useParams()
@@ -60,15 +60,6 @@ export default function Portfolio() {
         { name: "About", href: "#about-us", icon: Info },
         { name: "Products", href: "#products", icon: ShoppingBag },
         { name: "Contact", href: "#contact-us", icon: Mail },
-    ];
-
-    const products = [
-        { id: 1, name: "Product One", image: "/feature2.webp" },
-        { id: 2, name: "Product Two", image: "/feature2.webp" },
-        { id: 3, name: "Product Three", image: "/feature2.webp" },
-        { id: 4, name: "Product Four", image: "/feature2.webp" },
-        { id: 5, name: "Product Five", image: "/feature2.webp" },
-        { id: 6, name: "Product Six", image: "/feature2.webp" },
     ];
 
     const stats = [
@@ -138,7 +129,7 @@ export default function Portfolio() {
                     e.target.reset();      // reset after UI change
                 }, 100);
                 setTimeout(() => {
-                     setSubmitted(false);
+                    setSubmitted(false);
                     setSubmitted(false);
                 }, 3000);
             }
@@ -150,6 +141,28 @@ export default function Portfolio() {
             setLoading(false);
         }
     };
+
+    const [products, setProducts] = useState([]);
+    const [loading1, setLoading1] = useState(true);
+
+    useEffect(() => {
+        const fetchSupplierProducts = async () => {
+            try {
+                setLoading1(true);
+                const res = await axios.get(`/api/product/supplier/${details?.userId}`);
+
+                if (res.data.success) {
+                    setProducts(res.data.data || []);
+                }
+            } catch (err) {
+                console.error("❌ API Error:", err);
+            } finally {
+                setLoading1(false);
+            }
+        };
+
+        if (details?.userId) fetchSupplierProducts();
+    }, [details?.userId]);
 
     return (<>
         <section className="w-full bg-gray-50 border-b border-b-gray-200 sticky top-0 z-50">
@@ -316,52 +329,7 @@ export default function Portfolio() {
             </div>
         </section>
 
-        <section className="bg-gray-50 py-6 md:px-15 px-4">
-            <Swiper
-                spaceBetween={20}
-                breakpoints={{
-                    320: { slidesPerView: 1 },
-                    768: { slidesPerView: 3 },
-                    1024: { slidesPerView: 5 },
-                }}
-                modules={[Autoplay]}
-                autoplay={{
-                    delay: 2500,
-                    disableOnInteraction: false,
-                }}
-                loop={true}
-                className="pb-6! pt-4!"
-            >
-                {products.map((product) => (
-                    <SwiperSlide key={product.id}>
-                        <motion.div whileHover={{ y: -5 }}
-                            className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200 flex flex-col"
-                        >
-                            <div className="w-full h-60 overflow-hidden">
-                                <img
-                                    src={product.image || "/no-image.webp"}
-                                    alt={product.name}
-                                    className="w-full h-full object-contain transition duration-300 hover:scale-105"
-                                />
-                            </div>
-
-                            <div className="p-3 flex flex-col gap-2 grow">
-                                <h3 className="text-center font-semibold text-lg text-gray-800">
-                                    {product.name}
-                                </h3>
-                            </div>
-
-                            <div className="p-3 pt-0">
-                                <button onClick={() => setOpen(true)} style={{ backgroundColor: details?.hero?.color }} className="w-full text-white py-2 rounded-lg">
-                                    Get a Quote
-                                </button>
-                            </div>
-                        </motion.div>
-
-                    </SwiperSlide>
-                ))}
-            </Swiper>
-        </section>
+        <ProductSlider products={products} loading1={loading1} details={details} setOpen={setOpen} />
 
         <section id="about-us" className="bg-amber-50 px-4 py-10 md:px-10 grid grid-cols-1 lg:grid-cols-2">
             <div className="">
@@ -447,59 +415,7 @@ export default function Portfolio() {
         </section>
 
         <section id="products" className="py-10 bg-gray-100">
-            <div className="max-w-7xl mx-auto px-4">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-10"
-                >
-                    <h2 className="text-3xl md:text-5xl font-bold text-gray-800">
-                        Our Popular Products
-                    </h2>
-                    <p className="text-gray-500 mt-2">
-                        Explore our most demanded and trusted products
-                    </p>
-                </motion.div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                    {products.map((product, index) => (
-                        <motion.div
-                            key={product.id}
-                            initial={{ opacity: 0, y: 40 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{
-                                duration: 0.5,
-                                delay: index * 0.1,
-                            }}
-                            viewport={{ once: false }}
-                            whileHover={{ y: -8 }}
-                            className="relative bg-white rounded-xl shadow-sm border overflow-hidden group border-gray-200"
-                        >
-                            <div className="w-full h-60 overflow-hidden">
-                                <img
-                                    src={product.image || "/no-image.webp"}
-                                    alt={product.name}
-                                    className="w-full h-full object-contain group-hover:scale-105 transition duration-300"
-                                />
-                            </div>
-
-                            <div className="absolute inset-0 flex items-end justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition duration-300">
-                                <button style={{ backgroundColor: details?.hero?.color }} className="text-white p-3 rounded-full shadow-lg hover:scale-110 transition mb-15">
-                                    <Eye size={20} />
-                                </button>
-                            </div>
-
-                            <div className="p-4 text-center">
-                                <h3 className="text-lg font-semibold text-gray-800">
-                                    {product.name}
-                                </h3>
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
+            <ProductsList products={products} loading1={loading1} details={details} setOpen={setOpen} />
         </section>
 
         <section id="contact-us" className="relative py-16">
@@ -731,6 +647,7 @@ export default function Portfolio() {
             </div>
         </footer>
 
-        <Popup open={open} setOpen={setOpen} details={details}/>
+        <StickyButtons details={details} />
+        <Popup open={open} setOpen={setOpen} details={details} />
     </>)
 }
