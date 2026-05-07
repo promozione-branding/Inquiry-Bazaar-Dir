@@ -30,7 +30,8 @@ import {
     FaBuilding,
     FaUsers,
     FaIndustry,
-    FaPhoneAlt
+    FaPhoneAlt,
+    FaWhatsapp
 } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -346,15 +347,15 @@ export default function ProductPage() {
                     </div>
 
                     <div className="space-y-2 mt-2">
-                        <button className="w-full border border-[#0A5B93] text-[#0A5B93] py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-[#0A5B93]/5">
+                        <a href={`tel:${productDetails.supplierId?.phone || '-'}`} className="w-full border border-[#0A5B93] text-[#0A5B93] py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-[#0A5B93]/5">
                             <Phone size={16} />
                             Call Now
-                        </button>
+                        </a>
 
-                        <button className="w-full bg-[#0A5B93] text-white py-2 rounded-lg flex items-center justify-center gap-2 hover:opacity-90">
-                            <Mail size={16} />
+                        <a href={business?.social?.whatsapp || '#'} target="_blank" rel="noopener noreferrer" className="w-full bg-[#0A5B93] text-white py-2 rounded-lg flex items-center justify-center gap-2 hover:opacity-90">
+                            <FaWhatsapp size={16} />
                             Contact Supplier
-                        </button>
+                        </a>
                     </div>
 
                     <div className="grid grid-cols-2 gap-2 text-sm mt-2">
