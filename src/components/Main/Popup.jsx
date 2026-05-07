@@ -14,7 +14,7 @@ export default function Popup({ open, setOpen, details }) {
         const formData = new FormData(e.target);
         const data = {
             supplierToken: details?.supplier?._id,
-            platform: "Bar Bending Machine - Promote Bharat Dir Portfolio Form",
+            platform: "Promote Bharat Dir Portfolio Popup",
             platformEmail: "shreeshaktiinfratech@gmail.com",
             name: formData.get("contactPerson"),
             email: formData.get("email"),
