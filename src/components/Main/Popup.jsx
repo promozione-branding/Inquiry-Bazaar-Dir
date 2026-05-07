@@ -15,7 +15,7 @@ export default function Popup({ open, setOpen, details }) {
         const data = {
             supplierToken: details?.supplier?._id,
             platform: "Promote Bharat Dir Portfolio Popup",
-            platformEmail: "shreeshaktiinfratech@gmail.com",
+            platformEmail: details?.supplier?.email || details?.supplierId?.email || "mail@mail.com",
             name: formData.get("contactPerson"),
             email: formData.get("email"),
             company: formData.get("company") || "NA",
