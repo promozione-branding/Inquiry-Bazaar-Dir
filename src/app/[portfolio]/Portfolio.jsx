@@ -104,6 +104,53 @@ export default function Portfolio() {
         setActiveIndex(activeIndex === index ? null : index);
     };
 
+    const [loading, setLoading] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = {
+            supplierToken: details?.supplier?._id,
+            platform: "Bar Bending Machine - Promote Bharat Dir Portfolio Form",
+            platformEmail: "shreeshaktiinfratech@gmail.com",
+            name: formData.get("contactPerson"),
+            email: formData.get("email"),
+            company: 'NA',
+            phone: formData.get("phone"),
+            product: "Bar Bending Machine",
+            place: formData.get("city"),
+            message: formData.get("message"),
+        };
+
+        if (!/^\d{10}$/.test(data.phone)) {
+            return alert("Enter a valid 10-digit phone number");
+        }
+
+        try {
+            setLoading(true);
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_LEAD_BACKEND_BASE_URL}/api/form/add`, data,
+                { validateStatus: (status) => status >= 200 && status < 500 }
+            );
+            if (res.status >= 200 && res.status < 300) {
+                setSubmitted(true);
+                setTimeout(() => {
+                    e.target.reset();      // reset after UI change
+                }, 100);
+                setTimeout(() => {
+                     setSubmitted(false);
+                    setSubmitted(false);
+                }, 3000);
+            }
+        } catch (err) {
+            console.log("ERROR:", err?.response || err.message);
+            alert("Something went wrong");
+        }
+        finally {
+            setLoading(false);
+        }
+    };
+
     return (<>
         <section className="w-full bg-gray-50 border-b border-b-gray-200 sticky top-0 z-50">
             <div className="flex justify-between items-center px-4 py-2">
@@ -170,7 +217,7 @@ export default function Portfolio() {
         <section id="home" className="relative w-full min-h-[70vh] flex items-center justify-center">
             <div className="absolute inset-0">
                 <img
-                    src={`${details?.hero?.image}`} // replace with your image
+                    src={`${details?.hero?.image || "/no-image.webp"}`} // replace with your image
                     alt="Background"
                     className="w-full h-full object-cover"
                 />
@@ -192,59 +239,79 @@ export default function Portfolio() {
                 </div>
 
                 {/* Right Form */}
-                <div className="bg-white rounded-xl shadow-lg px-4 py-6 space-y-4">
-                    <h2 className="text-xl font-semibold text-gray-800 text-center flex justify-center items-center flex-col">
-                        Get in Touch
-                        <div style={{ backgroundColor: details?.hero?.color }} className="w-10 h-1 rounded-md mt-1"></div>
-                    </h2>
-
-                    <div className="flex items-center border border-gray-400 rounded-lg px-3 py-2">
-                        <User size={18} className="text-gray-600 mr-2" />
-                        <input
-                            type="text"
-                            placeholder="Your Name"
-                            className="w-full outline-none text-gray-800"
-                        />
-                    </div>
-
-                    <div className="flex items-center justify-between gap-2">
-                        <div className="flex w-full items-center border rounded-lg border-gray-400 px-3 py-2">
-                            <Mail size={18} className="text-gray-600 mr-2" />
-                            <input
-                                type="email"
-                                placeholder="Your Email"
-                                className="w-full outline-none text-gray-800"
-                            />
+                <div className="bg-white rounded-xl shadow-lg px-4 py-6">
+                    {submitted ? (
+                        <div className="text-center py-10">
+                            <h2 className="text-2xl font-bold text-amber-600">
+                                🎉 Thank You!
+                            </h2>
+                            <p className="text-gray-800 mt-2">
+                                Your enquiry has been submitted successfully.
+                            </p>
+                            <p className="text-gray-700 text-sm mt-1">
+                                Our team will contact you shortly.
+                            </p>
                         </div>
+                    ) : (
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            <h2 className="text-3xl font-semibold text-gray-800 text-center flex justify-center items-center flex-col">
+                                Get in Touch
+                                <div style={{ backgroundColor: details?.hero?.color }} className="w-10 h-1 rounded-md mt-1"></div>
+                            </h2>
 
-                        <div className="flex w-full items-center border rounded-lg border-gray-400 px-3 py-2">
-                            <Phone size={18} className="text-gray-600 mr-2" />
-                            <input
-                                type="tel"
-                                placeholder="Your Phone"
-                                className="w-full outline-none text-gray-800"
+                            <div className="flex items-center border border-gray-400 rounded-lg px-3 py-2">
+                                <User size={18} className="text-gray-600 mr-2" />
+                                <input
+                                    name="contactPerson"
+                                    type="text"
+                                    placeholder="Your Name"
+                                    className="w-full outline-none text-gray-800"
+                                />
+                            </div>
+
+                            <div className="flex items-center justify-between gap-2">
+                                <div className="flex w-full items-center border rounded-lg border-gray-400 px-3 py-2">
+                                    <Mail size={18} className="text-gray-600 mr-2" />
+                                    <input
+                                        name="email"
+                                        type="email"
+                                        placeholder="Your Email"
+                                        className="w-full outline-none text-gray-800"
+                                    />
+                                </div>
+
+                                <div className="flex w-full items-center border rounded-lg border-gray-400 px-3 py-2">
+                                    <Phone size={18} className="text-gray-600 mr-2" />
+                                    <input
+                                        name="phone"
+                                        type="tel"
+                                        placeholder="Your Phone"
+                                        className="w-full outline-none text-gray-800"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="flex items-center border border-gray-400 rounded-lg px-3 py-2">
+                                <MapPin size={18} className="text-gray-600 mr-2" />
+                                <input
+                                    name="city"
+                                    type="text"
+                                    placeholder="Your City"
+                                    className="w-full outline-none text-gray-800"
+                                />
+                            </div>
+
+                            <textarea
+                                name="message"
+                                placeholder="Your Message"
+                                rows={3}
+                                className="w-full border border-gray-400 rounded-lg px-3 py-2 outline-none text-gray-800"
                             />
-                        </div>
-                    </div>
 
-                    <div className="flex items-center border border-gray-400 rounded-lg px-3 py-2">
-                        <MapPin size={18} className="text-gray-600 mr-2" />
-                        <input
-                            type="text"
-                            placeholder="Your City"
-                            className="w-full outline-none text-gray-800"
-                        />
-                    </div>
-
-                    <textarea
-                        placeholder="Your Message"
-                        rows={3}
-                        className="w-full border border-gray-400 rounded-lg px-3 py-2 outline-none text-gray-800"
-                    />
-
-                    <button style={{ backgroundColor: details?.hero?.color }} className="w-full text-white py-2 rounded-lg">
-                        Submit
-                    </button>
+                            <button disabled={loading} style={{ backgroundColor: details?.hero?.color }} className="w-full text-white py-2 rounded-lg">
+                                {loading ? "Submitting..." : "Submit Inquiry"}
+                            </button>
+                        </form>)}
                 </div>
             </div>
         </section>
@@ -272,7 +339,7 @@ export default function Portfolio() {
                         >
                             <div className="w-full h-60 overflow-hidden">
                                 <img
-                                    src={product.image}
+                                    src={product.image || "/no-image.webp"}
                                     alt={product.name}
                                     className="w-full h-full object-contain transition duration-300 hover:scale-105"
                                 />
@@ -325,7 +392,7 @@ export default function Portfolio() {
                     height={200}
                     className="w-full h-80 object-contain"
                     alt="image"
-                    src={details?.about?.image}
+                    src={details?.about?.image || "/no-image.webp"}
                 />
             </div>
         </section>
@@ -412,7 +479,7 @@ export default function Portfolio() {
                         >
                             <div className="w-full h-60 overflow-hidden">
                                 <img
-                                    src={product.image}
+                                    src={product.image || "/no-image.webp"}
                                     alt={product.name}
                                     className="w-full h-full object-contain group-hover:scale-105 transition duration-300"
                                 />
@@ -501,7 +568,7 @@ export default function Portfolio() {
             <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
                 <div className="flex justify-center">
                     <img
-                        src={`${details?.faqSection?.image}`}
+                        src={`${details?.faqSection?.image || "/no-image.webp"}`}
                         alt="machine"
                         className="max-h-112 object-contain"
                     />
@@ -664,6 +731,6 @@ export default function Portfolio() {
             </div>
         </footer>
 
-        <Popup open={open} setOpen={setOpen} />
+        <Popup open={open} setOpen={setOpen} details={details}/>
     </>)
 }
