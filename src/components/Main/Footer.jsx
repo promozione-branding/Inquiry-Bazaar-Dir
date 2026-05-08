@@ -17,7 +17,6 @@ export default function Footer() {
                     />
                 </div>
 
-                {/* Social Icons */}
                 <div className="flex gap-6">
                     <Link href="#" className="hover:text-white transition">
                         <FaFacebook size={25} />
@@ -33,12 +32,11 @@ export default function Footer() {
                 </div>
             </div>
 
-            {/* Bottom Footer */}
             <div className="md:flex justify-around border-t border-gray-800 py-6 text-center text-base text-gray-300">
-                <p>© Copyright 2024 Promote Bharat</p>
+                <p>© Copyright 2026 Promote Bharat</p>
 
                 <p className="mt-1">
-                    Developed & Manage by <span className="text-white">Promozione Branding Pvt Ltd.</span>
+                    Developed & Manage by <a href="https://promozionebranding.com" target="_blank" className="text-white hover:underline">Promozione Branding Pvt Ltd.</a>
                 </p>
             </div>
         </footer>

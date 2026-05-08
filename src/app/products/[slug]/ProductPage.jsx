@@ -106,6 +106,37 @@ export default function ProductPage() {
             .toUpperCase();
     };
 
+    const trackEvent = async (eventType) => {
+        // console.log("Tracking Event:", eventType);
+        try {
+            await axios.post(`${process.env.NEXT_PUBLIC_LEAD_BACKEND_BASE_URL}/api/tracking/create`,
+                {
+                    productId: productDetails?._id,
+                    supplierToken: productDetails?.supplierId?._id,
+                    eventType,
+                    source: "dir",
+                }
+            );
+        } catch (error) {
+            console.log("Tracking Error:", error);
+        }
+    };
+
+    const handleWhatsappClick = async () => {
+        await trackEvent("whatsapp_click");
+
+        window.open(
+            business?.social?.whatsapp,
+            "_blank"
+        );
+    };
+
+    const handleCallClick = async () => {
+        await trackEvent("call_click");
+
+        window.location.href = `tel:${productDetails.supplierId?.phone}`;
+    };
+
     return (<>
         <Navbar />
 
@@ -347,15 +378,19 @@ export default function ProductPage() {
                     </div>
 
                     <div className="space-y-2 mt-2">
-                        <a href={`tel:${productDetails.supplierId?.phone || '-'}`} className="w-full border border-[#0A5B93] text-[#0A5B93] py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-[#0A5B93]/5">
+                        <button onClick={handleCallClick}
+                            className="w-full border border-[#0A5B93] text-[#0A5B93] py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-[#0A5B93]/5"
+                        >
                             <Phone size={16} />
                             Call Now
-                        </a>
+                        </button>
 
-                        <a href={business?.social?.whatsapp || '#'} target="_blank" rel="noopener noreferrer" className="w-full bg-[#0A5B93] text-white py-2 rounded-lg flex items-center justify-center gap-2 hover:opacity-90">
+                        <button onClick={handleWhatsappClick}
+                            className="w-full bg-[#0A5B93] text-white py-2 rounded-lg flex items-center justify-center gap-2 hover:opacity-90"
+                        >
                             <FaWhatsapp size={16} />
                             Contact Supplier
-                        </a>
+                        </button>
                     </div>
 
                     <div className="grid grid-cols-2 gap-2 text-sm mt-2">
