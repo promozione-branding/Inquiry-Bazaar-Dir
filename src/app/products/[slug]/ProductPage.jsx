@@ -111,10 +111,10 @@ export default function ProductPage() {
         try {
             await axios.post(`${process.env.NEXT_PUBLIC_LEAD_BACKEND_BASE_URL}/api/tracking/create`,
                 {
-                    productId: productDetails?._id,
+                    productId: productDetails?.name,
                     supplierToken: productDetails?.supplierId?._id,
                     eventType,
-                    source: "dir",
+                    source: "Dir Product Page",
                 }
             );
         } catch (error) {
