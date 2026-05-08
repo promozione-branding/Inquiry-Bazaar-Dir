@@ -401,14 +401,14 @@ export default function ProductPage() {
                     <div className="space-y-2 mt-2">
                         <button onClick={handleCallClick} disabled={loadingType !== null}
                             className={`w-full border border-[#0A5B93] py-2 rounded-lg flex items-center justify-center gap-2 transition
-                            ${loadingType ? "opacity-50 cursor-not-allowed" : "text-[#0A5B93] hover:bg-[#0A5B93]/5"}`}>
+                            ${loadingType === "call" ? "opacity-50 cursor-not-allowed" : "text-[#0A5B93] hover:bg-[#0A5B93]/5"}`}>
                             <Phone size={16} />
                             {loadingType === "call" ? "Please wait..." : "Call Now"}
                         </button>
 
                         <button onClick={handleWhatsappClick} disabled={loadingType !== null}
                             className={`w-full py-2 rounded-lg flex items-center justify-center gap-2 transition
-                            ${loadingType ? "opacity-50 cursor-not-allowed bg-[#0A5B93]" : "bg-[#0A5B93] hover:opacity-90 text-white"}`}>
+                            ${loadingType === "whatsapp" ? "opacity-50 cursor-not-allowed bg-[#0A5B93]" : "bg-[#0A5B93] hover:opacity-90 text-white"}`}>
                             <FaWhatsapp size={16} />
                             {loadingType === "whatsapp" ? "Opening..." : "Contact Supplier"}
                         </button>

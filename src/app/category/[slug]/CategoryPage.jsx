@@ -36,8 +36,8 @@ export default function CategoryPage() {
   const [open, setOpen] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
   const [popupProduct, setPopupProduct] = useState({});
-
   const [subCategory, setSubCategory] = useState([]);
+  const [loadingType, setLoadingType] = useState(null);
 
   useEffect(() => {
     if (!slug) return;
@@ -54,6 +54,57 @@ export default function CategoryPage() {
 
     fetchData();
   }, [slug]);
+
+  const trackEvent = async (eventType, productDetails) => {
+    // console.log("Tracking Event:", eventType);
+    try {
+      await axios.post(`${process.env.NEXT_PUBLIC_LEAD_BACKEND_BASE_URL}/api/tracking/create`,
+        {
+          productId: productDetails?.name,
+          supplierToken: productDetails?.supplier?._id,
+          eventType,
+          source: "Dir Category Page",
+        }
+      );
+    } catch (error) {
+      console.log("Tracking Error:", error);
+    }
+  };
+
+  const handleWhatsappClick = async (product, link) => {
+    if (loadingType) return;
+
+    try {
+      setLoadingType("whatsapp");
+
+      await trackEvent("whatsapp_click", product);
+
+      window.open(
+        link,
+        "_blank"
+      );
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingType(null);
+    }
+  };
+
+  const handleCallClick = async (product, link) => {
+    if (loadingType) return;
+
+    try {
+      setLoadingType("call");
+
+      await trackEvent("call_click", product);
+
+      window.location.href = `tel:${link}`;
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingType(null);
+    }
+  };
 
   return (<>
     <Navbar />
@@ -267,20 +318,18 @@ export default function CategoryPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <a href={`tel:${i?.supplier?.phone}`} target="_blank"
-                      className="w-full flex items-center justify-center gap-2 bg-[#0A5B93] text-white py-2 rounded-lg">
+                    <button onClick={() => handleCallClick(i, i?.supplier?.phone)} disabled={loadingType !== null}
+                      className="cursor-pointer w-full flex items-center justify-center gap-2 bg-[#0A5B93] text-white py-2 rounded-lg">
                       <Phone size={14} />
-                      View Number
-                    </a>
+                      {loadingType === "call" ? "Opening..." : " View Number"}
+                    </button>
 
-                    <a
-                      href={supplier?.social?.whatsapp}
-                      target="_blank"
-                      className="w-full flex items-center justify-center gap-2 bg-green-500 text-white py-2 rounded-lg"
+                    <button onClick={() => handleWhatsappClick(i, i?.supplier?.business?.social?.whatsapp,)} disabled={loadingType !== null}
+                      className="cursor-pointer w-full flex items-center justify-center gap-2 bg-green-500 text-white py-2 rounded-lg"
                     >
                       <FaWhatsapp />
-                      WhatsApp
-                    </a>
+                      {loadingType === "whatsapp" ? "Opening..." : "WhatsApp"}
+                    </button>
                   </div>
                 </div>
               </div>);
