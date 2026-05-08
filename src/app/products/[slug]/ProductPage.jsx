@@ -57,6 +57,7 @@ export default function ProductPage() {
     const [productDetails, setProductDetails] = useState({});
     const [relatedProducts, setRelatedProducts] = useState([]);
     const [webpage, setWebpage] = useState(null);
+    const [loadingType, setLoadingType] = useState(null);
 
     useEffect(() => {
         if (!slug) return;
@@ -123,18 +124,38 @@ export default function ProductPage() {
     };
 
     const handleWhatsappClick = async () => {
-        await trackEvent("whatsapp_click");
+        if (loadingType) return;
 
-        window.open(
-            business?.social?.whatsapp,
-            "_blank"
-        );
+        try {
+            setLoadingType("whatsapp");
+
+            await trackEvent("whatsapp_click");
+
+            window.open(
+                business?.social?.whatsapp,
+                "_blank"
+            );
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoadingType(null);
+        }
     };
 
     const handleCallClick = async () => {
-        await trackEvent("call_click");
+        if (loadingType) return;
 
-        window.location.href = `tel:${productDetails.supplierId?.phone}`;
+        try {
+            setLoadingType("call");
+
+            await trackEvent("call_click");
+
+            window.location.href = `tel:${productDetails.supplierId?.phone}`;
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoadingType(null);
+        }
     };
 
     return (<>
@@ -378,18 +399,18 @@ export default function ProductPage() {
                     </div>
 
                     <div className="space-y-2 mt-2">
-                        <button onClick={handleCallClick}
-                            className="w-full border border-[#0A5B93] text-[#0A5B93] py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-[#0A5B93]/5"
-                        >
+                        <button onClick={handleCallClick} disabled={loadingType !== null}
+                            className={`w-full border border-[#0A5B93] py-2 rounded-lg flex items-center justify-center gap-2 transition
+                            ${loadingType ? "opacity-50 cursor-not-allowed" : "text-[#0A5B93] hover:bg-[#0A5B93]/5"}`}>
                             <Phone size={16} />
-                            Call Now
+                            {loadingType === "call" ? "Please wait..." : "Call Now"}
                         </button>
 
-                        <button onClick={handleWhatsappClick}
-                            className="w-full bg-[#0A5B93] text-white py-2 rounded-lg flex items-center justify-center gap-2 hover:opacity-90"
-                        >
+                        <button onClick={handleWhatsappClick} disabled={loadingType !== null}
+                            className={`w-full py-2 rounded-lg flex items-center justify-center gap-2 transition
+                            ${loadingType ? "opacity-50 cursor-not-allowed bg-[#0A5B93]" : "bg-[#0A5B93] hover:opacity-90 text-white"}`}>
                             <FaWhatsapp size={16} />
-                            Contact Supplier
+                            {loadingType === "whatsapp" ? "Opening..." : "Contact Supplier"}
                         </button>
                     </div>
 
