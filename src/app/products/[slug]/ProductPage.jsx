@@ -131,10 +131,7 @@ export default function ProductPage() {
 
             await trackEvent("whatsapp_click");
 
-            window.open(
-                business?.social?.whatsapp,
-                "_blank"
-            );
+            window.open(business?.social?.whatsapp, "_blank");
         } catch (error) {
             console.log(error);
         } finally {

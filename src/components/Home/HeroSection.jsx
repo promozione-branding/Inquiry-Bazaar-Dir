@@ -17,7 +17,7 @@ export default function HeroSection() {
                 </p>
 
                 <div className="mt-6 flex items-center bg-white shadow-md rounded-full px-4 py-3">
-                    <Search className="text-gray-500 mr-2" size={20} />
+                    <Search className="text-orange-600 mr-2" size={20} />
                     <input
                         type="text"
                         placeholder="Search product here..."

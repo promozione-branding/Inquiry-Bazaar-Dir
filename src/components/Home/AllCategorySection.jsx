@@ -26,7 +26,7 @@ export default function IndustrySection() {
             {industries.filter((i) => i.mainCategory && i.mainCategory.length > 0)
                 .map((industry) => (
                     <div key={industry._id} className="p-4 bg-white rounded-lg">
-                        <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-gray-800">
+                        <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-[#f45a06]">
                             {industry.name}
                         </h2>
 
@@ -47,7 +47,7 @@ export default function IndustrySection() {
                                     <div className="mt-4 flex justify-center items-center">
                                         <Link
                                             href={`/industries/${industry.slug}`}
-                                            className="inline-block bg-[#D01132] hover:bg-[#c10928] text-white px-4 py-2 rounded text-sm w-fit"
+                                            className="inline-block bg-[#f45a06] hover:bg-[#e75506] text-white px-4 py-2 rounded text-sm w-fit"
                                         >
                                             View All
                                         </Link>

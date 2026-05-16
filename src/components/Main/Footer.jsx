@@ -9,7 +9,7 @@ export default function Footer() {
             <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div className="">
                     <Image
-                        src="/Logo/promote.gif"
+                        src="/Logo/logoo.webp"
                         alt="Promote Bharat"
                         width={200}
                         height={200}
@@ -33,7 +33,7 @@ export default function Footer() {
             </div>
 
             <div className="md:flex justify-around border-t border-gray-800 py-6 text-center text-base text-gray-300">
-                <p>© Copyright 2026 Promote Bharat</p>
+                <p>© Copyright 2026 Inquiry Bazaar Pvt Ltd.</p>
 
                 <p className="mt-1">
                     Developed & Manage by <a href="https://promozionebranding.com" target="_blank" className="text-white hover:underline">Promozione Branding Pvt Ltd.</a>

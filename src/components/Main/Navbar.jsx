@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { LogIn, Menu, X, User, LogOut, Bell, MapPin } from "lucide-react";
+import { LogIn, Menu, X, User, LogOut, Bell, MapPin, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
@@ -32,39 +32,46 @@ export default function Navbar() {
     }, []);
 
     return (
-        <nav className="w-full border-b border-b-gray-300 bg-white sticky top-0 z-50 h-16">
+        <nav className="w-full border-b border-b-gray-300 bg-white sticky top-0 z-50 h-auto">
             <div className="mx-auto md:px-6 px-2 flex items-center justify-between">
                 <div className="flex md:w-auto w-full gap-5 items-center justify-between">
                     <Link href="/">
                         <Image
-                            src="/Logo/logo.webp"
+                            src="/Logo/logoo.webp"
                             alt="Promote Bharat"
                             width={200}
                             height={200}
-                            className="object-contain h-16 w-50"
+                            className="object-contain h-20 w-auto"
                         />
                     </Link>
                     <div className="relative">
-                        <MapPin
-                            className="absolute left-2 top-1/2 -translate-y-1/2 text-[#D01132]"
-                            size={18}
-                        />
+                        <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-[#f45a06] pointer-events-none" size={18} />
 
-                        <select className="w-full appearance-none border border-[#D01132] text-gray-700 pl-8 pr-4 py-2 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#D01132] bg-white shadow-sm">
-                            <option>Select Location</option>
-                            <option>Delhi</option>
-                            <option>Mumbai</option>
-                            <option>Bangalore</option>
+                        <select defaultValue=""
+                            className=" w-full appearance-none rounded-xl border border-orange-300 bg-white py-2.5 pl-10 pr-10
+      text-sm font-medium text-gray-700 shadow-sm transition-all duration-200 outline-none hover:border-[#f45a06] focus:border-[#f45a06] focus:ring-1 focus:ring-orange-100 cursor-pointer">
+                            <option value="" disabled>
+                                Select Location
+                            </option>
+
+                            <option value="Delhi">Delhi</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Bangalore">Bangalore</option>
+                            <option value="Hyderabad">Hyderabad</option>
+                            <option value="Pune">Pune</option>
+                            <option value="Chennai">Chennai</option>
                         </select>
+
+                        <ChevronDown size={18} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-800 pointer-events-none" />
                     </div>
                 </div>
 
                 <div className="hidden md:flex items-center gap-4">
-                    <Link href="https://promote-bharat.vercel.app/register/supplier" className="px-4 py-2.5 text-sm font-medium border text-white rounded-lg bg-[#D01132] hover:bg-[#c0102d]">
+                    <Link href="https://promote-bharat.vercel.app/register/supplier" className="px-4 py-2.5 text-sm font-medium border text-white rounded-lg bg-[#f45a06] hover:bg-[#eb5505]">
                         Register as Supplier
                     </Link>
 
-                    <Link href="https://promote-bharat.vercel.app/register/buyer" className="px-4 py-2.5 text-sm border font-medium text-white bg-[#0A5B93] rounded-lg hover:bg-[#0a5183]">
+                    <Link href="https://promote-bharat.vercel.app/register/buyer" className="px-4 py-2.5 text-sm border font-medium text-white bg-[#1e3a56] rounded-lg hover:bg-[#0b426a]">
                         Register as Buyer
                     </Link>
 
