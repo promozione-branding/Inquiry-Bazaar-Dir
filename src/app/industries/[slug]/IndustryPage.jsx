@@ -45,42 +45,58 @@ export default function IndustryPage() {
       <div className='px-4 py-3 bg-white mt-2 rounded-lg'>
         <h2 className='text-black text-3xl mb-2'>{industry?.name}</h2>
 
-        <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 pt-2 rounded-lg border-t border-t-gray-200'>
-          {industry.mainCategory?.map((cat) => (
-            <div key={cat._id}
-              className="bg-white flex-col border border-gray-200 rounded-lg p-2 flex gap-2 hover:shadow-md transition h-fit"
-            >
-              <Link href={`/categories/${cat.slug}`}
-                className="font-bold text-black hover:text-[#D01132]"
+        <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 rounded-lg'>
+          {industry.mainCategory?.length > 0 ? (
+            industry.mainCategory.map((cat) => (
+              <div
+                key={cat._id}
+                className="bg-white flex-col border border-gray-200 rounded-lg p-2 flex gap-1 hover:shadow-md transition h-fit"
               >
-                {cat.name}
-              </Link>
-              <div className='flex gap-2'>
-                <div className="w-30 h-30 border border-gray-200 relative shrink-0">
-                  <Image
-                    src={cat.imageUrl}
-                    alt={cat.name}
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-                <div>
-                  <div className="mt-1 space-y-1 text-sm text-black">
-                    {cat.subCategory?.slice(0, 3).map((sub) => (
-                      <Link key={sub._id} href={`/category/${sub.slug}`}
-                        className="block hover:text-blue-500"
+                <Link
+                  href={`/categories/${cat.slug}`}
+                  className="font-bold text-lg text-gray-800 hover:text-orange-500"
+                >
+                  {cat.name}
+                </Link>
+
+                <div className='flex gap-2'>
+                  <div className="w-30 h-30 border border-gray-200 relative shrink-0">
+                    <Image
+                      src={cat.imageUrl}
+                      alt={cat.name}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+
+                  <div>
+                    <div className="mt-1 space-y-1 text-sm text-black">
+                      {cat.subCategory?.slice(0, 4).map((sub) => (
+                        <Link
+                          key={sub._id}
+                          href={`/category/${sub.slug}`}
+                          className="block hover:text-orange-500"
+                        >
+                          ● {sub.name}
+                        </Link>
+                      ))}
+
+                      <Link
+                        href={`/categories/${cat.slug}`}
+                        className="flex items-center gap-1 hover:text-orange-500"
                       >
-                        ● {sub.name}
+                        View All <ArrowRight size={15} />
                       </Link>
-                    ))}
-                    <Link href={`/categories/${cat.slug}`} className="flex items-center gap-1 hover:text-blue-500">
-                      View All <ArrowRight size={15} />
-                    </Link>
+                    </div>
                   </div>
                 </div>
               </div>
+            ))
+          ) : (
+            <div className="col-span-full text-center text-gray-800 py-10">
+              No categories found
             </div>
-          ))}
+          )}
         </div>
       </div>
     </div>

@@ -35,7 +35,7 @@ export default function Category() {
     <Navbar />
 
     <div className='px-4 md:px-10 py-5 bg-gray-200'>
-      <div className='md:flex hidden items-center text-gray-800 gap-1'>
+      <div className='md:flex hidden items-center text-gray-800 gap-1 mb-4'>
         <Link href={"/"} className='text-gray-800 font-bold'>
           Home {" "}
         </Link>
@@ -50,7 +50,7 @@ export default function Category() {
       </div>
 
       <div className="px-4 py-4 bg-white rounded-lg">
-        <h2 className="text-xl font-semibold mb-4 text-gray-800">
+        <h2 className="text-xl font-semibold mb-2 text-gray-800">
           {category?.categoryDescription}
         </h2>
 
@@ -66,9 +66,8 @@ export default function Category() {
                 />
               </div>
 
-              <Link
-                href={`/category/${i.slug}`}
-                className="text-center font-semibold text-gray-800 hover:text-[#D01132]"
+              <Link href={`/category/${i.slug}`}
+                className="text-center font-semibold text-gray-800 hover:text-orange-500"
               >
                 {i.name}
               </Link>
@@ -89,13 +88,13 @@ export default function Category() {
                       />
                     </div>
 
-                    <p className="text-sm font-medium text-gray-800 group-hover:text-blue-500 transition">
+                    <p className="text-sm font-medium text-gray-800 group-hover:text-orange-500 transition">
                       {product.name}
                     </p>
 
                     {/* Price */}
                     {product.price && (
-                      <p className="text-xs text-gray-800 mt-1">
+                      <p className="text-sm text-orange-500 mt-1">
                         ₹{product.price}
                       </p>
                     )}

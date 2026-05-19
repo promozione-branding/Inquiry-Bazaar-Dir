@@ -211,7 +211,7 @@ export default function ProductPage() {
                                     swiperRef?.slideToLoop(index); // 🔥 sync with swiper
                                 }}
                                 className={`w-20 h-20 object-contain rounded-lg cursor-pointer border transition-all duration-200 hover:scale-105 ${activeIndex === index
-                                    ? "border-[#0A5B93]"
+                                    ? "border-orange-500"
                                     : "border-transparent"
                                     }`}
                             />
@@ -225,20 +225,20 @@ export default function ProductPage() {
                     className="bg-white p-4 rounded-2xl shadow-md"
                 >
                     <div className="mb-2">
-                        <h1 className="text-2xl font-semibold text-[#0A5B93]">
+                        <h1 className="text-2xl font-semibold text-gray-800">
                             {productDetails?.name}
                         </h1>
-                        <p className="text-sm text-gray-600 mt-1 flex items-center gap-1">
+                        <p className="text-sm text-gray-800 mt-1 flex items-center gap-1">
                             <Tag size={15} />
                             Brand:{" "}
-                            <span className="text-[#0A5B93] font-medium">
+                            <span className="text-orange-500 font-medium">
                                 {productDetails?.brandName}
                             </span>
                         </p>
                     </div>
 
                     <div className="bg-[#F8FAFC] border rounded-xl mb-2 flex items-center justify-between">
-                        <div className="flex items-center text-[#D01132]">
+                        <div className="flex items-center text-gray-800">
                             <IndianRupee size={16} className="mt-1" />
                             <span className="text-3xl font-bold">
                                 {productDetails?.price}/
@@ -246,7 +246,7 @@ export default function ProductPage() {
                             <span className="text-sm text-gray-600 mt-2"> Box</span>
                         </div>
 
-                        <div className="text-xs bg-[#0A5B93] text-white px-3 py-1 rounded-full">
+                        <div className="text-xs bg-gray-800 text-white px-3 py-1 rounded-full">
                             {productDetails?.priceType}
                         </div>
                     </div>
@@ -327,7 +327,7 @@ export default function ProductPage() {
 
                     </div>
 
-                    <button onClick={(e) => { e.preventDefault(); setOpenPopup(true); setPopupProduct(productDetails) }} className="w-full bg-linear-to-r from-[#D01132] to-[#b50e2b] text-white py-3 rounded-xl font-medium transition hover:opacity-90 hover:shadow-md">
+                    <button onClick={(e) => { e.preventDefault(); setOpenPopup(true); setPopupProduct(productDetails) }} className="w-full bg-linear-to-r from-orange-500 to-orange-600 text-white py-3 rounded-xl font-medium transition hover:opacity-90 hover:shadow-md">
                         Send Inquiry
                     </button>
                 </motion.div>
@@ -352,17 +352,17 @@ export default function ProductPage() {
 
                         <div className="flex-1">
                             {webpage?.slug ?
-                                <Link href={`/${webpage.slug}`} className="hover:underline text-md font-semibold text-gray-800 flex items-center gap-1 cursor-pointer group hover:text-blue-500 transition">
+                                <Link href={`/${webpage.slug}`} className="hover:underline text-md font-semibold text-gray-800 flex items-center gap-1 cursor-pointer group hover:text-orange-500 transition">
                                     {business?.companyName}
-                                    <SquareArrowOutUpRight size={16} className="text-gray-800 group-hover:text-blue-600 transition" />
+                                    <SquareArrowOutUpRight size={16} className="text-gray-800 group-hover:text-orange-500 transition" />
                                 </Link>
                                 :
                                 <p className="font-semibold text-lg text-gray-800 leading-tight">
                                     {business?.companyName}
                                 </p>}
 
-                            <div className="flex items-center gap-1 text-sm text-gray-500">
-                                <MapPin size={14} />
+                            <div className="flex items-center gap-1 text-sm text-gray-800">
+                                <MapPin size={14} className="-mt-0.5" />
                                 {business?.address}
                             </div>
 
@@ -397,15 +397,15 @@ export default function ProductPage() {
 
                     <div className="space-y-2 mt-2">
                         <button onClick={handleCallClick} disabled={loadingType !== null}
-                            className={`w-full border border-[#0A5B93] py-2 rounded-lg flex items-center justify-center gap-2 transition
-                            ${loadingType === "call" ? "opacity-50 cursor-not-allowed" : "text-[#0A5B93] hover:bg-[#0A5B93]/5"}`}>
+                            className={`w-full border border-orange-500 py-2 rounded-lg flex items-center justify-center gap-2 transition
+                            ${loadingType === "call" ? "opacity-50 cursor-not-allowed" : "text-orange-500 hover:bg-orange-50"}`}>
                             <Phone size={16} />
                             {loadingType === "call" ? "Please wait..." : "Call Now"}
                         </button>
 
                         <button onClick={handleWhatsappClick} disabled={loadingType !== null}
                             className={`w-full py-2 rounded-lg flex items-center justify-center gap-2 transition
-                            ${loadingType === "whatsapp" ? "opacity-50 cursor-not-allowed bg-[#0A5B93]" : "bg-[#0A5B93] hover:opacity-90 text-white"}`}>
+                            ${loadingType === "whatsapp" ? "opacity-50 cursor-not-allowed bg-[#1E3A56]" : "bg-[#1E3A56] hover:opacity-90 text-white"}`}>
                             <FaWhatsapp size={16} />
                             {loadingType === "whatsapp" ? "Opening..." : "Contact Supplier"}
                         </button>
@@ -581,7 +581,7 @@ export default function ProductPage() {
                         <button
                             onClick={() => setTab("specs")}
                             className={`flex items-center gap-2 px-6 py-3 font-medium ${tab === "specs"
-                                ? "text-[#D01132] border-b-2 border-[#D01132]"
+                                ? "text-orange-500 border-b-2 border-orange-500"
                                 : "text-gray-500"
                                 }`}
                         >
@@ -630,63 +630,64 @@ export default function ProductPage() {
 
             <RatingsUI />
 
-            <div className="py-8 px-4 md:px-10">
-                <h2 className="text-3xl text-[#0A5B93] font-bold mb-5">Related Products</h2>
+            {relatedProducts.length != 0 &&
+                <div className="py-8 px-4 md:px-10">
+                    <h2 className="text-3xl text-orange-500 font-bold mb-2">Related Products</h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-                    {relatedProducts.map((i, idx) => (
-                        <Link href={`/products/${i.slug}`} key={idx}
-                            className="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition group border border-gray-200"
-                        >
-                            <div className="w-full h-40 relative mb-2">
-                                <Image
-                                    src={i.media?.[0]?.url || "/noimage.png"}
-                                    alt={i.name}
-                                    fill
-                                    className="object-contain group-hover:scale-105 transition"
-                                />
-                            </div>
-
-                            <p className="text-gray-800 font-semibold line-clamp-2 group-hover:text-[#0A5B93] transition">
-                                {i.name}
-                            </p>
-
-                            <div className='flex items-center justify-between mt-1'>
-                                {i.brandName && (
-                                    <div className="flex bg-[#0A5B93] items-center gap-1 text-xs text-white px-2 py-1 rounded-xl">
-                                        <Tag size={14} className="text-white" />
-                                        <span>{i.brandName}</span>
-                                    </div>
-                                )}
-
-                                <div className="flex items-center text-sm font-semibold text-gray-800 justify-center">
-                                    <IndianRupee size={14} className="text-[#0A5B93] -mt-0.5" />
-                                    {i.price ? i.price : "On Request"}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                        {relatedProducts.map((i, idx) => (
+                            <Link href={`/products/${i.slug}`} key={idx}
+                                className="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition group border border-gray-200"
+                            >
+                                <div className="w-full h-40 relative mb-2">
+                                    <Image
+                                        src={i.media?.[0]?.url || "/noimage.png"}
+                                        alt={i.name}
+                                        fill
+                                        className="object-contain group-hover:scale-105 transition"
+                                    />
                                 </div>
-                            </div>
 
-                            <div className='flex items-center justify-between mt-1'>
-                                {i.supplierId?.name && (
-                                    <div className="flex items-center gap-1 text-gray-800">
-                                        <Store size={14} className="text-[#0A5B93]" />
-                                        <span>{i.supplierId.name}</span>
+                                <p className="text-gray-800 group-hover:underline font-semibold line-clamp-2 group-hover:text-orange-500 transition">
+                                    {i.name}
+                                </p>
+
+                                <div className='flex items-center justify-between mt-1'>
+                                    {i.brandName && (
+                                        <div className="flex bg-[#0A5B93] items-center gap-1 text-xs text-white px-2 py-1 rounded-xl">
+                                            <Tag size={14} className="text-white" />
+                                            <span>{i.brandName}</span>
+                                        </div>
+                                    )}
+
+                                    <div className="flex items-center text-sm font-semibold text-gray-800 justify-center">
+                                        <IndianRupee size={14} className="text-[#0A5B93] -mt-0.5" />
+                                        {i.price ? i.price : "On Request"}
                                     </div>
-                                )}
-
-                                <div className="flex items-center gap-1 text-gray-800">
-                                    <MapPin size={14} className="text-[#0A5B93]" />
-                                    <span>Delhi</span>
                                 </div>
-                            </div>
 
-                            <button onClick={(e) => { e.preventDefault(); setOpenPopup(true); setPopupProduct(i) }}
-                                className='cursor-pointer w-full py-2 rounded-lg bg-[#0A5B93] mt-2'>
-                                Contact Supplier
-                            </button>
-                        </Link>
-                    ))}
-                </div>
-            </div>
+                                <div className='flex items-center justify-between mt-2'>
+                                    {i?.supplier?.business.companyName && (
+                                        <div className="flex text-sm items-center gap-1 text-gray-800">
+                                            <Store size={14} className="text-[#0A5B93] -mt-0.5" />
+                                            <span>{i?.supplier?.business.companyName}</span>
+                                        </div>
+                                    )}
+
+                                    <div className="flex text-sm items-center gap-1 text-gray-800">
+                                        <MapPin size={14} className="text-[#0A5B93] -mt-0.5" />
+                                        <span>{i?.supplier?.business?.address}</span>
+                                    </div>
+                                </div>
+
+                                <button onClick={(e) => { e.preventDefault(); setOpenPopup(true); setPopupProduct(i) }}
+                                    className='cursor-pointer w-full py-2 rounded-lg bg-orange-500 mt-2'>
+                                    Contact Supplier
+                                </button>
+                            </Link>
+                        ))}
+                    </div>
+                </div>}
         </div>
 
         <Footer />

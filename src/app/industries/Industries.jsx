@@ -48,9 +48,8 @@ export default function Industries() {
                   ))}
                 </div>
                 <div className="mt-4 flex justify-center items-center">
-                  <Link
-                    href={`/industries/${industry.slug}`}
-                    className="inline-block bg-[#D01132] hover:bg-[#c10928] text-white px-4 py-2 rounded text-sm w-fit"
+                  <Link href={`/industries/${industry.slug}`}
+                    className="inline-block bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded text-sm w-fit"
                   >
                     View All
                   </Link>
@@ -74,7 +73,7 @@ export default function Industries() {
 
                   <div>
                     <Link href={`/categories/${cat.slug}`}
-                      className="font-bold text-black hover:text-blue-600 text-sm"
+                      className="font-bold text-black hover:text-orange-600 text-sm"
                     >
                       {cat.name}
                     </Link>
@@ -82,12 +81,12 @@ export default function Industries() {
                     <div className="mt-1 space-y-1 text-xs text-black">
                       {cat.subCategory?.slice(0, 3).map((sub) => (
                         <Link key={sub._id} href={`/category/${sub.slug}`}
-                          className="block hover:text-blue-500"
+                          className="block hover:text-orange-500"
                         >
                           ● {sub.name}
                         </Link>
                       ))}
-                      <Link href={`/categories/${cat.slug}`} className="flex items-center gap-1 hover:text-blue-500">
+                      <Link href={`/categories/${cat.slug}`} className="flex items-center gap-1 hover:text-orange-500">
                         View All <ArrowRight size={15} />
                       </Link>
                     </div>

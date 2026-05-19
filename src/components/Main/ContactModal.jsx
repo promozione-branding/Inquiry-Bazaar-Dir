@@ -92,7 +92,7 @@ export default function ContactModal({ open, setOpen, product }) {
                                         className="w-full h-full object-contain"
                                     />
                                 </div>
-                                <Link href={`/products/${product?.slug}`} className="hover:underline text-center font-semibold mt-2 text-[#0A5B93]">
+                                <Link href={`/products/${product?.slug}`} className="hover:underline text-center font-semibold mt-2 text-orange-500">
                                     {product.name}
                                 </Link>
 
@@ -115,7 +115,7 @@ export default function ContactModal({ open, setOpen, product }) {
                                     </div>
                                 </div>
 
-                                <div className="flex gap-3 justify-center mt-2">
+                                <div className="flex gap-3 justify-center mt-4">
                                     {supplier?.social?.linkedin && (
                                         <a
                                             href={supplier.social.linkedin}
@@ -204,11 +204,11 @@ export default function ContactModal({ open, setOpen, product }) {
                                 </div>
                             ) : (
                                 <form onSubmit={handleSubmit} className="space-y-4">
-                                    <h2 className="font-semibold text-3xl text-[#D01132] text-center">
+                                    <h2 className="font-semibold text-3xl text-orange-500 text-center">
                                         Contact Supplier
                                     </h2>
-                                    <div className="flex items-center border rounded-lg px-2 border-gray-400">
-                                        <User size={16} className="text-[#0A5B93]" />
+                                    <div className="flex items-center border rounded-lg px-2 border-orange-500">
+                                        <User size={16} className="text-orange-500" />
                                         <input
                                             name="contactPerson"
                                             type="text"
@@ -217,8 +217,8 @@ export default function ContactModal({ open, setOpen, product }) {
                                         />
                                     </div>
 
-                                    <div className="flex items-center border rounded-lg px-2 border-gray-400">
-                                        <Mail size={16} className="text-[#0A5B93]" />
+                                    <div className="flex items-center border rounded-lg px-2 border-orange-500">
+                                        <Mail size={16} className="text-orange-500" />
                                         <input
                                             name="email"
                                             type="email"
@@ -227,8 +227,8 @@ export default function ContactModal({ open, setOpen, product }) {
                                         />
                                     </div>
 
-                                    <div className="flex items-center border rounded-lg px-2 border-gray-400">
-                                        <Phone size={16} className="text-[#0A5B93]" />
+                                    <div className="flex items-center border rounded-lg px-2 border-orange-500">
+                                        <Phone size={16} className="text-orange-500"/>
                                         <input
                                             name="phone"
                                             type="tel"
@@ -237,8 +237,8 @@ export default function ContactModal({ open, setOpen, product }) {
                                         />
                                     </div>
 
-                                    <div className="flex items-start border rounded-lg px-2 border-gray-400">
-                                        <MessageCircle size={16} className="text-[#0A5B93] mt-3" />
+                                    <div className="flex items-start border rounded-lg px-2 border-orange-500">
+                                        <MessageCircle size={16} className="text-orange-500 mt-3" />
                                         <textarea
                                             name="message"
                                             type="text"
@@ -248,7 +248,7 @@ export default function ContactModal({ open, setOpen, product }) {
                                         />
                                     </div>
 
-                                    <button disabled={loading} className="w-full bg-[#0A5B93] text-white py-2 rounded-lg">
+                                    <button disabled={loading} className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg">
                                         {loading ? "Submitting..." : "Submit Inquiry"}
                                     </button>
                                 </form>)}

@@ -133,7 +133,7 @@ export default function CategoryPage() {
 
       <div className="col-span-1 lg:col-span-4 px-2">
         <button onClick={() => setOpen(true)}
-          className="lg:hidden mb-4 px-4 py-2 bg-[#0A5B93] text-white rounded"
+          className="lg:hidden mb-4 px-4 py-2 bg-orange-500 text-white rounded"
         >
           Filters
         </button>
@@ -155,9 +155,8 @@ export default function CategoryPage() {
                 </div>
 
                 <div>
-                  <Link
-                    href={`/products/${i?.slug}`}
-                    className="text-gray-800 hover:underline font-semibold line-clamp-2 group-hover:text-[#0A5B93]"
+                  <Link href={`/products/${i?.slug}`}
+                    className="text-gray-800 hover:underline font-semibold line-clamp-2 hover:text-orange-500"
                   >
                     {i?.name}
                   </Link>
@@ -177,7 +176,7 @@ export default function CategoryPage() {
                     </div>
 
                     {i.brandName && (
-                      <div className="bg-[#0A5B93] text-xs text-white px-2 py-1 rounded-xl">
+                      <div className="bg-orange-500 text-xs text-white px-2 py-1 rounded-xl">
                         {i.brandName}
                       </div>
                     )}
@@ -199,9 +198,8 @@ export default function CategoryPage() {
                       </div>
                     ))}
 
-                    <Link
-                      href={`/products/${i?.slug}`}
-                      className="block text-center text-sm text-[#0A5B93] font-medium py-2 hover:bg-gray-50 transition"
+                    <Link href={`/products/${i?.slug}`}
+                      className="block text-center text-sm text-orange-500 hover:text-orange-600 font-medium py-2 hover:bg-orange-50  transition"
                     >
                       View more details →
                     </Link>
@@ -216,7 +214,7 @@ export default function CategoryPage() {
                     </h2>
 
                     <div className="flex items-center gap-1 text-sm text-gray-800">
-                      <MapPin size={14} className="text-[#0A5B93] -mt-0.5" />
+                      <MapPin size={14} className="text-orange-500 -mt-0.5" />
                       <span>{supplier?.address || "India"}</span>
                     </div>
 
@@ -319,13 +317,13 @@ export default function CategoryPage() {
 
                   <div className="space-y-2">
                     <button onClick={() => handleCallClick(i, i?.supplier?.phone)} disabled={loadingType !== null}
-                      className="cursor-pointer w-full flex items-center justify-center gap-2 bg-[#0A5B93] text-white py-2 rounded-lg">
+                      className="cursor-pointer w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg">
                       <Phone size={14} />
                       {loadingType === "call" ? "Opening..." : " View Number"}
                     </button>
 
                     <button onClick={() => handleWhatsappClick(i, i?.supplier?.business?.social?.whatsapp,)} disabled={loadingType !== null}
-                      className="cursor-pointer w-full flex items-center justify-center gap-2 bg-green-500 text-white py-2 rounded-lg"
+                      className="cursor-pointer w-full flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg"
                     >
                       <FaWhatsapp />
                       {loadingType === "whatsapp" ? "Opening..." : "WhatsApp"}
@@ -339,11 +337,12 @@ export default function CategoryPage() {
 
       <div className="hidden lg:block lg:col-span-1">
         <div className="sticky top-17">
-          <div className="space-y-4 bg-white p-2 rounded-xl">
-            <h2 className="font-semibold text-lg text-[#D01132] text-center">
+          <div className="bg-white p-2 rounded-xl">
+            <h2 className="font-semibold text-lg text-orange-500 text-center mb-2">
               Contact Supplier
             </h2>
-            <div className="flex items-center border rounded-lg border-gray-400">
+
+            <div className="flex items-center border rounded-lg border-orange-500 mb-4">
               <input
                 type="text"
                 placeholder="Your Name"
@@ -351,7 +350,7 @@ export default function CategoryPage() {
               />
             </div>
 
-            <div className="flex items-center border rounded-lg border-gray-400">
+            <div className="flex items-center border rounded-lg border-orange-500 mb-4">
               <input
                 type="email"
                 placeholder="Your Email"
@@ -359,7 +358,7 @@ export default function CategoryPage() {
               />
             </div>
 
-            <div className="flex items-center border rounded-lg border-gray-400">
+            <div className="flex items-center border rounded-lg border-orange-500 mb-4">
               <input
                 type="tel"
                 placeholder="Phone Number"
@@ -367,7 +366,7 @@ export default function CategoryPage() {
               />
             </div>
 
-            <div className="flex items-start border rounded-lg border-gray-400">
+            <div className="flex items-start border rounded-lg border-orange-500 mb-4">
               <textarea
                 type="text"
                 rows={3}
@@ -376,7 +375,7 @@ export default function CategoryPage() {
               />
             </div>
 
-            <button className="w-full bg-[#0A5B93] text-white py-2 rounded-lg">
+            <button className="w-full bg-orange-500 text-white py-2 rounded-lg">
               Send Inquiry
             </button>
           </div>
