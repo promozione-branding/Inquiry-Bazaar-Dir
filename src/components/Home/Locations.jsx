@@ -64,7 +64,7 @@ export default function Locations() {
                         variants={card}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="bg-white rounded-xl shadow-md p-5 flex flex-col items-center justify-center cursor-pointer transition-all"
+                        className="bg-white rounded-xl shadow-md p-5 flex flex-col items-center justify-center group cursor-pointer transition-all"
                     >
                         <div className="w-14 h-14 relative mb-3">
                             <Image
@@ -74,7 +74,7 @@ export default function Locations() {
                                 className="object-contain"
                             />
                         </div>
-                        <p className="text-gray-800 font-medium">{loc.name}</p>
+                        <p className="text-gray-800 font-medium group-hover:text-orange-500">{loc.name}</p>
                     </motion.div>
                 ))}
             </motion.div>
