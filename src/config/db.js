@@ -14,5 +14,5 @@ export async function connectDB() {
     await client.connect();
     isConnected = true;
   }
-  return client.db("Promote-Bharat"); // ✅ put your DB name here
+  return client.db("inquiry-bazaar"); // ✅ put your DB name here
 }
