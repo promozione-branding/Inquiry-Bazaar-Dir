@@ -44,7 +44,7 @@ export default function Navbar() {
                             className="object-contain h-20 w-auto"
                         />
                     </Link>
-                    <div className="relative">
+                    <div className="hidden md:flex relative">
                         <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-[#f45a06] pointer-events-none" size={18} />
 
                         <select defaultValue=""
@@ -81,9 +81,13 @@ export default function Navbar() {
                     </Link>
                 </div>
 
-                {/* <button className="md:hidden bg-[#0A5B93] px-3 py-2 rounded-md" onClick={() => setOpen(!open)}>
-                    {open ? <X size={28} /> : <Menu size={28} />}
-                </button> */}
+                <button className="md:hidden bg-[#1e3a56] px-3 py-2 rounded-md mr-2" onClick={() => setOpen(!open)}>
+                    <MapPin size={25} />
+                </button>
+
+                <button className="md:hidden bg-[#f45a06] px-3 py-2 rounded-md" onClick={() => setOpen(!open)}>
+                    {open ? <X size={25} /> : <Menu size={25} />}
+                </button>
             </div>
         </nav>
     );

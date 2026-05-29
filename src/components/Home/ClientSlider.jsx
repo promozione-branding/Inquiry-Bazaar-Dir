@@ -34,7 +34,7 @@ export default function ClienteleSlider() {
     return (
         <section className="pt-10 px-4 md:px-10 w-full bg-gray-100">
             <div className="flex justify-between">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+                <h2 className="text-2xl md:text-4xl font-bold text-gray-900">
                     Explore products from Premium Brands
                 </h2>
                 <div className="hidden sm:flex">
