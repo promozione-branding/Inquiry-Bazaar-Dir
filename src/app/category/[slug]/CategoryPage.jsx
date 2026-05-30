@@ -25,6 +25,7 @@ import {
   FaFacebook,
   FaLinkedin,
   FaYoutube,
+  FaFilePdf,
 } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
@@ -337,9 +338,9 @@ export default function CategoryPage() {
                       href={i.media.find(m => m.type === "pdf").url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="absolute bottom-1 right-4 bg-[#0A5B93] text-white p-2 rounded-full transition"
+                      className="absolute flex gap-1 text-[10px] items-center justify-center -bottom-2 right-0 bg-[#0A5B93] text-white p-2 rounded-md transition"
                     >
-                      <FileText size={20} />
+                      <FaFilePdf size={14} className="-mt-0.5" /> Product Brochure
                     </a>
                   )}
                 </div>

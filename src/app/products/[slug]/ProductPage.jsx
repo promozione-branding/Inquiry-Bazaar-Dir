@@ -31,7 +31,8 @@ import {
     FaUsers,
     FaIndustry,
     FaPhoneAlt,
-    FaWhatsapp
+    FaWhatsapp,
+    FaFilePdf
 } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -214,7 +215,7 @@ export default function ProductPage() {
                                 <SwiperSlide key={img._id}>
                                     <img
                                         src={img.url}
-                                        className="w-full h-90 object-contain hover:scale-105 transition duration-300"
+                                        className="w-full h-90 object-cover hover:scale-105 transition duration-300"
                                     />
                                 </SwiperSlide>
                             ))}
@@ -255,16 +256,18 @@ export default function ProductPage() {
                                         href={media.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="w-20 h-20 flex items-center text-black justify-center rounded-lg cursor-pointer border border-orange-500 bg-gray-100 transition-all duration-200 hover:scale-105"
+                                        className="w-20 h-20 flex flex-col text-[9px] items-center text-[#0A5B93] justify-center rounded-lg cursor-pointer border border-[#0A5B93] bg-gray-100 transition-all duration-200 hover:scale-105"
                                     >
-                                        <FileText size={30} />
+                                        <FaFilePdf size={30} className="mb-1" />
+                                        Product Brochure
                                     </a>
                                 )}
                             </div>
                         ))}
                         {productDetails?.youtubeLink && (
-                            <div onClick={() => setShowYoutube(true)} className="w-20 h-20 flex text-red-600 items-center justify-center rounded-lg cursor-pointer border border-red-500 bg-gray-100 transition-all duration-200 hover:scale-105">
-                                <BsYoutube size={30} />
+                            <div onClick={() => setShowYoutube(true)} className="w-20 h-20 flex flex-col text-[9px] text-red-600 items-center justify-center rounded-lg cursor-pointer border border-red-500 bg-gray-100 transition-all duration-200 hover:scale-105">
+                                <BsYoutube size={30} className="mb-1" />
+                                YouTube Video
                             </div>
                         )}
                     </div>
