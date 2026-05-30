@@ -9,6 +9,7 @@ import axios from "axios";
 export default function Navbar() {
     const [open, setOpen] = useState(false);
     const [profileOpen, setProfileOpen] = useState(false);
+    const [locationOpen, setLocationOpen] = useState(false);
     const profileRef = useRef(null);
     const [bellOpen, setBellOpen] = useState(false);
     const bellRef = useRef(null);
@@ -32,7 +33,7 @@ export default function Navbar() {
     }, []);
 
     return (
-        <nav className="w-full border-b border-b-gray-300 bg-white sticky top-0 z-50 h-auto">
+        <nav className="w-full border-b border-b-gray-300 bg-white sticky top-0 z-50 h-auto relative">
             <div className="mx-auto md:px-6 px-2 flex items-center justify-between">
                 <div className="flex md:w-auto w-full gap-5 items-center justify-between">
                     <Link href="/">
@@ -81,14 +82,55 @@ export default function Navbar() {
                     </Link>
                 </div>
 
-                <button className="md:hidden bg-[#1e3a56] px-3 py-2 rounded-md mr-2" onClick={() => setOpen(!open)}>
+                <button className="md:hidden bg-[#1e3a56] px-3 py-2 rounded-md mr-2" onClick={() => setLocationOpen(!locationOpen)}>
                     <MapPin size={25} />
                 </button>
 
                 <button className="md:hidden bg-[#f45a06] px-3 py-2 rounded-md" onClick={() => setOpen(!open)}>
                     {open ? <X size={25} /> : <Menu size={25} />}
                 </button>
+
             </div>
+
+            {/* {locationOpen && (
+                <div className="md:hidden px-3 pb-3">
+                    <select className="w-full rounded-xl border border-orange-300 py-3 px-3">
+                        <option>Select Location</option>
+                        <option>Delhi</option>
+                        <option>Mumbai</option>
+                        <option>Bangalore</option>
+                    </select>
+                </div>
+            )} */}
+
+            {open && (
+                <div className="md:hidden border-t bg-white absolute w-full">
+                    <div className="p-4 space-y-3">
+
+                        <Link
+                            href="/register/supplier"
+                            className="block w-full text-center py-3 rounded-lg bg-[#f45a06] text-white"
+                        >
+                            Register as Supplier
+                        </Link>
+
+                        <Link
+                            href="/register/buyer"
+                            className="block w-full text-center py-3 rounded-lg bg-[#1e3a56] text-white"
+                        >
+                            Register as Buyer
+                        </Link>
+
+                        <Link
+                            href="/login"
+                            className="flex justify-center items-center gap-2 py-3 rounded-lg bg-blue-600 text-white"
+                        >
+                            <LogIn size={18} />
+                            Sign In
+                        </Link>
+                    </div>
+                </div>
+            )}
         </nav>
     );
 }
