@@ -499,7 +499,7 @@ export default function ProductPage() {
 
                     <div className="border-t border-t-gray-200 pt-3 mt-3">
                         <div className="flex gap-8 justify-center">
-                            {/* {business?.social?.linkedin && ( */}
+                            {business?.social?.linkedin && (
                                 <a
                                     href={business?.social?.linkedin}
                                     target="_blank"
@@ -508,9 +508,9 @@ export default function ProductPage() {
                                 >
                                     <FaLinkedin size={25} className="text-blue-700" />
                                 </a>
-                            {/* )} */}
+                            )}
 
-                            {/* {business?.social?.instagram && ( */}
+                            {business?.social?.instagram && (
                                 <a
                                     href={business?.social?.instagram}
                                     target="_blank"
@@ -519,9 +519,9 @@ export default function ProductPage() {
                                 >
                                     <FaInstagram size={25} className="text-pink-600" />
                                 </a>
-                            {/* )} */}
+                            )}
 
-                            {/* {business?.social?.facebook && ( */}
+                            {business?.social?.facebook && (
                                 <a
                                     href={business?.social?.facebook}
                                     target="_blank"
@@ -530,9 +530,9 @@ export default function ProductPage() {
                                 >
                                     <FaFacebook size={25} className="text-blue-600" />
                                 </a>
-                            {/* )} */}
+                            )}
 
-                            {/* {business?.social?.youtube && ( */}
+                            {business?.social?.youtube && (
                                 <a
                                     href={business?.social?.youtube}
                                     target="_blank"
@@ -541,9 +541,9 @@ export default function ProductPage() {
                                 >
                                     <FaYoutube size={25} className="text-red-600" />
                                 </a>
-                            {/* )} */}
+                            )}
 
-                            {/* {business?.social?.telegram && ( */}
+                            {business?.social?.telegram && (
                                 <a
                                     href={business?.social?.telegram}
                                     target="_blank"
@@ -552,9 +552,9 @@ export default function ProductPage() {
                                 >
                                     <BsTelegram size={25} className="text-blue-600" />
                                 </a>
-                            {/* )} */}
+                            )}
 
-                            {/* {business?.social?.twitter && ( */}
+                            {business?.social?.twitter && (
                                 <a
                                     href={business?.social?.twitter}
                                     target="_blank"
@@ -563,7 +563,7 @@ export default function ProductPage() {
                                 >
                                     <FaXTwitter size={25} className="text-black" />
                                 </a>
-                            {/* )} */}
+                            )}
                         </div>
                     </div>
                 </motion.div>
