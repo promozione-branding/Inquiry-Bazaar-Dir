@@ -92,7 +92,7 @@ export default function ContactModal({ open, setOpen, product }) {
                                         className="w-full h-full object-contain"
                                     />
                                 </div>
-                                <Link href={`/products/${product?.slug}`} className="hover:underline text-center font-semibold mt-2 text-orange-500">
+                                <Link href={`/products/${product?.slug}`} className="hover:underline text-center font-semibold mt-2 text-[#0A5B93]">
                                     {product.name}
                                 </Link>
 
@@ -115,16 +115,15 @@ export default function ContactModal({ open, setOpen, product }) {
                                     </div>
                                 </div>
 
-                                <div className="flex gap-3 justify-center mt-4">
+                                <div className="flex gap-5 justify-center mt-4">
                                     {supplier?.social?.linkedin && (
                                         <a
                                             href={supplier.social.linkedin}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             title="LinkedIn"
-                                            className="p-2 rounded-lg bg-gray-100 hover:bg-blue-100 transition hover:scale-105"
                                         >
-                                            <FaLinkedin size={18} className="text-blue-700" />
+                                            <FaLinkedin size={25} className="text-blue-700" />
                                         </a>
                                     )}
 
@@ -134,9 +133,8 @@ export default function ContactModal({ open, setOpen, product }) {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             title="Instagram"
-                                            className="p-2 rounded-lg bg-gray-100 hover:bg-pink-100 transition hover:scale-105"
                                         >
-                                            <FaInstagram size={18} className="text-pink-600" />
+                                            <FaInstagram size={25} className="text-pink-600" />
                                         </a>
                                     )}
 
@@ -146,9 +144,8 @@ export default function ContactModal({ open, setOpen, product }) {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             title="Facebook"
-                                            className="p-2 rounded-lg bg-gray-100 hover:bg-blue-100 transition hover:scale-105"
                                         >
-                                            <FaFacebook size={18} className="text-blue-600" />
+                                            <FaFacebook size={25} className="text-blue-600" />
                                         </a>
                                     )}
 
@@ -158,9 +155,8 @@ export default function ContactModal({ open, setOpen, product }) {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             title="YouTube"
-                                            className="p-2 rounded-lg bg-gray-100 hover:bg-red-100 transition hover:scale-105"
                                         >
-                                            <FaYoutube size={18} className="text-red-600" />
+                                            <FaYoutube size={25} className="text-red-600" />
                                         </a>
                                     )}
 
@@ -170,9 +166,8 @@ export default function ContactModal({ open, setOpen, product }) {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             title="Telegram"
-                                            className="p-2 rounded-lg bg-gray-100 hover:bg-blue-100 transition hover:scale-105"
                                         >
-                                            <BsTelegram size={18} className="text-blue-600" />
+                                            <BsTelegram size={25} className="text-blue-600" />
                                         </a>
                                     )}
 
@@ -182,9 +177,8 @@ export default function ContactModal({ open, setOpen, product }) {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             title="Twitter"
-                                            className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition hover:scale-105"
                                         >
-                                            <FaXTwitter size={18} className="text-black" />
+                                            <FaXTwitter size={25} className="text-black" />
                                         </a>
                                     )}
                                 </div>
@@ -204,10 +198,10 @@ export default function ContactModal({ open, setOpen, product }) {
                                 </div>
                             ) : (
                                 <form onSubmit={handleSubmit} className="space-y-4">
-                                    <h2 className="font-semibold text-3xl text-orange-500 text-center">
+                                    <h2 className="font-semibold text-3xl text-[#0A5B93] text-center">
                                         Contact Supplier
                                     </h2>
-                                    <div className="flex items-center border rounded-lg px-2 border-orange-500">
+                                    <div className="flex items-center border rounded-lg px-2 border-gray-300 shadow-sm">
                                         <User size={16} className="text-orange-500" />
                                         <input
                                             name="contactPerson"
@@ -217,7 +211,7 @@ export default function ContactModal({ open, setOpen, product }) {
                                         />
                                     </div>
 
-                                    <div className="flex items-center border rounded-lg px-2 border-orange-500">
+                                    <div className="flex items-center border rounded-lg px-2 border-gray-300 shadow-sm">
                                         <Mail size={16} className="text-orange-500" />
                                         <input
                                             name="email"
@@ -227,7 +221,7 @@ export default function ContactModal({ open, setOpen, product }) {
                                         />
                                     </div>
 
-                                    <div className="flex items-center border rounded-lg px-2 border-orange-500">
+                                    <div className="flex items-center border rounded-lg px-2 border-gray-300 shadow-sm">
                                         <Phone size={16} className="text-orange-500"/>
                                         <input
                                             name="phone"
@@ -237,7 +231,7 @@ export default function ContactModal({ open, setOpen, product }) {
                                         />
                                     </div>
 
-                                    <div className="flex items-start border rounded-lg px-2 border-orange-500">
+                                    <div className="flex items-start border rounded-lg px-2 border-gray-300 shadow-sm">
                                         <MessageCircle size={16} className="text-orange-500 mt-3" />
                                         <textarea
                                             name="message"
@@ -248,7 +242,7 @@ export default function ContactModal({ open, setOpen, product }) {
                                         />
                                     </div>
 
-                                    <button disabled={loading} className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg">
+                                    <button disabled={loading} className="w-full bg-[#0A5B93] hover:bg-[#074f83] text-white py-2 rounded-lg">
                                         {loading ? "Submitting..." : "Submit Inquiry"}
                                     </button>
                                 </form>)}
