@@ -15,7 +15,8 @@ import {
   Mail,
   MessageCircle,
   User,
-  Link2
+  Link2,
+  Funnel
 } from "lucide-react";
 import {
   FaWhatsapp,
@@ -109,7 +110,7 @@ export default function CategoryPage() {
   return (<>
     <Navbar />
 
-    <div className="px-4 md:px-10 py-4 bg-gray-200">
+    <div className="px-4 md:px-10 py-3 bg-white">
       {/* Breadcrumb */}
       <div className="flex items-center text-gray-800 gap-1">
         <Link href={"/"} className="font-bold">Home</Link>
@@ -120,9 +121,9 @@ export default function CategoryPage() {
       </div>
     </div>
 
-    <div className="grid grid-cols-1 lg:grid-cols-6 bg-gray-200 pb-4">
+    <div className="grid grid-cols-1 lg:grid-cols-6 bg-gray-200 py-4">
       <div className="hidden lg:block lg:col-span-1">
-        <div className="lg:sticky top-17">
+        <div className="lg:sticky top-20">
           <Sidebar open={open} setOpen={setOpen} />
         </div>
       </div>
@@ -133,18 +134,179 @@ export default function CategoryPage() {
 
       <div className="col-span-1 lg:col-span-4 px-2">
         <button onClick={() => setOpen(true)}
-          className="lg:hidden mb-4 px-4 py-2 bg-orange-500 text-white rounded"
+          className="lg:hidden flex items-center gap-2 mb-4 px-4 py-2 bg-[#0A5B93] text-white rounded"
         >
-          Filters
+          Filters <Funnel size={16} />
         </button>
 
         <div className="flex flex-col gap-4">
           {subCategory?.products?.map((i, idx) => {
             const supplier = i?.supplier?.business;
-            return (
-              <div key={idx}
-                className="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition border border-gray-200 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
-              >
+            return (<div key={idx}>
+              <div className="md:hidden bg-white rounded-xl shadow-sm border border-gray-200">
+                <div className="pt-3 px-3 border-b">
+                  <Link href={`/products/${i?.slug}`}
+                    className="font-semibold text-[#0A5B93] text-base line-clamp-2"
+                  >
+                    {i.name}
+                  </Link>
+                </div>
+
+                <div className="flex gap-3 p-3">
+                  <div className="relative w-32 h-32 shrink-0"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setOpenPopup(true);
+                      setPopupProduct(i);
+                    }}
+                  >
+                    <Image
+                      src={i.media?.[0]?.url || "/no-image.png"}
+                      alt={i.name}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+
+                  <div className="flex-1 min-w-0">
+                    <div className="text-2xl font-bold text-black">
+                      {i.price ? `₹ ${i.price}` : "Price on Request"}
+                      {i.price && (
+                        <span className="text-base font-normal text-gray-600">
+                          /Piece
+                        </span>
+                      )}
+                    </div>
+
+                    {i.specifications?.slice(0, 4).map((spec, idx) => (
+                      <div key={idx} className="text-sm mt-1">
+                        <span className="text-gray-800">
+                          {spec.key}:
+                        </span>{" "}
+                        <span className="font-semibold text-gray-900">
+                          {spec.value}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="px-3 border-t">
+                  <h3 className="font-semibold text-[#0A5B93]">
+                    {supplier?.companyName}
+                  </h3>
+
+                  <div className="text-sm text-gray-800 line-clamp-1">
+                    {supplier?.address || "India"}
+                  </div>
+
+                  <div className="flex items-center justify-between mt-1">
+                    <div className="flex items-center gap-0.5">
+                      {[...Array(4)].map((_, idx) => (
+                        <Star
+                          key={idx}
+                          size={15}
+                          className="text-yellow-400 fill-yellow-400"
+                        />
+                      ))}
+                      <Star
+                        size={15}
+                        className="text-gray-300"
+                      />
+
+                      <span className="ml-1 text-sm font-medium text-gray-800">
+                        4.2
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex gap-5 justify-center mt-3">
+                  {supplier?.social?.linkedin && (
+                    <a
+                      href={supplier.social.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="LinkedIn"
+                    >
+                      <FaLinkedin size={25} className="text-blue-700" />
+                    </a>
+                  )}
+
+                  {supplier?.social?.instagram && (
+                    <a
+                      href={supplier.social.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Instagram"
+                    >
+                      <FaInstagram size={25} className="text-pink-600" />
+                    </a>
+                  )}
+
+                  {supplier?.social?.facebook && (
+                    <a
+                      href={supplier.social.facebook}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Facebook"
+                    >
+                      <FaFacebook size={25} className="text-blue-600" />
+                    </a>
+                  )}
+
+                  {supplier?.social?.youtube && (
+                    <a
+                      href={supplier.social.youtube}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="YouTube"
+                    >
+                      <FaYoutube size={25} className="text-red-600" />
+                    </a>
+                  )}
+
+                  {supplier?.social?.telegram && (
+                    <a
+                      href={supplier.social.telegram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Telegram"
+                    >
+                      <BsTelegram size={25} className="text-blue-600" />
+                    </a>
+                  )}
+
+                  {supplier?.social?.twitter && (
+                    <a
+                      href={supplier.social.twitter}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Twitter"
+                    >
+                      <FaXTwitter size={25} className="text-black" />
+                    </a>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 pt-2 pb-3 px-3 border-t">
+                  <button onClick={() => handleWhatsappClick(i, i?.supplier?.business?.social?.whatsapp)}
+                    className="h-11 rounded-lg border border-green-500 text-green-600 font-semibold flex items-center justify-center gap-2"
+                  >
+                    <FaWhatsapp size={25} />
+                    WhatsApp
+                  </button>
+
+                  <button onClick={() => handleCallClick(i, i?.supplier?.phone)}
+                    className="h-11 rounded-lg bg-[#0A5B93] text-white font-semibold flex items-center justify-center gap-2"
+                  >
+                    <Phone size={20} />
+                    Call Now
+                  </button>
+                </div>
+              </div>
+
+              <div className="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition border border-gray-200 hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="w-full h-70 relative group" onClick={(e) => { e.preventDefault(); setOpenPopup(true); setPopupProduct(i); }}>
                   <Image
                     src={i.media?.[0]?.url || "/no-image.png"}
@@ -176,17 +338,16 @@ export default function CategoryPage() {
                     </div>
 
                     {i.brandName && (
-                      <div className="bg-orange-500 text-xs text-white px-2 py-1 rounded-xl">
+                      <div className="bg-[#0A5B93] text-xs text-white px-2 py-1 rounded-xl">
                         {i.brandName}
                       </div>
                     )}
                   </div>
 
                   <div className="mt-4 border border-gray-200 rounded-lg overflow-hidden">
-                    {i.specifications?.slice(0, 5).map((spec, index) => (
-                      <div
-                        key={index}
-                        className="flex justify-between gap-2 px-3 py-2 text-sm border-b border-gray-200 last:border-b-0"
+                    {i.specifications?.slice(0, 4).map((spec, index) => (
+                      <div key={index}
+                        className="flex justify-between gap-2 px-3 py-2.5 text-sm border-b border-gray-200 last:border-b-0"
                       >
                         <span className="text-gray-600 font-medium">
                           {spec.key}
@@ -199,26 +360,26 @@ export default function CategoryPage() {
                     ))}
 
                     <Link href={`/products/${i?.slug}`}
-                      className="block text-center text-sm text-orange-500 hover:text-orange-600 font-medium py-2 hover:bg-orange-50  transition"
+                      className="block text-center text-sm text-[#0A5B93] hover:text-[#085082] font-medium py-2.5 hover:bg-blue-50  transition"
                     >
                       View more details →
                     </Link>
                   </div>
                 </div>
 
-                <div className="bg-white rounded-xl space-y-2 border">
+                <div className="bg-white rounded-xl space-y-3 border flex flex-col h-full">
                   <div>
                     <h2 className="hover:underline text-md font-semibold text-gray-800 flex items-center gap-1 cursor-pointer group hover:text-blue-500 transition">
                       {supplier?.companyName || "-"}
-                      <Link2 size={18} className="text-gray-800 group-hover:text-blue-600 transition" />
+                      {/* <Link2 size={18} className="text-gray-800 group-hover:text-blue-600 transition" /> */}
                     </h2>
 
-                    <div className="flex items-center gap-1 text-sm text-gray-800">
+                    <div className="flex items-center gap-1 mt-0.5 text-sm text-gray-800">
                       <MapPin size={14} className="text-orange-500 -mt-0.5" />
                       <span>{supplier?.address || "India"}</span>
                     </div>
 
-                    <div className="flex items-center gap-1 mt-1 text-sm">
+                    <div className="flex items-center gap-1 text-sm mt-0.5">
                       {[...Array(4)].map((_, idx) => (
                         <Star key={idx} size={14} className="text-yellow-400 fill-yellow-400 -mt-0.5" />
                       ))}
@@ -227,30 +388,28 @@ export default function CategoryPage() {
                     </div>
                   </div>
 
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-center gap-2 bg-yellow-100 text-yellow-700 px-2 py-1 rounded-lg">
-                      <BadgeCheck size={14} /> Trust Elite
+                  <div className="flex gap-2">
+                    <div className="flex items-center gap-2 w-full bg-blue-50 text-blue-700 border border-blue-300 px-2 py-1 rounded-lg">
+                      {/* <BadgeCheck size={14} /> */}
+                      <Image src={"/TRUST-ELITE-8.webp"} alt="Trust Elite" width={30} height={30} />
+                      Trust Elite
                     </div>
 
-                    <div className="flex items-center gap-2 bg-green-100 text-green-700 px-2 py-1 rounded-lg">
-                      <ShieldCheck size={14} /> GST Verified
+                    <div className="flex items-center gap-2 w-full bg-green-50 text-green-700 border border-green-300 px-2 py-1 rounded-lg">
+                      <ShieldCheck size={20} />
+                      GST Verified
                     </div>
-
-                    {/* <div className="flex items-center gap-2 bg-blue-100 text-blue-700 px-2 py-1 rounded-lg">
-                      <Building2 size={14} /> {supplier?.businessType}
-                    </div> */}
                   </div>
 
-                  <div className="flex gap-3 justify-center my-4">
+                  <div className="flex gap-5 justify-center items-center my-auto">
                     {supplier?.social?.linkedin && (
                       <a
                         href={supplier.social.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
                         title="LinkedIn"
-                        className="p-2 rounded-lg bg-gray-100 hover:bg-blue-100 transition hover:scale-105"
                       >
-                        <FaLinkedin size={18} className="text-blue-700" />
+                        <FaLinkedin size={25} className="text-blue-700" />
                       </a>
                     )}
 
@@ -260,9 +419,8 @@ export default function CategoryPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         title="Instagram"
-                        className="p-2 rounded-lg bg-gray-100 hover:bg-pink-100 transition hover:scale-105"
                       >
-                        <FaInstagram size={18} className="text-pink-600" />
+                        <FaInstagram size={25} className="text-pink-600" />
                       </a>
                     )}
 
@@ -272,9 +430,8 @@ export default function CategoryPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         title="Facebook"
-                        className="p-2 rounded-lg bg-gray-100 hover:bg-blue-100 transition hover:scale-105"
                       >
-                        <FaFacebook size={18} className="text-blue-600" />
+                        <FaFacebook size={25} className="text-blue-600" />
                       </a>
                     )}
 
@@ -284,9 +441,8 @@ export default function CategoryPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         title="YouTube"
-                        className="p-2 rounded-lg bg-gray-100 hover:bg-red-100 transition hover:scale-105"
                       >
-                        <FaYoutube size={18} className="text-red-600" />
+                        <FaYoutube size={25} className="text-red-600" />
                       </a>
                     )}
 
@@ -296,9 +452,8 @@ export default function CategoryPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         title="Telegram"
-                        className="p-2 rounded-lg bg-gray-100 hover:bg-blue-100 transition hover:scale-105"
                       >
-                        <BsTelegram size={18} className="text-blue-600" />
+                        <BsTelegram size={25} className="text-blue-600" />
                       </a>
                     )}
 
@@ -308,41 +463,41 @@ export default function CategoryPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         title="Twitter"
-                        className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition hover:scale-105"
                       >
-                        <FaXTwitter size={18} className="text-black" />
+                        <FaXTwitter size={25} className="text-black" />
                       </a>
                     )}
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-2 mt-auto">
                     <button onClick={() => handleCallClick(i, i?.supplier?.phone)} disabled={loadingType !== null}
-                      className="cursor-pointer w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg">
+                      className="cursor-pointer w-full flex items-center justify-center gap-2 bg-[#0A5B93] hover:bg-[#085082] text-white py-2 rounded-lg">
                       <Phone size={14} />
                       {loadingType === "call" ? "Opening..." : " View Number"}
                     </button>
 
                     <button onClick={() => handleWhatsappClick(i, i?.supplier?.business?.social?.whatsapp,)} disabled={loadingType !== null}
-                      className="cursor-pointer w-full flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg"
+                      className="cursor-pointer w-full flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg"
                     >
                       <FaWhatsapp />
                       {loadingType === "whatsapp" ? "Opening..." : "WhatsApp"}
                     </button>
                   </div>
                 </div>
-              </div>);
+              </div>
+            </div>);
           })}
         </div>
       </div>
 
       <div className="hidden lg:block lg:col-span-1">
-        <div className="sticky top-17">
+        <div className="sticky top-21">
           <div className="bg-white p-2 rounded-xl">
-            <h2 className="font-semibold text-lg text-orange-500 text-center mb-2">
+            <h2 className="font-semibold text-lg text-[#0A5B93] text-center mb-2">
               Contact Supplier
             </h2>
 
-            <div className="flex items-center border rounded-lg border-orange-500 mb-4">
+            <div className="flex items-center border rounded-lg border-gray-300 shadow mb-4">
               <input
                 type="text"
                 placeholder="Your Name"
@@ -350,7 +505,7 @@ export default function CategoryPage() {
               />
             </div>
 
-            <div className="flex items-center border rounded-lg border-orange-500 mb-4">
+            <div className="flex items-center border rounded-lg border-gray-300 shadow mb-4">
               <input
                 type="email"
                 placeholder="Your Email"
@@ -358,7 +513,7 @@ export default function CategoryPage() {
               />
             </div>
 
-            <div className="flex items-center border rounded-lg border-orange-500 mb-4">
+            <div className="flex items-center border rounded-lg border-gray-300 shadow mb-4">
               <input
                 type="tel"
                 placeholder="Phone Number"
@@ -366,7 +521,7 @@ export default function CategoryPage() {
               />
             </div>
 
-            <div className="flex items-start border rounded-lg border-orange-500 mb-4">
+            <div className="flex items-start border rounded-lg border-gray-300 shadow mb-4">
               <textarea
                 type="text"
                 rows={3}
@@ -375,7 +530,7 @@ export default function CategoryPage() {
               />
             </div>
 
-            <button className="w-full bg-orange-500 text-white py-2 rounded-lg">
+            <button className="w-full bg-[#0A5B93] hover:bg-[#085082] text-white py-2 rounded-lg">
               Send Inquiry
             </button>
           </div>

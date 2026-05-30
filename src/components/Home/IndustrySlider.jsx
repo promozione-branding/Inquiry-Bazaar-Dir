@@ -44,7 +44,7 @@ export default function IndustrySlider() {
                         Explore
                     </p>
 
-                    <h2 className="text-3xl font-bold text-gray-900">
+                    <h2 className="text-lg md:text-3xl font-bold text-gray-900">
                         Popular Industries
                     </h2>
                 </div>

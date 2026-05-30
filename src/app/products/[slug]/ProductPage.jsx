@@ -95,7 +95,7 @@ export default function ProductPage() {
         fetchData();
     }, [productDetails]);
 
-    const business = productDetails.supplierId?.business;
+    const business = productDetails?.supplierId?.business;
 
     const getInitials = (name) => {
         if (!name) return "";
@@ -159,7 +159,7 @@ export default function ProductPage() {
         <Navbar />
 
         <div className="bg-gray-100 min-h-screen">
-            <div className='px-4 md:px-10 pt-4 md:flex hidden items-center text-gray-800 gap-1'>
+            <div className='px-2 md:px-10 pt-4 md:flex hidden items-center text-gray-800 gap-1'>
                 <Link href={"/"} className='text-gray-800 font-bold'>
                     Home {" "}
                 </Link>
@@ -177,7 +177,7 @@ export default function ProductPage() {
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 pt-4 lg:grid-cols-3 gap-4 px-4 md:px-8">
+            <div className="grid grid-cols-1 pt-4 lg:grid-cols-3 gap-4 px-2 md:px-8">
                 <motion.div
                     initial={{ opacity: 0, x: -40 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -228,10 +228,10 @@ export default function ProductPage() {
                         <h1 className="text-2xl font-semibold text-gray-800">
                             {productDetails?.name}
                         </h1>
-                        <p className="text-sm text-gray-800 mt-1 flex items-center gap-1">
+                        <p className="text-sm text-gray-900 mt-1 flex items-center gap-1">
                             <Tag size={15} />
                             Brand:{" "}
-                            <span className="text-orange-500 font-medium">
+                            <span className="text-[#0A5B93] font-medium">
                                 {productDetails?.brandName}
                             </span>
                         </p>
@@ -327,7 +327,7 @@ export default function ProductPage() {
 
                     </div>
 
-                    <button onClick={(e) => { e.preventDefault(); setOpenPopup(true); setPopupProduct(productDetails) }} className="w-full bg-linear-to-r from-orange-500 to-orange-600 text-white py-3 rounded-xl font-medium transition hover:opacity-90 hover:shadow-md">
+                    <button onClick={(e) => { e.preventDefault(); setOpenPopup(true); setPopupProduct(productDetails) }} className="w-full bg-linear-to-r from-[#0A5B93] to-[#084b7b] text-white py-3 rounded-xl font-medium transition hover:opacity-90 hover:shadow-md">
                         Send Inquiry
                     </button>
                 </motion.div>
@@ -397,16 +397,16 @@ export default function ProductPage() {
 
                     <div className="space-y-2 mt-2">
                         <button onClick={handleCallClick} disabled={loadingType !== null}
-                            className={`w-full border border-orange-500 py-2 rounded-lg flex items-center justify-center gap-2 transition
-                            ${loadingType === "call" ? "opacity-50 cursor-not-allowed" : "text-orange-500 hover:bg-orange-50"}`}>
-                            <Phone size={16} />
+                            className={`w-full border bg-blue-50 border-[#0A5B93] text-[#0A5B93] py-2 rounded-lg flex items-center justify-center gap-2 transition
+                            ${loadingType === "call" ? "opacity-50 cursor-not-allowed" : "hover:text-white hover:bg-[#0A5B93]"}`}>
+                            <Phone size={20} />
                             {loadingType === "call" ? "Please wait..." : "Call Now"}
                         </button>
 
                         <button onClick={handleWhatsappClick} disabled={loadingType !== null}
-                            className={`w-full py-2 rounded-lg flex items-center justify-center gap-2 transition
-                            ${loadingType === "whatsapp" ? "opacity-50 cursor-not-allowed bg-[#1E3A56]" : "bg-[#1E3A56] hover:opacity-90 text-white"}`}>
-                            <FaWhatsapp size={16} />
+                            className={`w-full py-2 rounded-lg flex items-center justify-center gap-2 transition border border-green-500 hover:bg-green-600 hover:text-white
+                            ${loadingType === "whatsapp" ? "opacity-50 cursor-not-allowed bg-green-50 text-green-500" : "bg-green-50 text-green-700 hover:opacity-90"}`}>
+                            <FaWhatsapp size={25} />
                             {loadingType === "whatsapp" ? "Opening..." : "Contact Supplier"}
                         </button>
                     </div>
@@ -498,78 +498,72 @@ export default function ProductPage() {
                     </div>
 
                     <div className="border-t border-t-gray-200 pt-3 mt-3">
-                        <div className="flex gap-5 justify-center">
-                            {business?.social?.linkedin && (
+                        <div className="flex gap-8 justify-center">
+                            {/* {business?.social?.linkedin && ( */}
                                 <a
-                                    href={business.social.linkedin}
+                                    href={business?.social?.linkedin}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     title="LinkedIn"
-                                    className="p-2 rounded-lg bg-gray-100 hover:bg-blue-100 transition hover:scale-105"
                                 >
-                                    <FaLinkedin size={18} className="text-blue-700" />
+                                    <FaLinkedin size={25} className="text-blue-700" />
                                 </a>
-                            )}
+                            {/* )} */}
 
-                            {business?.social?.instagram && (
+                            {/* {business?.social?.instagram && ( */}
                                 <a
-                                    href={business.social.instagram}
+                                    href={business?.social?.instagram}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     title="Instagram"
-                                    className="p-2 rounded-lg bg-gray-100 hover:bg-pink-100 transition hover:scale-105"
                                 >
-                                    <FaInstagram size={18} className="text-pink-600" />
+                                    <FaInstagram size={25} className="text-pink-600" />
                                 </a>
-                            )}
+                            {/* )} */}
 
-                            {business?.social?.facebook && (
+                            {/* {business?.social?.facebook && ( */}
                                 <a
-                                    href={business.social.facebook}
+                                    href={business?.social?.facebook}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     title="Facebook"
-                                    className="p-2 rounded-lg bg-gray-100 hover:bg-blue-100 transition hover:scale-105"
                                 >
-                                    <FaFacebook size={18} className="text-blue-600" />
+                                    <FaFacebook size={25} className="text-blue-600" />
                                 </a>
-                            )}
+                            {/* )} */}
 
-                            {business?.social?.youtube && (
+                            {/* {business?.social?.youtube && ( */}
                                 <a
-                                    href={business.social.youtube}
+                                    href={business?.social?.youtube}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     title="YouTube"
-                                    className="p-2 rounded-lg bg-gray-100 hover:bg-red-100 transition hover:scale-105"
                                 >
-                                    <FaYoutube size={18} className="text-red-600" />
+                                    <FaYoutube size={25} className="text-red-600" />
                                 </a>
-                            )}
+                            {/* )} */}
 
-                            {business?.social?.telegram && (
+                            {/* {business?.social?.telegram && ( */}
                                 <a
-                                    href={business.social.telegram}
+                                    href={business?.social?.telegram}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     title="Telegram"
-                                    className="p-2 rounded-lg bg-gray-100 hover:bg-blue-100 transition hover:scale-105"
                                 >
-                                    <BsTelegram size={18} className="text-blue-600" />
+                                    <BsTelegram size={25} className="text-blue-600" />
                                 </a>
-                            )}
+                            {/* )} */}
 
-                            {business?.social?.twitter && (
+                            {/* {business?.social?.twitter && ( */}
                                 <a
-                                    href={business.social.twitter}
+                                    href={business?.social?.twitter}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     title="Twitter"
-                                    className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition hover:scale-105"
                                 >
-                                    <FaXTwitter size={18} className="text-black" />
+                                    <FaXTwitter size={25} className="text-black" />
                                 </a>
-                            )}
+                            {/* )} */}
                         </div>
                     </div>
                 </motion.div>
@@ -632,7 +626,7 @@ export default function ProductPage() {
 
             {relatedProducts.length != 0 &&
                 <div className="py-8 px-4 md:px-10">
-                    <h2 className="text-3xl text-orange-500 font-bold mb-2">Related Products</h2>
+                    <h2 className="text-3xl text-[#0A5B93] font-bold mb-2">Related Products</h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
                         {relatedProducts.map((i, idx) => (
@@ -648,7 +642,7 @@ export default function ProductPage() {
                                     />
                                 </div>
 
-                                <p className="text-gray-800 group-hover:underline font-semibold line-clamp-2 group-hover:text-orange-500 transition">
+                                <p className="text-gray-800 group-hover:underline font-semibold line-clamp-2 group-hover:text-[#0A5B93] transition">
                                     {i.name}
                                 </p>
 
@@ -666,7 +660,7 @@ export default function ProductPage() {
                                     </div>
                                 </div>
 
-                                <div className='flex items-center justify-between mt-2'>
+                                <div className='flex flex-col items-start justify-start mt-2'>
                                     {i?.supplier?.business.companyName && (
                                         <div className="flex text-sm items-center gap-1 text-gray-800">
                                             <Store size={14} className="text-[#0A5B93] -mt-0.5" />
@@ -674,14 +668,14 @@ export default function ProductPage() {
                                         </div>
                                     )}
 
-                                    <div className="flex text-sm items-center gap-1 text-gray-800">
+                                    <div className="flex text-sm items-center gap-1 text-gray-800 line-clamp-1">
                                         <MapPin size={14} className="text-[#0A5B93] -mt-0.5" />
-                                        <span>{i?.supplier?.business?.address}</span>
+                                        <span className="line-clamp-1">{i?.supplier?.business?.address}</span>
                                     </div>
                                 </div>
 
                                 <button onClick={(e) => { e.preventDefault(); setOpenPopup(true); setPopupProduct(i) }}
-                                    className='cursor-pointer w-full py-2 rounded-lg bg-orange-500 mt-2'>
+                                    className='cursor-pointer w-full py-2 rounded-lg bg-[#0A5B93] hover:bg-[#0A5B93]/80 text-white mt-2'>
                                     Contact Supplier
                                 </button>
                             </Link>
