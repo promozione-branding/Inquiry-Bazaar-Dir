@@ -18,7 +18,7 @@ import {
     Star,
     BadgeCheck,
     Store,
-    SquareArrowOutUpRight,
+    SquareArrowOutUpRight, PlayCircle
 } from "lucide-react";
 import {
     FaLinkedin,
@@ -37,7 +37,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/autoplay";
 import { Autoplay } from "swiper/modules";
-import { BsTelegram, BsTwitter } from "react-icons/bs";
+import { BsTelegram, BsTwitter, BsYoutube } from "react-icons/bs";
 import { FaXTwitter } from "react-icons/fa6";
 import ContactModal from "@/components/Main/ContactModal";
 import Image from "next/image";
@@ -51,6 +51,7 @@ export default function ProductPage() {
     const { slug } = useParams()
     const [tab, setTab] = useState("specs");
     const [activeIndex, setActiveIndex] = useState(0);
+    const [showYoutube, setShowYoutube] = useState(false);
     const [swiperRef, setSwiperRef] = useState(null);
     const [openPopup, setOpenPopup] = useState(false);
     const [popupProduct, setPopupProduct] = useState({});
@@ -155,6 +156,13 @@ export default function ProductPage() {
         }
     };
 
+    const getYoutubeEmbedUrl = (url) => {
+        const videoId = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/)?.[1];
+        return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+    };
+
+    // console.log(productDetails, "details");
+
     return (<>
         <Navbar />
 
@@ -183,39 +191,82 @@ export default function ProductPage() {
                     animate={{ opacity: 1, x: 0 }}
                     className="bg-white p-4 rounded-xl shadow-sm h-fit"
                 >
-                    <Swiper
-                        modules={[Autoplay]}
-                        autoplay={{ delay: 5000 }}
-                        loop
-                        onSwiper={setSwiperRef}
-                        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-                        className="rounded-lg overflow-hidden border border-gray-200"
-                    >
-                        {productDetails?.media?.map((img) => (
-                            <SwiperSlide key={img._id}>
-                                <img
-                                    src={img.url}
-                                    className="w-full h-90 object-contain hover:scale-105 transition duration-300"
-                                />
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
+                    {showYoutube && productDetails?.youtubeLink ? (
+                        <div className="rounded-lg overflow-hidden border border-gray-200">
+                            <iframe
+                                src={getYoutubeEmbedUrl(productDetails.youtubeLink)}
+                                title="YouTube Video"
+                                className="w-full h-[360px]"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            />
+                        </div>)
+                        :
+                        (<Swiper
+                            modules={[Autoplay]}
+                            autoplay={{ delay: 5000 }}
+                            loop
+                            onSwiper={setSwiperRef}
+                            onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+                            className="rounded-lg overflow-hidden border border-gray-200"
+                        >
+                            {productDetails?.media?.filter((img) => img.type === "image").map((img) => (
+                                <SwiperSlide key={img._id}>
+                                    <img
+                                        src={img.url}
+                                        className="w-full h-90 object-contain hover:scale-105 transition duration-300"
+                                    />
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>)}
 
                     <div className="flex gap-3 mt-2">
-                        {productDetails?.media?.map((img, index) => (
-                            <img
-                                key={img._id}
-                                src={img.url}
-                                onClick={() => {
-                                    setActiveIndex(index);
-                                    swiperRef?.slideToLoop(index); // 🔥 sync with swiper
-                                }}
-                                className={`w-20 h-20 object-contain rounded-lg cursor-pointer border transition-all duration-200 hover:scale-105 ${activeIndex === index
-                                    ? "border-orange-500"
-                                    : "border-transparent"
-                                    }`}
-                            />
+                        {productDetails?.media?.map((media, index) => (
+                            <div key={media._id}>
+                                {media.type === "image" && (
+                                    <img
+                                        src={media.url}
+                                        onClick={() => {
+                                            setShowYoutube(false);
+                                            setActiveIndex(index);
+                                            swiperRef?.slideToLoop(index);
+                                        }}
+                                        className={`w-20 h-20 object-contain rounded-lg cursor-pointer border transition-all duration-200 hover:scale-105 ${activeIndex === index
+                                            ? "border-orange-500"
+                                            : "border-transparent"
+                                            }`}
+                                        alt=""
+                                    />
+                                )}
+
+                                {media.type === "video" && (
+                                    <a
+                                        href={media.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="w-20 h-20 flex items-center justify-center rounded-lg cursor-pointer border border-orange-500 bg-gray-100 transition-all duration-200 hover:scale-105"
+                                    >
+                                        <PlayCircle size={20} />
+                                    </a>
+                                )}
+
+                                {media.type === "pdf" && (
+                                    <a
+                                        href={media.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="w-20 h-20 flex items-center text-black justify-center rounded-lg cursor-pointer border border-orange-500 bg-gray-100 transition-all duration-200 hover:scale-105"
+                                    >
+                                        <FileText size={30} />
+                                    </a>
+                                )}
+                            </div>
                         ))}
+                        {productDetails?.youtubeLink && (
+                            <div onClick={() => setShowYoutube(true)} className="w-20 h-20 flex text-red-600 items-center justify-center rounded-lg cursor-pointer border border-red-500 bg-gray-100 transition-all duration-200 hover:scale-105">
+                                <BsYoutube size={30} />
+                            </div>
+                        )}
                     </div>
                 </motion.div>
 

@@ -70,6 +70,28 @@ export async function GET(req, { params }) {
       });
     };
 
+    const enrichCategory = async (category) => {
+      const [industry, parentCategory] = await Promise.all([
+        category.industryId
+          ? db.collection("industries").findOne({
+            _id: category.industryId,
+          })
+          : null,
+
+        category.parentCategoryId
+          ? db.collection("categories").findOne({
+            _id: category.parentCategoryId,
+          })
+          : null,
+      ]);
+
+      return {
+        ...category,
+        industry: industry || null,
+        parentCategory: parentCategory || null,
+      };
+    };
+
     // 👉 CASE 1: MAIN CATEGORY
     if (!category.parentCategoryId) {
       const subcategories = await db
@@ -94,8 +116,13 @@ export async function GET(req, { params }) {
         ),
       }));
 
+      const enrichedCategory = await enrichCategory(category);
+
       return NextResponse.json({
-        data: { category, subcategories: subcategoriesWithProducts },
+        data: {
+          category: enrichedCategory,
+          subcategories: subcategoriesWithProducts,
+        },
       });
     }
 
@@ -109,8 +136,13 @@ export async function GET(req, { params }) {
 
       const enrichedProducts = await enrichProducts(products);
 
+      const enrichedCategory = await enrichCategory(category);
+
       return NextResponse.json({
-        data: { category, products: enrichedProducts },
+        data: {
+          category: enrichedCategory,
+          products: enrichedProducts,
+        },
       });
     }
 

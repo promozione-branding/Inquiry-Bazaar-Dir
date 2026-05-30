@@ -30,19 +30,23 @@ export default function Category() {
     fetchData();
   }, [slug]);
 
-  // console.info(subCategory);
+  // console.info(category);
   return (<>
     <Navbar />
 
     <div className='px-4 md:px-10 py-5 bg-gray-200'>
-      <div className='md:flex hidden items-center text-gray-800 gap-1 mb-4'>
+      <div className='md:flex hidden items-center text-gray-800 gap-1 mb-4 flex-wrap'>
         <Link href={"/"} className='text-gray-800 font-bold'>
           Home {" "}
         </Link>
-        <p>/</p>
-        <Link href={`/categories`} className='text-gray-800 font-bold'>
-          All Categories
-        </Link>
+        {category?.industry && (
+          <>
+            <p>/</p>
+            <Link href={`/industries/${category?.industry?.slug}`} className='text-gray-800 font-bold'>
+              {category?.industry?.name}
+            </Link>
+          </>
+        )}
         <p>/</p>
         <p className='text-gray-600'>
           {category?.name}

@@ -16,7 +16,8 @@ import {
   MessageCircle,
   User,
   Link2,
-  Funnel
+  Funnel,
+  FileText
 } from "lucide-react";
 import {
   FaWhatsapp,
@@ -107,15 +108,31 @@ export default function CategoryPage() {
     }
   };
 
+   console.info(subCategory?.products);
+
   return (<>
     <Navbar />
 
     <div className="px-4 md:px-10 py-3 bg-white">
       {/* Breadcrumb */}
-      <div className="flex items-center text-gray-800 gap-1">
+      <div className="flex items-center text-gray-800 gap-1 flex-wrap">
         <Link href={"/"} className="font-bold">Home</Link>
-        <p>/</p>
-        <Link href={`/categories`} className="font-bold">All Categories</Link>
+        {subCategory?.category?.industry?.name && (
+          <>
+            <p>/</p>
+            <Link href={`/industries/${subCategory?.category?.industry?.slug}`} className="font-bold">
+              {subCategory?.category?.industry?.name}
+            </Link>
+          </>
+        )}
+        {subCategory?.category?.parentCategory?.name && (
+          <>
+            <p>/</p>
+            <Link href={`/categories/${subCategory?.category?.parentCategory?.slug}`} className="font-bold">
+              {subCategory?.category?.parentCategory?.name}
+            </Link>
+          </>
+        )}
         <p>/</p>
         <p className="text-gray-600">{subCategory?.category?.name}</p>
       </div>
@@ -314,6 +331,17 @@ export default function CategoryPage() {
                     fill
                     className="object-contain group-hover:scale-105 transition"
                   />
+                  {i?.media.find(m => m.type === "pdf") && (
+                    <a 
+                    onClick={(e) => e.stopPropagation()}
+                      href={i.media.find(m => m.type === "pdf").url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute bottom-1 right-4 bg-[#0A5B93] text-white p-2 rounded-full transition"
+                    >
+                      <FileText size={20} />
+                    </a>
+                  )}
                 </div>
 
                 <div>
