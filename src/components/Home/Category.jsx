@@ -7,14 +7,18 @@ import axios from "axios";
 
 export default function Category() {
     const [categories, setCategories] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setLoading(true);
                 const res = await axios.get("/api/category?type=main");
                 setCategories(res.data.data || []);
             } catch (err) {
                 console.error(err);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -51,7 +55,13 @@ export default function Category() {
             </div>
 
             <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-7">
-                {categories.slice(0, 8).map((item, idx) => (
+                {loading ? (
+                    [...Array(8)].map((_, index) => (
+                        <div key={index} className="overflow-hidden rounded-[22px] md:rounded-[28px] bg-gray-200 border border-orange-100 shadow-sm">
+                            <div className="h-40 md:h-72 bg-gray-300 animate-pulse" />
+                        </div>
+                    ))
+                ) : (categories.slice(0, 8).map((item, idx) => (
                     <Link
                         key={item?.id || idx}
                         href={`/categories/${item?.slug}`}
@@ -108,7 +118,7 @@ export default function Category() {
                             {/* BOTTOM BORDER ANIMATION */}
                             <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                         </motion.div>
-                    </Link>
+                    </Link>)
                 ))}
             </div>
         </section>

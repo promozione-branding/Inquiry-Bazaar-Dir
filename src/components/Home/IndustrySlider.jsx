@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -19,14 +18,18 @@ import "swiper/css/autoplay";
 
 export default function IndustrySlider() {
     const [industries, setIndustries] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setLoading(true);
                 const res = await axios.get("/api/industry");
                 setIndustries(res.data || []);
             } catch (err) {
                 console.error(err);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -94,7 +97,17 @@ export default function IndustrySlider() {
                 }}
                 className="pb-12! pt-6! lg:px-4!"
             >
-                {loopedIndustries.map((item, index) => (
+                {loading ? [...Array(5)].map((_, index) => (
+                    <SwiperSlide key={index}>
+                        <div className="overflow-hidden rounded-3xl bg-white border border-orange-100 shadow-sm">
+                            <div className="h-60 bg-gray-200 animate-pulse" />
+
+                            <div className="px-5 py-4">
+                                <div className="h-4 w-24 bg-gray-200 rounded animate-pulse" />
+                            </div>
+                        </div>
+                    </SwiperSlide>
+                )) : (loopedIndustries.map((item, index) => (
                     <SwiperSlide key={`${item?._id}-${index}`}>
                         <Link href={`/industries/${item?.slug}`}>
                             <motion.div
@@ -145,7 +158,7 @@ export default function IndustrySlider() {
                                 </div>
                             </motion.div>
                         </Link>
-                    </SwiperSlide>
+                    </SwiperSlide>)
                 ))}
             </Swiper>
         </div>
