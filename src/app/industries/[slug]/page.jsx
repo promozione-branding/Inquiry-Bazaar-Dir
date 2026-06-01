@@ -5,30 +5,30 @@ export async function generateMetadata({ params }) {
 
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/api/industry/${slug}`,
+            `${process.env.NEXT_PUBLIC_Backend_URL}/api/industries/${slug}`,
             { cache: "no-store" }
         );
 
         const industry = await res.json();
-
+        // console.log(industry);
         if (!industry) {
             return {
-                title: "Promote Bharat",
-                description: "Promote Bharat",
+                title: "Inquiry Bazaar",
+                description: "Inquiry Bazaar",
             };
         }
 
         return {
-            title: industry.metaTitle || industry.name,
+            title: industry.data.metaTitle || industry.name,
             description:
-                industry.metaDescription ||
-                industry.description?.replace(/<[^>]+>/g, "").slice(0, 150),
+                industry.data.metaDescription ||
+                industry.data.description?.replace(/<[^>]+>/g, "").slice(0, 150),
         };
 
     } catch (err) {
         return {
-            title: "Promote Bharat",
-            description: "Promote Bharat",
+            title: "Inquiry Bazaar",
+            description: "Inquiry Bazaar",
         };
     }
 }

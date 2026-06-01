@@ -103,7 +103,7 @@ export default function Portfolio() {
         const formData = new FormData(e.target);
         const data = {
             supplierToken: details?.supplier?._id,
-            platform: "Promote Bharat Dir Portfolio Form",
+            platform: "Inquiry Bazaar Dir Portfolio Form",
             platformEmail: "shreeshaktiinfratech@gmail.com",
             name: formData.get("contactPerson"),
             email: formData.get("email"),
@@ -554,7 +554,7 @@ export default function Portfolio() {
                 <div className="bg-white p-2 rounded-lg">
                     <Image
                         src={details?.supplier?.profileImage || "/no-image.webp"}
-                        alt="Promote Bharat"
+                        alt="Inquiry Bazaar"
                         width={200}
                         height={200}
                         className="rounded-xl shadow-lg w-auto h-16"
@@ -639,7 +639,7 @@ export default function Portfolio() {
 
             {/* Bottom Footer */}
             <div className="md:flex justify-around border-t border-gray-800 py-6 text-center text-base text-gray-300">
-                <p>© Copyright 2026 Promote Bharat</p>
+                <p>© Copyright 2026 Inquiry Bazaar</p>
 
                 <p className="mt-1">
                     Developed & Manage by <a target="blank" href={"https://promozionebranding.com/"} className="text-white hover:underline">Promozione Branding Pvt Ltd.</a>

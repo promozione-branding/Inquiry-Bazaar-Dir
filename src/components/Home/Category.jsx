@@ -13,8 +13,9 @@ export default function Category() {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const res = await axios.get("/api/category?type=main");
-                setCategories(res.data.data || []);
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/categories/main`);
+                // console.log(res?.data);
+                setCategories(res?.data?.data || []);
             } catch (err) {
                 console.error(err);
             } finally {

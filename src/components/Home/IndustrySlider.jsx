@@ -24,8 +24,9 @@ export default function IndustrySlider() {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const res = await axios.get("/api/industry");
-                setIndustries(res.data || []);
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/industries`);
+                // console.log("Fetched Industries:", res);
+                setIndustries(res?.data?.data || []);
             } catch (err) {
                 console.error(err);
             } finally {

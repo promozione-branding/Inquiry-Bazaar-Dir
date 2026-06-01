@@ -19,7 +19,7 @@ export default function ContactModal({ open, setOpen, product }) {
         const formData = new FormData(e.target);
         const data = {
             supplierToken: product?.supplier?._id || product?.supplierId?._id,
-            platform: "Promote Bharat Dir Product Popup",
+            platform: " Dir Product Popup",
             platformEmail: product?.supplier?.email || product?.supplierId?.email || "mail@mail.com",
             name: formData.get("contactPerson"),
             email: formData.get("email"),
@@ -222,7 +222,7 @@ export default function ContactModal({ open, setOpen, product }) {
                                     </div>
 
                                     <div className="flex items-center border rounded-lg px-2 border-gray-300 shadow-sm">
-                                        <Phone size={16} className="text-orange-500"/>
+                                        <Phone size={16} className="text-orange-500" />
                                         <input
                                             name="phone"
                                             type="tel"

@@ -10,7 +10,7 @@ export default function Footer() {
                 <div className="">
                     <Image
                         src="/Logo/logoo.webp"
-                        alt="Promote Bharat"
+                        alt=""
                         width={200}
                         height={200}
                         className="rounded-xl shadow-lg"

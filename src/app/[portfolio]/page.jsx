@@ -14,20 +14,20 @@ export async function generateMetadata({ params }) {
 
         if (!result || Object.keys(result).length === 0) {
             return {
-                title: "Webpage - Promote Bharat",
-                description: "Webpage - Promote Bharat",
+                title: "Webpage - Inquiry Bazaar",
+                description: "Webpage - Inquiry Bazaar",
             };
         }
 
         return {
-            title: `${result?.supplier?.business?.companyName} - Promote Bharat`,
-            description: `${result?.supplier?.business?.companyName} - Promote Bharat`,
+            title: `${result?.supplier?.business?.companyName} - Inquiry Bazaar`,
+            description: `${result?.supplier?.business?.companyName} - Inquiry Bazaar`,
         };
 
     } catch {
         return {
-            title: "Webpage - Promote Bharat",
-            description: "Webpage - Promote Bharat",
+            title: "Webpage - Inquiry Bazaar",
+            description: "Webpage - Inquiry Bazaar",
         };
     }
 }
