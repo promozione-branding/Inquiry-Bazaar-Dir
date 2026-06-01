@@ -40,6 +40,7 @@ export default function CategoryPage() {
   const [openPopup, setOpenPopup] = useState(false);
   const [popupProduct, setPopupProduct] = useState({});
   const [subCategory, setSubCategory] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [loadingType, setLoadingType] = useState(null);
 
   useEffect(() => {
@@ -47,11 +48,14 @@ export default function CategoryPage() {
 
     const fetchData = async () => {
       try {
+        setLoading(true);
         const res = await axios.get(`/api/category/${slug}`);
         const data = res.data?.data;
         setSubCategory(data || []);
       } catch (err) {
         console.error(err);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -109,7 +113,7 @@ export default function CategoryPage() {
     }
   };
 
-   console.info(subCategory?.products);
+  //  console.info(subCategory?.products);
 
   return (<>
     <Navbar />
@@ -158,7 +162,20 @@ export default function CategoryPage() {
         </button>
 
         <div className="flex flex-col gap-4">
-          {subCategory?.products?.map((i, idx) => {
+          {loading ? (
+            Array.from({ length: 2 }).map((_, idx) => (
+              <div
+                key={idx}
+                className="bg-white rounded-xl border border-gray-200 p-4 animate-pulse"
+              >
+                <div className="h-48 bg-gray-200 rounded mb-4" />
+                <div className="h-5 bg-gray-200 rounded w-3/4 mb-3" />
+                <div className="h-4 bg-gray-200 rounded w-1/2 mb-2" />
+                <div className="h-4 bg-gray-200 rounded w-2/3 mb-4" />
+                <div className="h-10 bg-gray-200 rounded" />
+              </div>
+            ))
+          ) : (subCategory?.products?.map((i, idx) => {
             const supplier = i?.supplier?.business;
             return (<div key={idx}>
               <div className="md:hidden bg-white rounded-xl shadow-sm border border-gray-200">
@@ -333,8 +350,8 @@ export default function CategoryPage() {
                     className="object-contain group-hover:scale-105 transition"
                   />
                   {i?.media.find(m => m.type === "pdf") && (
-                    <a 
-                    onClick={(e) => e.stopPropagation()}
+                    <a
+                      onClick={(e) => e.stopPropagation()}
                       href={i.media.find(m => m.type === "pdf").url}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -515,7 +532,7 @@ export default function CategoryPage() {
                 </div>
               </div>
             </div>);
-          })}
+          }))}
         </div>
       </div>
 
