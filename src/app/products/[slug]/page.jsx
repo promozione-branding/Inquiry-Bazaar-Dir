@@ -7,7 +7,7 @@ export async function generateMetadata({ params }) {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_Backend_URL}api/product/${slug}`, { cache: "no-store" });
         const result = await res.json();
-        const prod = result?.data;
+        const prod = result?.data?.product;
 
         if (!prod) {
             return {

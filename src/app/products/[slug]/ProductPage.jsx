@@ -65,7 +65,7 @@ export default function ProductPage() {
         const fetchData = async () => {
             try {
                 const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/product/${slug}`);
-                console.log(res.data, "product details");
+                // console.log(res.data, "product details");
                 const data = res.data.data.product;
                 setProductDetails(data || null);
                 setRelatedProducts(res.data.data.relatedProducts || null);
