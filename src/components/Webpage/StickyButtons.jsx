@@ -4,7 +4,7 @@ import { FaPhoneAlt } from 'react-icons/fa'
 import { FaWhatsapp } from 'react-icons/fa6'
 
 export default function StickyButtons({ details }) {
-    console.log("StickyButtons Details:", details);
+    // console.log("StickyButtons Details:", details);
     const [loadingType, setLoadingType] = useState(null);
 
     const trackEvent = async (eventType, productDetails) => {
@@ -13,7 +13,7 @@ export default function StickyButtons({ details }) {
             await axios.post(`${process.env.NEXT_PUBLIC_LEAD_BACKEND_BASE_URL}/api/tracking/create`,
                 {
                     productId: "N/A",
-                    supplierToken: productDetails?.supplier?._id,
+                    supplierToken: productDetails?.user?._id,
                     eventType,
                     source: "Dir Web Page",
                 }
@@ -59,16 +59,16 @@ export default function StickyButtons({ details }) {
     };
 
     return (<>
-        {details?.supplier?.business?.social?.whatsapp && (
-            <button onClick={() => handleWhatsappClick(details, details?.supplier?.business?.social?.whatsapp)} disabled={loadingType !== null}
+        {details?.user?.business?.social?.whatsapp && (
+            <button onClick={() => handleWhatsappClick(details, details?.user?.business?.social?.whatsapp)} disabled={loadingType !== null}
                 className={`fixed bottom-5 right-4 z-50 text-white p-3 rounded-full shadow-lg transition
              ${loadingType == "whatsapp" ? "bg-green-300 cursor-not-allowed" : "bg-green-500 hover:bg-green-600 animate-bounce"}`}>
                 <FaWhatsapp size={30} />
             </button>
         )}
 
-        {details?.supplier?.phone && (
-            <button onClick={() => handleCallClick(details, details?.supplier?.phone)} disabled={loadingType !== null}
+        {details?.user?.phone && (
+            <button onClick={() => handleCallClick(details, details?.user?.phone)} disabled={loadingType !== null}
                 className={`fixed bottom-21 right-4 z-50 text-white p-3 rounded-full shadow-lg transition
                  ${loadingType == "call" ? "bg-red-300 cursor-not-allowed" : "bg-red-500 hover:bg-red-600 animate-bounce"}`}>
                 <FaPhoneAlt size={27} />

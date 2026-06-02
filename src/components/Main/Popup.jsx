@@ -13,9 +13,9 @@ export default function Popup({ open, setOpen, details }) {
         e.preventDefault();
         const formData = new FormData(e.target);
         const data = {
-            supplierToken: details?.supplier?._id,
+            supplierToken: details?.user?._id,
             platform: " Dir Portfolio Popup",
-            platformEmail: details?.supplier?.email || details?.supplierId?.email || "mail@mail.com",
+            platformEmail: details?.user?.email || details?.userId?.email || "mail@mail.com",
             name: formData.get("contactPerson"),
             email: formData.get("email"),
             company: formData.get("company") || "NA",

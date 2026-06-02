@@ -10,7 +10,10 @@ import {
     ShoppingBag,
     Mail,
     Phone, User,
-    MapPin, Users, Briefcase, Award, Clock, Eye, FileText, MessageCircle, Plus, Minus
+    MapPin, Users, Briefcase, Award, Clock, Eye, FileText, MessageCircle, Plus, Minus, ShieldCheck,
+    Building2,
+    BadgeCheck,
+    Factory,
 } from "lucide-react";
 import CountUp from "react-countup";
 import { motion, AnimatePresence } from "framer-motion";
@@ -30,18 +33,21 @@ export default function Portfolio() {
     const [details, setDetails] = useState(null)
     const [isOpen, setIsOpen] = useState(false);
     const [open, setOpen] = useState(false);
+    const [loadingPage, setLoadingPage] = useState(true);
 
     useEffect(() => {
         if (!portfolio) return;
 
         const fetchData = async () => {
             try {
-                const res = await axios.get(`/api/webpage/${portfolio}`);
+                setLoadingPage(true);
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/webpage/${portfolio}`);
+                console.log("API Response:", res.data);
                 if (res.status !== 200 || !res.data || Object.keys(res.data).length === 0) {
                     router.replace("/");
                     return;
                 }
-                setDetails(res.data);
+                setDetails(res.data.data);
             } catch (err) {
                 console.error(err);
                 if (err.response?.status === 404) {
@@ -49,6 +55,8 @@ export default function Portfolio() {
                 } else {
                     router.replace("/");
                 }
+            } finally {
+                setLoadingPage(false);
             }
         };
 
@@ -102,7 +110,7 @@ export default function Portfolio() {
         e.preventDefault();
         const formData = new FormData(e.target);
         const data = {
-            supplierToken: details?.supplier?._id,
+            supplierToken: details?.user?._id,
             platform: "Inquiry Bazaar Dir Portfolio Form",
             platformEmail: "shreeshaktiinfratech@gmail.com",
             name: formData.get("contactPerson"),
@@ -149,7 +157,7 @@ export default function Portfolio() {
         const fetchSupplierProducts = async () => {
             try {
                 setLoading1(true);
-                const res = await axios.get(`/api/product/supplier/${details?.userId}`);
+                const res = await axios.get(`/api/product/supplier/${details?.user._id}`);
 
                 if (res.data.success) {
                     setProducts(res.data.data || []);
@@ -161,17 +169,56 @@ export default function Portfolio() {
             }
         };
 
-        if (details?.userId) fetchSupplierProducts();
-    }, [details?.userId]);
+        if (details?.user._id) fetchSupplierProducts();
+    }, [details?.user._id]);
+
+    if (loadingPage) {
+        return <CatalogSkeleton />;
+    }
 
     return (<>
+        <div className="py-2 text-black" style={{ backgroundColor: details?.hero?.color }}>
+            <div className="max-w-7xl mx-auto px-4">
+                <div className="flex flex-wrap items-center justify-center gap-20 text-sm">
+
+                    <div className="flex items-center gap-2">
+                        <ShieldCheck size={18} className="text-black" />
+                        <span className="font-semibold">
+                            GST Verified
+                        </span>
+                        <span className="opacity-90">
+                            ({details?.user?.business?.gstNumber})
+                        </span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                        <Factory size={18} className="text-black" />
+                        <span>
+                            {details?.user?.business?.businessType}
+                        </span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                        <Building2 size={18} className="text-black" />
+                        <span>{details?.user?.business?.businessField}</span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                        <Users size={18} className="text-black" />
+                        <span>{details?.user?.business?.numberOfEmployees}</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
         <section className="w-full bg-gray-50 border-b border-b-gray-200 sticky top-0 z-50">
             <div className="flex justify-between items-center px-4 py-2">
                 <Link href="" className="border border-gray-200 p-1">
                     <Image
                         width={200}
                         height={200}
-                        src={details?.supplier?.profileImage || "/no-image.webp"}
+                        src={details?.user?.profileImage || "/no-image.webp"}
                         alt="Logo"
                         className="w-auto h-16"
                     />
@@ -453,7 +500,7 @@ export default function Portfolio() {
 
                     {/* Call Now */}
                     <a
-                        href={`tel:${details?.supplier?.phone}`}
+                        href={`tel:${details?.user?.phone}`}
                         className="flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-lg font-medium transition"
                     >
                         <Phone size={18} />
@@ -468,7 +515,7 @@ export default function Portfolio() {
 
                     {/* WhatsApp */}
                     <a
-                        href={details?.supplier?.business.social.whatsapp}
+                        href={details?.user?.business.social.whatsapp}
                         target="_blank"
                         className="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 px-6 py-3 rounded-lg font-medium transition"
                     >
@@ -553,7 +600,7 @@ export default function Portfolio() {
             <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div className="bg-white p-2 rounded-lg">
                     <Image
-                        src={details?.supplier?.profileImage || "/no-image.webp"}
+                        src={details?.user?.profileImage || "/no-image.webp"}
                         alt="Inquiry Bazaar"
                         width={200}
                         height={200}
@@ -563,75 +610,75 @@ export default function Portfolio() {
 
                 {/* Social Icons */}
                 <div className="flex gap-6">
-                    {details?.supplier?.business?.social?.linkedin && (
+                    {details?.user?.business?.social?.linkedin && (
                         <a
-                            href={details?.supplier?.business.social.linkedin}
+                            href={details?.user?.business.social.linkedin}
                             target="_blank"
                             rel="noopener noreferrer"
                             title="LinkedIn"
                             className="p-2 rounded-lg bg-gray-100 hover:bg-blue-100 transition hover:scale-105"
                         >
-                            <FaLinkedin size={18} className="text-blue-700" />
+                            <FaLinkedin size={25} className="text-blue-700" />
                         </a>
                     )}
 
-                    {details?.supplier?.business?.social?.instagram && (
+                    {details?.user?.business?.social?.instagram && (
                         <a
-                            href={details?.supplier?.business.social.instagram}
+                            href={details?.user?.business.social.instagram}
                             target="_blank"
                             rel="noopener noreferrer"
                             title="Instagram"
                             className="p-2 rounded-lg bg-gray-100 hover:bg-pink-100 transition hover:scale-105"
                         >
-                            <FaInstagram size={18} className="text-pink-600" />
+                            <FaInstagram size={25} className="text-pink-600" />
                         </a>
                     )}
 
-                    {details?.supplier?.business?.social?.facebook && (
+                    {details?.user?.business?.social?.facebook && (
                         <a
-                            href={details?.supplier?.business.social.facebook}
+                            href={details?.user?.business.social.facebook}
                             target="_blank"
                             rel="noopener noreferrer"
                             title="Facebook"
                             className="p-2 rounded-lg bg-gray-100 hover:bg-blue-100 transition hover:scale-105"
                         >
-                            <FaFacebook size={18} className="text-blue-600" />
+                            <FaFacebook size={25} className="text-blue-600" />
                         </a>
                     )}
 
-                    {details?.supplier?.business?.social?.youtube && (
+                    {details?.user?.business?.social?.youtube && (
                         <a
-                            href={details?.supplier?.business.social.youtube}
+                            href={details?.user?.business.social.youtube}
                             target="_blank"
                             rel="noopener noreferrer"
                             title="YouTube"
                             className="p-2 rounded-lg bg-gray-100 hover:bg-red-100 transition hover:scale-105"
                         >
-                            <FaYoutube size={18} className="text-red-600" />
+                            <FaYoutube size={25} className="text-red-600" />
                         </a>
                     )}
 
-                    {details?.supplier?.business?.social?.telegram && (
+                    {details?.user?.business?.social?.telegram && (
                         <a
-                            href={details?.supplier?.business.social.telegram}
+                            href={details?.user?.business.social.telegram}
                             target="_blank"
                             rel="noopener noreferrer"
                             title="YouTube"
                             className="p-2 rounded-lg bg-gray-100 hover:bg-blue-100 transition hover:scale-105"
                         >
-                            <BsTelegram size={18} className="text-blue-600" />
+                            <BsTelegram size={25} className="text-blue-600" />
                         </a>
                     )}
 
-                    {details?.supplier?.business?.social?.twitter && (
+                    {details?.user?.business?.social?.twitter && (
                         <a
-                            href={details?.supplier?.business.social.twitter}
+                            href={details?.user?.business.social.twitter}
                             target="_blank"
                             rel="noopener noreferrer"
                             title="YouTube"
                             className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition hover:scale-105"
                         >
-                            <FaXTwitter size={18} className="text-black" />
+                            <FaXTwitter size={25} className="text-black" />
                         </a>
                     )}
                 </div>
@@ -650,4 +697,161 @@ export default function Portfolio() {
         <StickyButtons details={details} />
         <Popup open={open} setOpen={setOpen} details={details} />
     </>)
+}
+
+
+function CatalogSkeleton() {
+    return (
+        <div className="animate-pulse">
+
+            {/* Top Supplier Strip */}
+            <div className="h-12 bg-gray-200" />
+
+            {/* Header */}
+            <div className="sticky top-0 bg-white border-b">
+                <div className="flex justify-between items-center px-4 py-3">
+                    <div className="h-16 w-40 bg-gray-200 rounded" />
+
+                    <div className="hidden lg:flex gap-4">
+                        {[1, 2, 3, 4].map((i) => (
+                            <div
+                                key={i}
+                                className="h-10 w-28 bg-gray-200 rounded"
+                            />
+                        ))}
+                    </div>
+
+                    <div className="h-10 w-36 bg-gray-200 rounded" />
+                </div>
+            </div>
+
+            {/* Hero */}
+            <section className="relative min-h-[70vh] bg-gray-300">
+                <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 px-4 py-16">
+
+                    <div>
+                        <div className="h-12 w-3/4 bg-gray-200 rounded mb-4" />
+                        <div className="h-5 w-full bg-gray-200 rounded mb-2" />
+                        <div className="h-5 w-4/5 bg-gray-200 rounded mb-6" />
+
+                        <div className="h-12 w-40 bg-gray-200 rounded" />
+                    </div>
+
+                    <div className="bg-white p-6 rounded-xl shadow">
+                        <div className="h-8 w-48 bg-gray-200 rounded mx-auto mb-6" />
+
+                        {[1, 2, 3, 4].map((i) => (
+                            <div
+                                key={i}
+                                className="h-12 bg-gray-200 rounded mb-4"
+                            />
+                        ))}
+
+                        <div className="h-24 bg-gray-200 rounded mb-4" />
+
+                        <div className="h-12 bg-gray-200 rounded" />
+                    </div>
+
+                </div>
+            </section>
+
+            {/* Product Slider */}
+            <section className="py-10 px-4">
+                <div className="h-10 w-64 bg-gray-200 rounded mb-6" />
+
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {[1, 2, 3, 4].map((i) => (
+                        <div
+                            key={i}
+                            className="border rounded-lg overflow-hidden bg-white"
+                        >
+                            <div className="h-52 bg-gray-200" />
+                            <div className="p-4">
+                                <div className="h-5 bg-gray-200 rounded mb-2" />
+                                <div className="h-5 w-2/3 bg-gray-200 rounded" />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* About */}
+            <section className="py-12 px-4">
+                <div className="grid lg:grid-cols-2 gap-10">
+
+                    <div>
+                        <div className="h-8 w-40 bg-gray-200 rounded mb-4" />
+                        <div className="h-12 w-3/4 bg-gray-200 rounded mb-6" />
+
+                        {[1, 2, 3, 4, 5].map((i) => (
+                            <div
+                                key={i}
+                                className="h-4 bg-gray-200 rounded mb-3"
+                            />
+                        ))}
+                    </div>
+
+                    <div className="h-80 bg-gray-200 rounded-xl" />
+                </div>
+            </section>
+
+            {/* Stats */}
+            <section className="py-10 px-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {[1, 2, 3, 4].map((i) => (
+                        <div
+                            key={i}
+                            className="h-40 bg-gray-200 rounded-xl"
+                        />
+                    ))}
+                </div>
+            </section>
+
+            {/* Products */}
+            <section className="py-10 px-4">
+                <div className="h-10 w-56 bg-gray-200 rounded mb-6" />
+
+                <div className="grid md:grid-cols-4 gap-4">
+                    {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                        <div
+                            key={i}
+                            className="bg-white rounded-lg border overflow-hidden"
+                        >
+                            <div className="h-48 bg-gray-200" />
+                            <div className="p-4">
+                                <div className="h-5 bg-gray-200 rounded mb-2" />
+                                <div className="h-5 w-2/3 bg-gray-200 rounded" />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* FAQ */}
+            <section className="py-10 px-4">
+                <div className="h-10 w-64 bg-gray-200 rounded mb-8" />
+
+                {[1, 2, 3, 4].map((i) => (
+                    <div
+                        key={i}
+                        className="h-16 bg-gray-200 rounded mb-3"
+                    />
+                ))}
+            </section>
+
+            {/* Footer */}
+            <footer className="bg-gray-900 p-8">
+                <div className="h-16 w-40 bg-gray-700 rounded mb-6" />
+
+                <div className="flex gap-4">
+                    {[1, 2, 3, 4].map((i) => (
+                        <div
+                            key={i}
+                            className="h-10 w-10 rounded-full bg-gray-700"
+                        />
+                    ))}
+                </div>
+            </footer>
+        </div>
+    );
 }

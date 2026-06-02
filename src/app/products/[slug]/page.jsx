@@ -5,13 +5,8 @@ export async function generateMetadata({ params }) {
     const { slug } = await params;
 
     try {
-        const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/${slug}`,
-            { cache: "no-store" }
-        );
-
+        const res = await fetch(`${process.env.NEXT_PUBLIC_Backend_URL}api/product/${slug}`, { cache: "no-store" });
         const result = await res.json();
-       
         const prod = result?.data;
 
         if (!prod) {
@@ -30,7 +25,7 @@ export async function generateMetadata({ params }) {
 
     } catch (err) {
         return {
-            title: "Product",
+            title: "Product - Inquiry Bazaar",
             description: "Product page",
         };
     }

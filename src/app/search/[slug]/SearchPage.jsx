@@ -49,8 +49,8 @@ export default function SearchPage() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/search/${slug}`);
-        console.log(res.data);
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}/api/search/${slug}`);
+        // console.log(res.data);
         const data = res.data?.data;
         setSubCategory(data || []);
       } catch (err) {
@@ -113,6 +113,7 @@ export default function SearchPage() {
       setLoadingType(null);
     }
   };
+
   return (<>
     <Navbar />
 
@@ -413,10 +414,14 @@ export default function SearchPage() {
 
                 <div className="bg-white rounded-xl space-y-3 border flex flex-col h-full">
                   <div>
-                    <h2 className="hover:underline text-md font-semibold text-gray-800 flex items-center gap-1 cursor-pointer group hover:text-blue-500 transition">
-                      {supplier?.companyName || "-"}
-                      {/* <Link2 size={18} className="text-gray-800 group-hover:text-blue-600 transition" /> */}
-                    </h2>
+                    {i?.supplier?.webpage?.slug ? (
+                      <Link href={`/${i.supplier.webpage?.slug}`} className="hover:underline text-md font-semibold flex items-center gap-1 cursor-pointer group text-blue-500 transition">
+                        {supplier?.companyName || "-"}
+                      </Link>)
+                      :
+                      <h2 className="text-md font-semibold text-gray-800 flex items-center gap-1 group transition">
+                        {supplier?.companyName || "-"}
+                      </h2>}
 
                     <div className="flex items-center gap-1 mt-0.5 text-sm text-gray-800">
                       <MapPin size={14} className="text-orange-500 -mt-0.5" />

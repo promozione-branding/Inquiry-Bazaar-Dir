@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -58,7 +57,6 @@ export default function ProductPage() {
     const [popupProduct, setPopupProduct] = useState({});
     const [productDetails, setProductDetails] = useState({});
     const [relatedProducts, setRelatedProducts] = useState([]);
-    const [webpage, setWebpage] = useState(null);
     const [loadingType, setLoadingType] = useState(null);
 
     useEffect(() => {
@@ -66,9 +64,11 @@ export default function ProductPage() {
 
         const fetchData = async () => {
             try {
-                const res = await axios.get(`/api/product/${slug}`);
-                const data = res.data.data;
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/product/${slug}`);
+                console.log(res.data, "product details");
+                const data = res.data.data.product;
                 setProductDetails(data || null);
+                setRelatedProducts(res.data.data.relatedProducts || null);
             } catch (err) {
                 console.error(err);
             }
@@ -81,23 +81,9 @@ export default function ProductPage() {
         if (productDetails?.media?.length) {
             setActiveIndex(0);
         }
-
-        if (productDetails == {}) return;
-        const fetchData = async () => {
-            try {
-                const res1 = await axios.get(`/api/category/${productDetails?.subCategoryId?.slug}`);
-                const res2 = await axios.get(`/api/webpage/${productDetails?.supplierId?._id}`);
-                setWebpage(res2.data)
-                const data1 = res1.data?.data.products.filter((i) => i._id != productDetails._id);
-                setRelatedProducts(data1 || []);
-            } catch (err) {
-                console.error(err);
-            }
-        };
-        fetchData();
     }, [productDetails]);
 
-    const business = productDetails?.supplierId?.business;
+    const business = productDetails?.supplier?.business;
 
     const getInitials = (name) => {
         if (!name) return "";
@@ -115,7 +101,7 @@ export default function ProductPage() {
             await axios.post(`${process.env.NEXT_PUBLIC_LEAD_BACKEND_BASE_URL}/api/tracking/create`,
                 {
                     productId: productDetails?.name,
-                    supplierToken: productDetails?.supplierId?._id,
+                    supplierToken: productDetails?.supplier?._id,
                     eventType,
                     source: "Dir Product Page",
                 }
@@ -149,7 +135,7 @@ export default function ProductPage() {
 
             await trackEvent("call_click");
 
-            window.location.href = `tel:${productDetails.supplierId?.phone}`;
+            window.location.href = `tel:${productDetails.supplier?.phone}`;
         } catch (error) {
             console.log(error);
         } finally {
@@ -172,14 +158,18 @@ export default function ProductPage() {
                 <Link href={"/"} className='text-gray-800 font-bold'>
                     Home {" "}
                 </Link>
-                <p>/</p>
-                <Link href={`/categories/${productDetails?.categoryId?.slug}`} className='text-gray-800 font-bold'>
-                    {productDetails?.categoryId?.name} {" "}
-                </Link>
-                <p>/</p>
-                <Link href={`/category/${productDetails?.subCategoryId?.slug}`} className='text-gray-800 font-bold'>
-                    {productDetails?.subCategoryId?.name} {" "}
-                </Link>
+                {productDetails?.categoryId?.slug && (<>
+                    <p>/</p>
+                    <Link href={`/categories/${productDetails?.categoryId?.slug}`} className='text-gray-800 font-bold'>
+                        {productDetails?.categoryId?.name} {" "}
+                    </Link>
+                </>)}
+                {productDetails?.subCategoryId?.slug && (<>
+                    <p>/</p>
+                    <Link href={`/category/${productDetails?.subCategoryId?.slug}`} className='text-gray-800 font-bold'>
+                        {productDetails?.subCategoryId?.name} {" "}
+                    </Link>
+                </>)}
                 <p>/</p>
                 <p className='text-gray-600'>
                     {productDetails?.name}
@@ -393,9 +383,9 @@ export default function ProductPage() {
                 >
                     <div className="flex gap-3">
                         <div className="w-20 h-20 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center text-lg font-bold text-[#0A5B93]">
-                            {productDetails?.supplierId?.profileImage ? (
+                            {productDetails?.supplier?.profileImage ? (
                                 <img
-                                    src={productDetails.supplierId.profileImage}
+                                    src={productDetails.supplier?.profileImage}
                                     alt="supplier"
                                     className="w-full h-full object-contain"
                                 />
@@ -405,8 +395,8 @@ export default function ProductPage() {
                         </div>
 
                         <div className="flex-1">
-                            {webpage?.slug ?
-                                <Link href={`/${webpage.slug}`} className="hover:underline text-md font-semibold text-gray-800 flex items-center gap-1 cursor-pointer group hover:text-orange-500 transition">
+                            {productDetails?.supplier?.webpage?.slug ?
+                                <Link href={`/${productDetails.supplier.webpage.slug}`} className="hover:underline text-md font-semibold text-gray-800 flex items-center gap-1 cursor-pointer group hover:text-orange-500 transition">
                                     {business?.companyName}
                                     <SquareArrowOutUpRight size={16} className="text-gray-800 group-hover:text-orange-500 transition" />
                                 </Link>
@@ -471,19 +461,19 @@ export default function ProductPage() {
                             <div>
                                 <p className="text-gray-500">Phone</p>
                                 <p className="font-medium text-gray-800">
-                                    {productDetails.supplierId?.phone || "-"}
+                                    {productDetails.supplier?.phone || "-"}
                                 </p>
                             </div>
                         </div>
 
-                        <div title={productDetails.supplierId?.email} className="flex items-start gap-2 overflow-hidden">
+                        <div title={productDetails.supplier?.email} className="flex items-start gap-2 overflow-hidden">
                             <FaEnvelope className="text-[#0A5B93] mt-1" size={14} />
                             <div>
                                 <p className="text-gray-500">Email</p>
                                 <p className="font-medium text-gray-800 wrap-break-word">
-                                    {productDetails.supplierId?.email && productDetails.supplierId?.email.length > 26
-                                        ? productDetails.supplierId?.email.slice(0, 26) + "..."
-                                        : productDetails.supplierId?.email || "-"}
+                                    {productDetails.supplier?.email && productDetails.supplier?.email.length > 26
+                                        ? productDetails.supplier?.email.slice(0, 26) + "..."
+                                        : productDetails.supplier?.email || "-"}
                                 </p>
                             </div>
                         </div>
@@ -493,19 +483,19 @@ export default function ProductPage() {
                             <div>
                                 <p className="text-gray-500">Alt Number</p>
                                 <p className="font-medium text-gray-800">
-                                    {productDetails.supplierId?.otherPhone || "-"}
+                                    {productDetails.supplier?.otherPhone || "-"}
                                 </p>
                             </div>
                         </div>
 
-                        <div title={productDetails.supplierId?.otherEmail} className="flex items-start gap-2 overflow-hidden">
+                        <div title={productDetails.supplier?.otherEmail} className="flex items-start gap-2 overflow-hidden">
                             <FaEnvelope className="text-[#0A5B93] mt-1" size={14} />
                             <div>
                                 <p className="text-gray-500">Alt Email</p>
                                 <p className="font-medium text-gray-800 wrap-break-word">
-                                    {productDetails.supplierId?.otherEmail && productDetails.supplierId?.otherEmail.length > 26
-                                        ? productDetails.supplierId?.otherEmail.slice(0, 26) + "..."
-                                        : productDetails.supplierId?.otherEmail || "-"}
+                                    {productDetails.supplier?.otherEmail && productDetails.supplier?.otherEmail.length > 26
+                                        ? productDetails.supplier?.otherEmail.slice(0, 26) + "..."
+                                        : productDetails.supplier?.otherEmail || "-"}
                                 </p>
                             </div>
                         </div>

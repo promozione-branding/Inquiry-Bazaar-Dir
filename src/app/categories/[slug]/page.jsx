@@ -4,11 +4,7 @@ export async function generateMetadata({ params }) {
     const { slug } = await params;
 
     try {
-        const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/${slug}`,
-            { cache: "no-store" }
-        );
-
+        const res = await fetch(`${process.env.NEXT_PUBLIC_Backend_URL}api/categories/${slug}`, { cache: "no-store" });
         const result = await res.json();
         const category = result?.data?.category;
 
@@ -28,7 +24,7 @@ export async function generateMetadata({ params }) {
 
     } catch (err) {
         return {
-            title: "Category",
+            title: "Category - Inquiry Bazaar",
             description: "Category page",
         };
     }

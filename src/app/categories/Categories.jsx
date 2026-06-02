@@ -53,10 +53,10 @@ export default function Categories() {
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{ y: -10 }}
+              whileHover={{ y: -5 }}
               transition={{
-                duration: 0.45,
-                delay: idx * 0.05,
+                duration: 0.2,
+                delay: idx * 0.02,
               }}
               viewport={{ once: true }}
               className="group relative overflow-hidden rounded-[22px] md:rounded-[28px] bg-white border border-orange-100 shadow-sm hover:shadow-2xl transition-all duration-500"

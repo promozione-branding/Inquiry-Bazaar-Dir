@@ -9,8 +9,8 @@ import React, { useEffect, useState } from 'react'
 
 export default function Category() {
   const { slug } = useParams()
-
   const [category, setCategory] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [subCategory, setSubCategory] = useState([]);
 
   useEffect(() => {
@@ -18,12 +18,16 @@ export default function Category() {
 
     const fetchData = async () => {
       try {
-        const res = await axios.get(`/api/category/${slug}`);
+        setLoading(true);
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/categories/${slug}`);
+        // console.log(res.data);
         const data = res.data?.data;
         setCategory(data?.category || null);
-        setSubCategory(data?.subcategories || []);
+        setSubCategory(data?.subCategories || []);
       } catch (err) {
         console.error(err);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -57,68 +61,97 @@ export default function Category() {
         <h2 className="text-xl font-semibold mb-2 text-gray-800">
           {category?.categoryDescription}
         </h2>
-
-        {subCategory?.map((i, idx) => (
-          <div key={idx} className="bg-white rounded-lg border mb-4 flex gap-6 border-gray-200 shadow-md">
-            <div className="w-45 flex flex-col items-center p-4 justify-center border-r border-r-gray-200 pr-4">
-              <div className="w-28 h-28 relative mb-2">
-                <Image
-                  src={i.imageUrl}
-                  alt={i.name}
-                  fill
-                  className="object-contain"
-                />
-              </div>
-
-              <Link href={`/category/${i.slug}`}
-                className="text-center font-semibold text-gray-800 hover:text-orange-500"
-              >
-                {i.name}
-              </Link>
+        {loading ? (Array.from({ length: 3 }).map((_, idx) => (
+          <div key={idx}
+            className="bg-white rounded-lg border mb-4 flex gap-6 border-gray-200 shadow-md animate-pulse"
+          >
+            {/* Left Category Section */}
+            <div className="w-45 flex flex-col items-center p-4 border-r border-gray-200">
+              <div className="w-28 h-28 bg-gray-200 rounded mb-3"></div>
+              <div className="h-4 w-24 bg-gray-200 rounded"></div>
             </div>
 
-            <div className="flex-1 overflow-x-auto py-3">
-              <div className="flex gap-8 items-start">
-                {i.products.slice(0, 8).map((product, index) => (
-                  <Link href={`/products/${product.slug}`} key={index}
-                    className="p-2 min-w-35 flex flex-col rounded-lg group items-center text-center border border-gray-200 shadow-sm hover:border-gray-300 hover:shadow-md transition"
+            {/* Products Section */}
+            <div className="flex-1 overflow-hidden py-3">
+              <div className="flex gap-8">
+                {Array.from({ length: 8 }).map((_, productIdx) => (
+                  <div
+                    key={productIdx}
+                    className="min-w-35 border border-gray-200 rounded-lg p-2"
                   >
-                    <div className="w-24 h-24 relative mb-2">
-                      <Image
-                        src={product.media?.[0]?.url || "/noimage.png"}
-                        alt={product.name}
-                        fill
-                        className="object-contain group-hover:scale-105 transition"
-                      />
-                    </div>
+                    <div className="w-24 h-24 bg-gray-200 rounded mx-auto mb-2"></div>
 
-                    <p className="text-sm font-medium text-gray-800 group-hover:text-orange-500 transition">
-                      {product.name}
-                    </p>
+                    <div className="h-3 bg-gray-200 rounded w-full mb-2"></div>
+                    <div className="h-3 bg-gray-200 rounded w-3/4 mx-auto mb-2"></div>
 
-                    {/* Price */}
-                    {product.price && (
-                      <p className="text-sm text-orange-500 mt-1">
-                        ₹{product.price}
-                      </p>
-                    )}
-                  </Link>
+                    <div className="h-3 bg-gray-200 rounded w-12 mx-auto"></div>
+                  </div>
                 ))}
               </div>
-
-              {i.products.length > 8 && (
-                <div className="flex justify-center mt-4">
-                  <Link
-                    href={`/${i.slug}`}
-                    className="bg-[#2E3192] text-white px-6 py-2 rounded text-sm"
-                  >
-                    View More ↓
-                  </Link>
-                </div>
-              )}
             </div>
           </div>
-        ))}
+        ))) :
+          (subCategory?.map((i, idx) => (
+            <div key={idx} className="bg-white rounded-lg border mb-4 flex gap-6 border-gray-200 shadow-md">
+              <div className="w-45 flex flex-col items-center p-4 justify-center border-r border-r-gray-200 pr-4">
+                <div className="w-28 h-28 relative mb-2">
+                  <Image
+                    src={i.imageUrl}
+                    alt={i.name}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+
+                <Link href={`/category/${i.slug}`}
+                  className="text-center font-semibold text-gray-800 hover:text-orange-500"
+                >
+                  {i.name}
+                </Link>
+              </div>
+
+              <div className="flex-1 overflow-x-auto py-3">
+                <div className="flex gap-8 items-start">
+                  {i?.products?.slice(0, 8).map((product, index) => (
+                    <Link href={`/products/${product.slug}`} key={index}
+                      className="p-2 min-w-35 flex flex-col rounded-lg group items-center text-center border border-gray-200 shadow-sm hover:border-gray-300 hover:shadow-md transition"
+                    >
+                      <div className="w-24 h-24 relative mb-2">
+                        <Image
+                          src={product.media?.[0]?.url || "/noimage.png"}
+                          alt={product.name}
+                          fill
+                          className="object-contain group-hover:scale-105 transition"
+                        />
+                      </div>
+
+                      <p className="text-sm font-medium text-gray-800 group-hover:text-orange-500 transition">
+                        {product.name}
+                      </p>
+
+                      {/* Price */}
+                      {product.price && (
+                        <p className="text-sm text-orange-500 mt-1">
+                          ₹{product.price}
+                        </p>
+                      )}
+                    </Link>
+                  ))}
+                </div>
+
+                {i?.products?.length > 8 && (
+                  <div className="flex justify-center mt-4">
+                    <Link
+                      href={`/${i.slug}`}
+                      className="bg-[#2E3192] text-white px-6 py-2 rounded text-sm"
+                    >
+                      View More ↓
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </div>
+          )))}
       </div>
     </div>
 
