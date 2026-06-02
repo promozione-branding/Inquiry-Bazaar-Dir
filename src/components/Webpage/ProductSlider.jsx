@@ -60,7 +60,7 @@ export default function ProductSlider({ products, loading1, details, setOpen }) 
                         >
                             <div className="w-full h-60 bg-white flex items-center justify-center p-4 overflow-hidden">
                                 <img
-                                    src={product.primaryImage?.url || "/no-image.webp"}
+                                    src={product.media?.[0]?.url || "/no-image.webp"}
                                     alt={product.name}
                                     className="w-full h-full object-contain transition duration-300 hover:scale-105"
                                 />

@@ -4,6 +4,7 @@ import { Eye } from 'lucide-react';
 import Link from 'next/link';
 
 export default function ProductsList({ products, loading1, details, setOpen }) {
+    // console.log("ProductsList Rendered with products:", products, "loading1:", loading1);
     return (
         <div className="max-w-7xl mx-auto px-4">
             <motion.div
@@ -42,7 +43,7 @@ export default function ProductsList({ products, loading1, details, setOpen }) {
                     >
                         <div className="w-full h-60 overflow-hidden">
                             <img
-                                src={product.primaryImage?.url || "/no-image.webp"}
+                                src={product.media?.[0]?.url || "/no-image.webp"}
                                 alt={product.name}
                                 className="w-full h-full object-contain group-hover:scale-105 transition duration-300"
                             />

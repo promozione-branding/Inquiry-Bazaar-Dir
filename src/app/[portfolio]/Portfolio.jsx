@@ -34,6 +34,7 @@ export default function Portfolio() {
     const [isOpen, setIsOpen] = useState(false);
     const [open, setOpen] = useState(false);
     const [loadingPage, setLoadingPage] = useState(true);
+    const [products, setProducts] = useState([]);
 
     useEffect(() => {
         if (!portfolio) return;
@@ -42,11 +43,12 @@ export default function Portfolio() {
             try {
                 setLoadingPage(true);
                 const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/webpage/${portfolio}`);
-                console.log("API Response:", res.data);
+                // console.log("API Response:", res.data);
                 if (res.status !== 200 || !res.data || Object.keys(res.data).length === 0) {
                     router.replace("/");
                     return;
                 }
+                setProducts(res.data.data?.products || []);
                 setDetails(res.data.data);
             } catch (err) {
                 console.error(err);
@@ -150,27 +152,6 @@ export default function Portfolio() {
         }
     };
 
-    const [products, setProducts] = useState([]);
-    const [loading1, setLoading1] = useState(true);
-
-    useEffect(() => {
-        const fetchSupplierProducts = async () => {
-            try {
-                setLoading1(true);
-                const res = await axios.get(`/api/product/supplier/${details?.user._id}`);
-
-                if (res.data.success) {
-                    setProducts(res.data.data || []);
-                }
-            } catch (err) {
-                console.error("❌ API Error:", err);
-            } finally {
-                setLoading1(false);
-            }
-        };
-
-        if (details?.user._id) fetchSupplierProducts();
-    }, [details?.user._id]);
 
     if (loadingPage) {
         return <CatalogSkeleton />;
@@ -376,7 +357,7 @@ export default function Portfolio() {
             </div>
         </section>
 
-        <ProductSlider products={products} loading1={loading1} details={details} setOpen={setOpen} />
+        <ProductSlider products={products} loading1={loadingPage} details={details} setOpen={setOpen} />
 
         <section id="about-us" className="bg-amber-50 px-4 py-10 md:px-10 grid grid-cols-1 lg:grid-cols-2">
             <div className="">
@@ -462,7 +443,7 @@ export default function Portfolio() {
         </section>
 
         <section id="products" className="py-10 bg-gray-100">
-            <ProductsList products={products} loading1={loading1} details={details} setOpen={setOpen} />
+            <ProductsList products={products} loading1={loadingPage} details={details} setOpen={setOpen} />
         </section>
 
         <section id="contact-us" className="relative py-16">
