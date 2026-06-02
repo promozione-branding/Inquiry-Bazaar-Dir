@@ -1,5 +1,6 @@
 import React from "react";
-import { Search } from "lucide-react";
+
+import SearchBar from "./Search";
 
 export default function HeroSection() {
     return (
@@ -16,14 +17,7 @@ export default function HeroSection() {
                     Explore top-rated attractions, activities and more
                 </p>
 
-                <div className="mt-6 flex items-center bg-white shadow-md rounded-full px-4 py-3">
-                    <Search className="text-orange-600 mr-2" size={20} />
-                    <input
-                        type="text"
-                        placeholder="Search product here..."
-                        className="w-full outline-none text-gray-700 bg-transparent"
-                    />
-                </div>
+                <SearchBar />
             </div>
         </div>
     );
