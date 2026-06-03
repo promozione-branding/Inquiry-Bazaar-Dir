@@ -39,7 +39,7 @@ export default function Navbar() {
                     <Link href="/">
                         <Image
                             src="/Logo/logoo.webp"
-                            alt=""
+                            alt="Logo"
                             width={200}
                             height={200}
                             className="object-contain h-20 w-auto"
@@ -68,15 +68,15 @@ export default function Navbar() {
                 </div>
 
                 <div className="hidden md:flex items-center gap-4">
-                    <Link href="https://promote-bharat.vercel.app/register/supplier" className="px-4 py-2.5 text-sm font-medium border text-white rounded-lg bg-[#f45a06] hover:bg-[#eb5505]">
+                    <Link href="https://seller.inquirybazaar.com/register" className="px-4 py-2.5 text-sm font-medium border text-white rounded-lg bg-[#f45a06] hover:bg-[#eb5505]">
                         Register as Supplier
                     </Link>
 
-                    <Link href="https://promote-bharat.vercel.app/register/buyer" className="px-4 py-2.5 text-sm border font-medium text-white bg-[#1e3a56] rounded-lg hover:bg-[#0b426a]">
+                    <Link href="https://buyer.inquirybazaar.com/register" className="px-4 py-2.5 text-sm border font-medium text-white bg-[#1e3a56] rounded-lg hover:bg-[#0b426a]">
                         Register as Buyer
                     </Link>
 
-                    <Link href="https://promote-bharat.vercel.app/login" className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    <Link href="/login" className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                         <LogIn size={18} />
                         Sign In
                     </Link>
@@ -89,40 +89,25 @@ export default function Navbar() {
                 <button className="md:hidden bg-[#f45a06] px-3 py-2 rounded-md" onClick={() => setOpen(!open)}>
                     {open ? <X size={25} /> : <Menu size={25} />}
                 </button>
-
             </div>
-
-            {/* {locationOpen && (
-                <div className="md:hidden px-3 pb-3">
-                    <select className="w-full rounded-xl border border-orange-300 py-3 px-3">
-                        <option>Select Location</option>
-                        <option>Delhi</option>
-                        <option>Mumbai</option>
-                        <option>Bangalore</option>
-                    </select>
-                </div>
-            )} */}
 
             {open && (
                 <div className="md:hidden border-t bg-white absolute w-full">
                     <div className="p-4 space-y-3">
 
-                        <Link
-                            href="/register/supplier"
+                        <Link href="https://seller.inquirybazaar.com/register" onclick={() => setOpen(false)}
                             className="block w-full text-center py-3 rounded-lg bg-[#f45a06] text-white"
                         >
                             Register as Supplier
                         </Link>
 
-                        <Link
-                            href="/register/buyer"
+                        <Link href="https://buyer.inquirybazaar.com/register" onclick={() => setOpen(false)}
                             className="block w-full text-center py-3 rounded-lg bg-[#1e3a56] text-white"
                         >
                             Register as Buyer
                         </Link>
 
-                        <Link
-                            href="/login"
+                        <Link href="/login" onclick={() => setOpen(false)}
                             className="flex justify-center items-center gap-2 py-3 rounded-lg bg-blue-600 text-white"
                         >
                             <LogIn size={18} />
