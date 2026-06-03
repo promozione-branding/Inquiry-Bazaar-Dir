@@ -49,7 +49,7 @@ export default function SearchPage() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}/api/search/${slug}`);
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/search/${slug}`);
         // console.log(res.data);
         const data = res.data?.data;
         setSubCategory(data || []);
