@@ -10,7 +10,7 @@ export default function Footer() {
                 <div className="">
                     <Image
                         src="/Logo/logoo.webp"
-                        alt=""
+                        alt="logo"
                         width={200}
                         height={200}
                         className="rounded-xl shadow-lg"
@@ -18,17 +18,17 @@ export default function Footer() {
                 </div>
 
                 <div className="flex gap-6">
-                    <Link href="#" className="hover:text-white transition">
+                    <a target="blank" href="https://www.facebook.com/people/Inquiry-Bazaar/61562989183794/" className="hover:text-blue-500 transition">
                         <FaFacebook size={25} />
-                    </Link>
+                    </a>
 
-                    <Link href="#" className="hover:text-white transition">
+                    <a target="blank" href="https://www.instagram.com/inquirybazaar/" className="hover:text-pink-500 transition">
                         <FaInstagram size={25} />
-                    </Link>
+                    </a>
 
-                    <Link href="#" className="hover:text-white transition">
+                    <a target="blank" href="https://www.linkedin.com/company/inquiry-bazaar/?viewAsMember=true" className="hover:text-blue-500 transition">
                         <FaLinkedin size={25} />
-                    </Link>
+                    </a>
                 </div>
             </div>
 
