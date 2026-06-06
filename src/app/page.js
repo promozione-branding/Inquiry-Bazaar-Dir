@@ -17,8 +17,8 @@ export default function Home() {
       <Category />
       <ClienteleSlider />
       <IndustrySection />
-      <Locations />
       <CTA />
+      <Locations />
       <Footer />
     </div>
   );
