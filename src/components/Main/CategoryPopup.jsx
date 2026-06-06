@@ -15,10 +15,14 @@ export default function CategoryPopup({ productImage }) {
     const [submitted, setSubmitted] = useState(false);
 
     useEffect(() => {
-        setTimeout(() => {
-            setOpen(true)
-        }, 10000)
-    }, [productImage.category]);
+        if (!productImage?.category) return;
+
+        const timer = setTimeout(() => {
+            setOpen(true);
+        }, 10000);
+
+        return () => clearTimeout(timer);
+    }, [productImage?.category]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
