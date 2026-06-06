@@ -122,7 +122,7 @@ export default function SearchPage() {
     const formData = new FormData(e.target);
     const data = {
       supplierToken: "7303486777",
-      platform: "Dir Category Page",
+      platform: "Dir Search Category Page",
       platformEmail: "lead.inquirybazaar@gmail.com",
       name: formData.get("contactPerson"),
       email: formData.get("email"),
