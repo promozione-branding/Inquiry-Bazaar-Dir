@@ -114,6 +114,51 @@ export default function SearchPage() {
     }
   };
 
+  const [loading1, setLoading1] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = {
+      supplierToken: "7303486777",
+      platform: "Dir Category Page",
+      platformEmail: "lead.inquirybazaar@gmail.com",
+      name: formData.get("contactPerson"),
+      email: formData.get("email"),
+      company: formData.get("company") || "NA",
+      phone: formData.get("phone"),
+      product: subCategory?.category?.name || "NA",
+      place: formData.get("city") || "NA",
+      message: formData.get("message"),
+    };
+
+    if (!/^\d{10}$/.test(data.phone)) {
+      return alert("Enter a valid 10-digit phone number");
+    }
+
+    try {
+      setLoading1(true);
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_LEAD_BACKEND_BASE_URL}/api/form/add`, data,
+        { validateStatus: (status) => status >= 200 && status < 500 }
+      );
+      if (res.status >= 200 && res.status < 300) {
+        setSubmitted(true);
+        setTimeout(() => {
+          e.target.reset();      // reset after UI change
+        }, 100);
+        setTimeout(() => {
+          setSubmitted(false);
+        }, 3000);
+      }
+    } catch (err) {
+      console.log("ERROR:", err?.response || err.message);
+      alert("Something went wrong");
+    } finally {
+      setLoading1(false);
+    }
+  };
+
   return (<>
     <Navbar />
 
@@ -541,48 +586,65 @@ export default function SearchPage() {
 
       <div className="hidden lg:block lg:col-span-1">
         <div className="sticky top-21">
-          <div className="bg-white p-2 rounded-xl">
-            <h2 className="font-semibold text-lg text-[#0A5B93] text-center mb-2">
-              Contact Supplier
-            </h2>
-
-            <div className="flex items-center border rounded-lg border-gray-300 shadow mb-4">
-              <input
-                type="text"
-                placeholder="Your Name"
-                className="w-full p-2 outline-none text-black"
-              />
+          {submitted ? (
+            <div className="text-center py-10">
+              <h2 className="text-2xl font-bold text-amber-600">
+                🎉 Thank You!
+              </h2>
+              <p className="text-gray-800 mt-2">
+                Your enquiry has been submitted successfully.
+              </p>
+              <p className="text-gray-700 text-sm mt-1">
+                Our team will contact you shortly.
+              </p>
             </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="bg-white p-2 rounded-xl">
+              <h2 className="font-semibold text-lg text-[#0A5B93] text-center mb-2">
+                Contact Supplier
+              </h2>
 
-            <div className="flex items-center border rounded-lg border-gray-300 shadow mb-4">
-              <input
-                type="email"
-                placeholder="Your Email"
-                className="w-full p-2 outline-none text-black"
-              />
-            </div>
+              <div className="flex items-center border rounded-lg border-gray-300 shadow mb-4">
+                <input
+                  name="contactPerson"
+                  type="text"
+                  placeholder="Your Name"
+                  className="w-full p-2 outline-none text-black"
+                />
+              </div>
 
-            <div className="flex items-center border rounded-lg border-gray-300 shadow mb-4">
-              <input
-                type="tel"
-                placeholder="Phone Number"
-                className="w-full p-2 outline-none text-black"
-              />
-            </div>
+              <div className="flex items-center border rounded-lg border-gray-300 shadow mb-4">
+                <input
+                  name="email"
+                  type="email"
+                  placeholder="Your Email"
+                  className="w-full p-2 outline-none text-black"
+                />
+              </div>
 
-            <div className="flex items-start border rounded-lg border-gray-300 shadow mb-4">
-              <textarea
-                type="text"
-                rows={3}
-                placeholder="Your Message"
-                className="w-full p-2 outline-none text-black"
-              />
-            </div>
+              <div className="flex items-center border rounded-lg border-gray-300 shadow mb-4">
+                <input
+                  name="phone"
+                  type="tel"
+                  placeholder="Phone Number"
+                  className="w-full p-2 outline-none text-black"
+                />
+              </div>
 
-            <button className="w-full bg-[#0A5B93] hover:bg-[#085082] text-white py-2 rounded-lg">
-              Send Inquiry
-            </button>
-          </div>
+              <div className="flex items-start border rounded-lg border-gray-300 shadow mb-4">
+                <textarea
+                  name="message"
+                  type="text"
+                  rows={3}
+                  placeholder="Your Message"
+                  className="w-full p-2 outline-none text-black"
+                />
+              </div>
+
+              <button disabled={loading1} className="w-full bg-[#0A5B93] hover:bg-[#085082] text-white py-2 rounded-lg">
+                {loading1 ? "Submitting..." : "Send Inquiry"}
+              </button>
+            </form>)}
         </div>
       </div>
     </div>
