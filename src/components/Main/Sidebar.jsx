@@ -1,9 +1,29 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MapPin, X, IndianRupee, Briefcase } from "lucide-react";
+import { locations } from "../../../data";
+import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { initializeLocation, setLocation } from "@/redux/slices/locationSlice";
 
-export default function Sidebar({ open, setOpen }) {
+export default function Sidebar({ open, setOpen, slug }) {
+    const dispatch = useDispatch();
+    const location = useSelector((state) => state.location.city);
+    const router = useRouter();
+    const handleSelect = (e) => {
+        const city = e.target.value;
+
+        if (city) {
+            router.push(`/category/${slug}/${encodeURIComponent(city)}`);
+        }
+    };
+
+    useEffect(() => {
+        dispatch(initializeLocation());
+    }, [dispatch]);
+
+
     return (
         <>
             {open && (
@@ -31,11 +51,16 @@ export default function Sidebar({ open, setOpen }) {
                             size={18}
                         />
 
-                        <select className="w-full appearance-none border border-gray-200 text-gray-800 pl-8 pr-4 py-2 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-300 bg-white shadow-sm">
-                            <option>Select Location</option>
-                            <option>Delhi</option>
-                            <option>Mumbai</option>
-                            <option>Bangalore</option>
+                        <select onChange={(e) => { dispatch(setLocation(e.target.value)); handleSelect(e) }} value={location}
+                            className="w-full appearance-none border border-gray-200 text-gray-800 pl-8 pr-4 py-2 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-300 bg-white shadow-sm">
+                            <option>All India</option>
+                            {locations.flatMap((state) =>
+                                state.cities.map((city) => (
+                                    <option key={`${state.state}-${city}`} value={city}>
+                                        {city}
+                                    </option>
+                                ))
+                            )}
                         </select>
                     </div>
                 </div>
@@ -101,7 +126,7 @@ export default function Sidebar({ open, setOpen }) {
                 <button className="w-full bg-[#0a5b93] cursor-pointer text-white py-2 rounded-lg hover:opacity-90 transition">
                     Apply Filters
                 </button>
-            </div>
+            </div >
         </>
     );
 }

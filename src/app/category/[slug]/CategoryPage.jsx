@@ -192,12 +192,12 @@ export default function CategoryPage() {
     <div className="grid grid-cols-1 lg:grid-cols-6 bg-gray-200 py-4">
       <div className="hidden lg:block lg:col-span-1">
         <div className="lg:sticky top-20">
-          <Sidebar open={open} setOpen={setOpen} />
+          <Sidebar open={open} setOpen={setOpen} slug={slug} />
         </div>
       </div>
 
       <div className="lg:hidden block">
-        <Sidebar open={open} setOpen={setOpen} />
+        <Sidebar open={open} setOpen={setOpen} slug={slug} />
       </div>
 
       <div className="col-span-1 lg:col-span-4 px-2">

@@ -3,10 +3,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { LogIn, Menu, X, User, LogOut, Bell, MapPin, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import axios from "axios";
+import { locations } from "../../../data";
+import { useDispatch, useSelector } from "react-redux";
+import { initializeLocation, setLocation } from "@/redux/slices/locationSlice";
 
 export default function Navbar() {
+    const dispatch = useDispatch();
+    const location = useSelector((state) => state.location.city);
     const [open, setOpen] = useState(false);
     const [profileOpen, setProfileOpen] = useState(false);
     const [locationOpen, setLocationOpen] = useState(false);
@@ -14,6 +19,16 @@ export default function Navbar() {
     const [bellOpen, setBellOpen] = useState(false);
     const bellRef = useRef(null);
     const router = useRouter();
+    // const pathname = usePathname()
+    // console.log(pathname)
+
+    // const handleSelect = (e) => {
+    //     const city = e.target.value;
+
+    //     if (city) {
+    //         router.push(`/category/${slug}/${encodeURIComponent(city)}`);
+    //     }
+    // };
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -32,6 +47,10 @@ export default function Navbar() {
         };
     }, []);
 
+    useEffect(() => {
+        dispatch(initializeLocation());
+    }, [dispatch]);
+
     return (
         <nav className="w-full border-b border-b-gray-300 bg-white sticky top-0 z-50 h-auto relative">
             <div className="mx-auto md:px-6 px-2 flex items-center justify-between">
@@ -48,19 +67,20 @@ export default function Navbar() {
                     <div className="hidden md:flex relative">
                         <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-[#f45a06] pointer-events-none" size={18} />
 
-                        <select defaultValue=""
+                        <select onChange={(e) => dispatch(setLocation(e.target.value))} value={location}
                             className=" w-full appearance-none rounded-xl border border-orange-300 bg-white py-2.5 pl-10 pr-10
       text-sm font-medium text-gray-700 shadow-sm transition-all duration-200 outline-none hover:border-[#f45a06] focus:border-[#f45a06] focus:ring-1 focus:ring-orange-100 cursor-pointer">
                             <option value="" disabled>
-                                Select Location
+                                All India
                             </option>
 
-                            <option value="Delhi">Delhi</option>
-                            <option value="Mumbai">Mumbai</option>
-                            <option value="Bangalore">Bangalore</option>
-                            <option value="Hyderabad">Hyderabad</option>
-                            <option value="Pune">Pune</option>
-                            <option value="Chennai">Chennai</option>
+                            {locations.flatMap((state) =>
+                                state.cities.map((city) => (
+                                    <option key={`${state.state}-${city}`} value={city}>
+                                        {city}
+                                    </option>
+                                ))
+                            )}
                         </select>
 
                         <ChevronDown size={18} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-800 pointer-events-none" />

@@ -51,7 +51,7 @@ export default function Loaction() {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/categories/sub/${slug}`);
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/categories/sub/${slug}/${location}`);
                 const data = res.data?.data;
                 setSubCategory(data || []);
             } catch (err) {
@@ -160,7 +160,7 @@ export default function Loaction() {
         }
     };
 
-    console.info(slug, location);
+    // console.info(slug, location);
 
     return (<>
         <Navbar />
@@ -199,12 +199,12 @@ export default function Loaction() {
         <div className="grid grid-cols-1 lg:grid-cols-6 bg-gray-200 py-4">
             <div className="hidden lg:block lg:col-span-1">
                 <div className="lg:sticky top-20">
-                    <Sidebar open={open} setOpen={setOpen} />
+                    <Sidebar open={open} setOpen={setOpen} slug={slug} />
                 </div>
             </div>
 
             <div className="lg:hidden block">
-                <Sidebar open={open} setOpen={setOpen} />
+                <Sidebar open={open} setOpen={setOpen} slug={slug} />
             </div>
 
             <div className="col-span-1 lg:col-span-4 px-2">
