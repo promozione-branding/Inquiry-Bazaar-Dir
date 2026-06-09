@@ -34,9 +34,11 @@ import React, { useEffect, useState } from 'react'
 import { BsTelegram } from 'react-icons/bs';
 import { FaXTwitter } from 'react-icons/fa6';
 import CategoryPopup from '@/components/Main/CategoryPopup';
+import { useSelector } from 'react-redux';
 
 export default function CategoryPage() {
   const { slug } = useParams()
+  const location = useSelector((state) => state.location.city);
   const [open, setOpen] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
   const [popupProduct, setPopupProduct] = useState({});
@@ -50,7 +52,7 @@ export default function CategoryPage() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/categories/sub/${slug}`);
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/categories/sub/${slug}/${location}`);
         const data = res.data?.data;
         setSubCategory(data || []);
       } catch (err) {
@@ -61,7 +63,7 @@ export default function CategoryPage() {
     };
 
     fetchData();
-  }, [slug]);
+  }, [slug, location]);
 
   const trackEvent = async (eventType, productDetails) => {
     // console.log("Tracking Event:", eventType);
