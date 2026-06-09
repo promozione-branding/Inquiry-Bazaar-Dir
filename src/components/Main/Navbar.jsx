@@ -19,16 +19,18 @@ export default function Navbar() {
     const [bellOpen, setBellOpen] = useState(false);
     const bellRef = useRef(null);
     const router = useRouter();
-    // const pathname = usePathname()
-    // console.log(pathname)
+    const pathname = usePathname()
 
-    // const handleSelect = (e) => {
-    //     const city = e.target.value;
+    const handleSelect = (e) => {
+        const city = e.target.value;
+        const middleName = pathname.split("/")[2];
+        // console.log(middleName); // titanium-dioxide
 
-    //     if (city) {
-    //         router.push(`/category/${slug}/${encodeURIComponent(city)}`);
-    //     }
-    // };
+        if (city) {
+            // console.log(city)
+            router.push(`/category/${middleName}/${encodeURIComponent(city)}`);
+        }
+    };
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -67,7 +69,7 @@ export default function Navbar() {
                     <div className="hidden md:flex relative">
                         <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-[#f45a06] pointer-events-none" size={18} />
 
-                        <select onChange={(e) => dispatch(setLocation(e.target.value))} value={location}
+                        <select onChange={(e) => { dispatch(setLocation(e.target.value)); (pathname.startsWith("/category") && pathname.startsWith("/search")) && handleSelect(e) }} value={location}
                             className=" w-full appearance-none rounded-xl border border-orange-300 bg-white py-2.5 pl-10 pr-10
       text-sm font-medium text-gray-700 shadow-sm transition-all duration-200 outline-none hover:border-[#f45a06] focus:border-[#f45a06] focus:ring-1 focus:ring-orange-100 cursor-pointer">
                             <option value="" disabled>

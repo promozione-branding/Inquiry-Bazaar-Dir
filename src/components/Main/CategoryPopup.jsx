@@ -118,7 +118,7 @@ export default function CategoryPopup({ productImage }) {
                             ) : (
                                 <form onSubmit={handleSubmit} className="space-y-4">
                                     <h2 className="font-semibold text-3xl text-[#0A5B93] text-center">
-                                        Contact Supplier
+                                        Get a Free Quote
                                     </h2>
                                     <div className="flex items-center border rounded-lg px-2 border-gray-300 shadow-sm">
                                         <User size={16} className="text-orange-500" />
