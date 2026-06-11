@@ -44,7 +44,7 @@ export default function Navbar({ details, portfolio, navLinks }) {
 
         <section className="w-full bg-gray-50 border-b border-b-gray-200 sticky top-0 z-50">
             <div className="flex justify-between items-center px-4 py-2">
-                <Link href="" className="border border-gray-200 p-1">
+                <Link href={portfolio} className="border border-gray-200 p-1">
                     <Image
                         width={200}
                         height={200}

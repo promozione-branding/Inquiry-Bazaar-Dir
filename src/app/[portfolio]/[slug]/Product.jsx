@@ -2,11 +2,12 @@
 import Footer from '@/components/Webpage/Footer';
 import Navbar from '@/components/Webpage/Navbar';
 import axios from 'axios';
-import { Home, Info, Mail, ShoppingBag } from 'lucide-react';
+import { Home, Info, Mail, PhoneCall, ShoppingBag } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { useRouter } from "next/navigation";
 import ContactModal from '@/components/Main/ContactModal';
+import { BsWhatsapp } from 'react-icons/bs';
 
 export default function Product() {
     const router = useRouter();
@@ -95,7 +96,7 @@ export default function Product() {
         }
     }, [product]);
 
-    // console.log(product)
+    console.log(product)
 
     return (<>
         <Navbar details={details} portfolio={portfolio} navLinks={navLinks} />
@@ -222,17 +223,6 @@ export default function Product() {
                         )}
                     </div>
 
-                    {/* Buttons */}
-                    <div className="flex flex-wrap gap-4 mt-4">
-                        <button onClick={() => { setOpenPopup(true); setPopupProduct(product) }} className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold transition">
-                            Get Best Price
-                        </button>
-
-                        <a href={`tel:${product.supplier?.phone}`} className="border border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-3 rounded-lg font-semibold transition">
-                            Contact Supplier
-                        </a>
-                    </div>
-
                     {/* Specifications */}
                     <div className="mt-4 border border-gray-300 rounded-xl overflow-hidden">
                         <table className="w-full text-black">
@@ -303,6 +293,21 @@ export default function Product() {
                                 ))}
                             </tbody>
                         </table>
+                    </div>
+
+                    {/* Buttons */}
+                    <div className="flex flex-wrap gap-4 mt-4">
+                        <button onClick={() => { setOpenPopup(true); setPopupProduct(product) }} className="border border-orange-600 text-orange-600 hover:bg-orange-50 px-8 py-3 rounded-lg font-semibold transition">
+                            Get Best Price
+                        </button>
+
+                        <a href={`tel:${product.supplier?.phone}`} target='blank' className="flex items-center gap-3 border border-blue-600 text-blue-600 hover:bg-blue-50 px-4 py-3 rounded-lg font-semibold transition">
+                            <PhoneCall size={18} /> Contact Us
+                        </a>
+
+                        <a href={`${product.supplier?.business?.social?.whatsapp}`} target='blank' className="flex items-center gap-3 border border-green-600 text-green-600 hover:bg-green-50 px-4 py-3 rounded-lg font-semibold transition">
+                            <BsWhatsapp size={20} /> Whatsapp Us
+                        </a>
                     </div>
                 </div>
             </div>

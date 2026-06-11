@@ -140,7 +140,7 @@ export default function Products() {
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                             {groupedProducts[selectedCategory]?.map((product) => (
-                                <Link href={`products/${product?.slug}`} key={product._id}
+                                <Link href={`/${portfolio}/${product?.slug}`} key={product._id}
                                     className="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                                 >
                                     <div className="relative h-75 overflow-hidden">
