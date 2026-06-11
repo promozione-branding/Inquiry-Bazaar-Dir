@@ -348,7 +348,7 @@ export default function Portfolio() {
         </section>
 
         <section id="products" className="py-10 bg-gray-100">
-            <ProductsList products={products} loading1={loadingPage} details={details} setOpen={setOpen} />
+            <ProductsList products={products} loading1={loadingPage} details={details} setOpen={setOpen} portfolio={portfolio} />
         </section>
 
         <section id="contact-us" className="relative py-16">

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Eye } from 'lucide-react';
 import Link from 'next/link';
 
-export default function ProductsList({ products, loading1, details, setOpen }) {
+export default function ProductsList({ products, loading1, details, portfolio }) {
     // console.log("ProductsList Rendered with products:", products, "loading1:", loading1);
     return (
         <div className="max-w-7xl mx-auto px-4">
@@ -50,7 +50,7 @@ export default function ProductsList({ products, loading1, details, setOpen }) {
                         </div>
 
                         <div className="absolute inset-0 flex items-end justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition duration-300">
-                            <Link href={`/products/${product.slug}`} style={{ backgroundColor: details?.hero?.color || "#8B4513", }} className="text-white p-3 rounded-full shadow-lg hover:scale-110 transition mb-15">
+                            <Link href={`${portfolio}/products/${product.slug}`} style={{ backgroundColor: details?.hero?.color || "#8B4513", }} className="text-white p-3 rounded-full shadow-lg hover:scale-110 transition mb-15">
                                 <Eye size={20} />
                             </Link>
                         </div>
