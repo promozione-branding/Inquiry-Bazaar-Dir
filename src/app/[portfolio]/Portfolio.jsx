@@ -26,12 +26,13 @@ import Popup from "@/components/Main/Popup";
 import ProductSlider from "@/components/Webpage/ProductSlider";
 import ProductsList from "@/components/Webpage/ProductsList";
 import StickyButtons from "@/components/Webpage/StickyButtons";
+import Navbar from "@/components/Webpage/Navbar";
+import Footer from "@/components/Webpage/Footer";
 
 export default function Portfolio() {
     const { portfolio } = useParams()
     const router = useRouter();
     const [details, setDetails] = useState(null)
-    const [isOpen, setIsOpen] = useState(false);
     const [open, setOpen] = useState(false);
     const [loadingPage, setLoadingPage] = useState(true);
     const [products, setProducts] = useState([]);
@@ -68,7 +69,7 @@ export default function Portfolio() {
     const navLinks = [
         { name: "Home", href: "#home", icon: Home },
         { name: "About", href: "#about-us", icon: Info },
-        { name: "Products", href: "#products", icon: ShoppingBag },
+        { name: "Products", href: `${portfolio}/products`, icon: ShoppingBag },
         { name: "Contact", href: "#contact-us", icon: Mail },
     ];
 
@@ -152,108 +153,12 @@ export default function Portfolio() {
         }
     };
 
-
     if (loadingPage) {
         return <CatalogSkeleton />;
     }
 
     return (<>
-        <div className="py-2 text-black" style={{ backgroundColor: details?.hero?.color }}>
-            <div className="max-w-7xl mx-auto px-4">
-                <div className="flex flex-wrap items-center justify-center gap-20 text-sm">
-
-                    <div className="flex items-center gap-2">
-                        <ShieldCheck size={18} className="text-black" />
-                        <span className="font-semibold">
-                            GST Verified
-                        </span>
-                        <span className="opacity-90">
-                            ({details?.user?.business?.gstNumber})
-                        </span>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                        <Factory size={18} className="text-black" />
-                        <span>
-                            {details?.user?.business?.businessType}
-                        </span>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                        <Building2 size={18} className="text-black" />
-                        <span>{details?.user?.business?.businessField}</span>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                        <Users size={18} className="text-black" />
-                        <span>{details?.user?.business?.numberOfEmployees}</span>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <section className="w-full bg-gray-50 border-b border-b-gray-200 sticky top-0 z-50">
-            <div className="flex justify-between items-center px-4 py-2">
-                <Link href="" className="border border-gray-200 p-1">
-                    <Image
-                        width={200}
-                        height={200}
-                        src={details?.user?.profileImage || "/no-image.webp"}
-                        alt="Logo"
-                        className="w-auto h-16"
-                    />
-                </Link>
-
-                <div className="hidden lg:flex items-center gap-6 text-black">
-                    {navLinks.map((link, index) => {
-                        const Icon = link.icon;
-                        return (
-                            <a key={index} href={link.href}
-                                className="border border-gray-200 flex items-center gap-2 px-4 py-2 rounded-lg text-xl font-semibold bg-white hover:bg-orange-100 hover:text-orange-600 transition-all duration-200 shadow-sm hover:shadow-md"
-                            >
-                                <Icon size={18} />
-                                {link.name}
-                            </a>
-                        );
-                    })}
-
-                    <button onClick={() => setOpen(true)} style={{ backgroundColor: details?.hero?.color }} className="flex items-center text-xl font-semibold gap-2 px-5 py-2 rounded-lg text-white">
-                        <Phone size={18} />
-                        Get in Touch
-                    </button>
-                </div>
-
-                <button className="lg:hidden bg-orange-400 hover:bg-orange-500 p-3 rounded-lg text-white"
-                    onClick={() => setIsOpen(!isOpen)}
-                >
-                    {isOpen ? <X size={28} /> : <Menu size={28} />}
-                </button>
-            </div>
-
-            {isOpen && (
-                <div className="lg:hidden flex flex-col gap-4 px-4 pb-4 text-black">
-                    {navLinks.map((link, index) => {
-                        const Icon = link.icon;
-                        return (
-                            <Link
-                                key={index}
-                                href={link.href}
-                                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white hover:bg-orange-100 hover:text-orange-600 transition-all duration-200 shadow-sm hover:shadow-md"
-                            >
-                                <Icon size={18} />
-                                {link.name}
-                            </Link>
-                        );
-                    })}
-
-                    <button className="flex items-center justify-center gap-2 bg-orange-400 hover:bg-orange-500 px-5 py-2 rounded-lg text-white">
-                        <Phone size={18} />
-                        Get in Touch
-                    </button>
-                </div>
-            )}
-        </section>
+        <Navbar details={details} portfolio={portfolio} navLinks={navLinks} />
 
         <section id="home" className="relative w-full min-h-[70vh] flex items-center justify-center">
             <div className="absolute inset-0">
@@ -577,103 +482,8 @@ export default function Portfolio() {
             </div>
         </section>
 
-        <footer className="bg-gray-900 text-gray-300">
-            <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-6">
-                <div className="bg-white p-2 rounded-lg">
-                    <Image
-                        src={details?.user?.profileImage || "/no-image.webp"}
-                        alt="Inquiry Bazaar"
-                        width={200}
-                        height={200}
-                        className="rounded-xl shadow-lg w-auto h-16"
-                    />
-                </div>
 
-                {/* Social Icons */}
-                <div className="flex gap-6">
-                    {details?.user?.business?.social?.linkedin && (
-                        <a
-                            href={details?.user?.business.social.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="LinkedIn"
-                            className="p-2 rounded-lg bg-gray-100 hover:bg-blue-100 transition hover:scale-105"
-                        >
-                            <FaLinkedin size={25} className="text-blue-700" />
-                        </a>
-                    )}
-
-                    {details?.user?.business?.social?.instagram && (
-                        <a
-                            href={details?.user?.business.social.instagram}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="Instagram"
-                            className="p-2 rounded-lg bg-gray-100 hover:bg-pink-100 transition hover:scale-105"
-                        >
-                            <FaInstagram size={25} className="text-pink-600" />
-                        </a>
-                    )}
-
-                    {details?.user?.business?.social?.facebook && (
-                        <a
-                            href={details?.user?.business.social.facebook}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="Facebook"
-                            className="p-2 rounded-lg bg-gray-100 hover:bg-blue-100 transition hover:scale-105"
-                        >
-                            <FaFacebook size={25} className="text-blue-600" />
-                        </a>
-                    )}
-
-                    {details?.user?.business?.social?.youtube && (
-                        <a
-                            href={details?.user?.business.social.youtube}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="YouTube"
-                            className="p-2 rounded-lg bg-gray-100 hover:bg-red-100 transition hover:scale-105"
-                        >
-                            <FaYoutube size={25} className="text-red-600" />
-                        </a>
-                    )}
-
-                    {details?.user?.business?.social?.telegram && (
-                        <a
-                            href={details?.user?.business.social.telegram}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="YouTube"
-                            className="p-2 rounded-lg bg-gray-100 hover:bg-blue-100 transition hover:scale-105"
-                        >
-                            <BsTelegram size={25} className="text-blue-600" />
-                        </a>
-                    )}
-
-                    {details?.user?.business?.social?.twitter && (
-                        <a
-                            href={details?.user?.business.social.twitter}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="YouTube"
-                            className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition hover:scale-105"
-                        >
-                            <FaXTwitter size={25} className="text-black" />
-                        </a>
-                    )}
-                </div>
-            </div>
-
-            {/* Bottom Footer */}
-            <div className="md:flex justify-around border-t border-gray-800 py-6 text-center text-base text-gray-300">
-                <p>© Copyright 2026 Inquiry Bazaar</p>
-
-                <p className="mt-1">
-                    Developed & Manage by <a target="blank" href={"https://promozionebranding.com/"} className="text-white hover:underline">Promozione Branding Pvt Ltd.</a>
-                </p>
-            </div>
-        </footer>
+        <Footer details={details} portfolio={portfolio} navLinks={navLinks} />
 
         <StickyButtons details={details} />
         <Popup open={open} setOpen={setOpen} details={details} />
