@@ -1,5 +1,5 @@
 import React from 'react'
-import Products from './Products'
+import Sitemap from './Sitemap'
 
 export async function generateMetadata({ params }) {
     const { portfolio } = await params;
@@ -16,7 +16,7 @@ export async function generateMetadata({ params }) {
         }
 
         return {
-            title: `Products - ${result?.data?.user?.business?.companyName}`,
+            title: `Sitemap - ${result?.data?.user?.business?.companyName}`,
             description: `${result?.data?.user?.business?.companyName}`,
         };
 
@@ -30,6 +30,6 @@ export async function generateMetadata({ params }) {
 
 export default function page() {
     return (
-        <Products />
+        <Sitemap />
     )
 }

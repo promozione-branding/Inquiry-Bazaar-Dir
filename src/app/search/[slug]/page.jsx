@@ -7,8 +7,8 @@ export async function generateMetadata({ params }) {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_Backend_URL}api/search/${slug}`, { cache: "no-store" });
         const result = await res.json();
-        const category = result?.data?.category;
-        console.log(category)
+        const category = result?.data?.category || result?.data?.industry;
+        // console.log(result?.data)
         if (!category) {
             return {
                 title: "Category Not Found",

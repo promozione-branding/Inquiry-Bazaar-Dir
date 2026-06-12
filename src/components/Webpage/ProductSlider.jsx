@@ -6,8 +6,10 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import { motion } from "framer-motion";
 import axios from "axios";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
-export default function ProductSlider({ products, loading1, details, setOpen }) {
+export default function ProductSlider({ products, loading1, details, setOpen, portfolio }) {
 
     const sliderProducts = useMemo(() => {
         if (!products.length) return [];
@@ -23,7 +25,7 @@ export default function ProductSlider({ products, loading1, details, setOpen }) 
     }, [products]);
 
     return (
-        <section className="bg-gray-100 py-8 md:px-12 px-4">
+        <section className="bg-gray-100 py-6 md:px-12 px-4">
             <Swiper
                 spaceBetween={20}
                 breakpoints={{
@@ -56,9 +58,9 @@ export default function ProductSlider({ products, loading1, details, setOpen }) 
                 )) : sliderProducts.slice(0, 10).map((product, index) => (
                     <SwiperSlide key={`${product.id}-${index}`}>
                         <motion.div whileHover={{ y: -6, transition: { duration: 0.2 }, }}
-                            className="bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-lg h-[400px] flex flex-col"
+                            className="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-lg h-[380px] flex flex-col"
                         >
-                            <div className="w-full h-60 bg-white flex items-center justify-center p-4 overflow-hidden">
+                            <div className="w-full h-60 bg-white flex items-center justify-center p- overflow-hidden">
                                 <img
                                     src={product.media?.[0]?.url || "/no-image.webp"}
                                     alt={product.name}
@@ -66,17 +68,24 @@ export default function ProductSlider({ products, loading1, details, setOpen }) 
                                 />
                             </div>
 
-                            <div className="p-4 flex flex-col flex-1">
-                                <h3 className="text-center font-bold text-[20px] leading-[30px] text-gray-800 min-h-[60px] line-clamp-2">
+                            <div className="px-2 py-2 flex flex-col flex-1">
+                                <h3 className="text-center flex justify-center items-center font-bold text-[20px] leading-[30px] text-gray-800 min-h-[60px] line-clamp-2">
                                     {product.name}
                                 </h3>
 
-                                <button onClick={() => setOpen(true)}
-                                    style={{ backgroundColor: details?.hero?.color || "#8B4513", }}
-                                    className="mt-auto w-full text-white py-3 rounded-xl text-lg font-medium transition hover:opacity-90"
-                                >
-                                    Get a Quote
-                                </button>
+                                <div className="mt-auto flex justify-between items-center gap-2">
+                                    <button onClick={() => setOpen(true)} style={{ backgroundColor: details?.hero?.color || "#8B4513", }}
+                                        className="w-full text-white py-2 px-1 rounded-md text- font-medium transition hover:opacity-90"
+                                    >
+                                        Get a Quote
+                                    </button>
+
+                                    <Link href={`/${portfolio}/${product.slug}`} style={{ borderColor: details?.hero?.color || "#8B4513", color: details?.hero?.color || "#8B4513", }}
+                                        className="w-full border text-white py-2 rounded-md flex items-center justify-center gap-1 font-medium transition hover:opacity-90"
+                                    >
+                                        Read More <ArrowRight size={18} />
+                                    </Link>
+                                </div>
                             </div>
                         </motion.div>
                     </SwiperSlide>

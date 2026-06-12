@@ -161,14 +161,13 @@ export default function Portfolio() {
     return (<>
         <Navbar details={details} portfolio={portfolio} navLinks={navLinks} />
 
-        <section id="home" className="relative w-full min-h-[70vh] flex items-center justify-center">
+        {/* <section id="home" className="relative w-full min-h-[70vh] flex items-center justify-center">
             <div className="absolute inset-0">
                 <img
                     src={`${details?.hero?.image || "/no-image.webp"}`} // replace with your image
                     alt="Background"
                     className="w-full h-full object-cover"
                 />
-                {/* Overlay */}
                 <div className="absolute inset-0 bg-black/60"></div>
             </div>
 
@@ -185,7 +184,6 @@ export default function Portfolio() {
                     </button>
                 </div>
 
-                {/* Right Form */}
                 <div className="bg-white rounded-xl shadow-lg px-4 py-6">
                     {submitted ? (
                         <div className="text-center py-10">
@@ -261,9 +259,73 @@ export default function Portfolio() {
                         </form>)}
                 </div>
             </div>
-        </section>
+        </section> */}
 
-        <ProductSlider products={products} loading1={loadingPage} details={details} setOpen={setOpen} />
+        <div id="home">
+            <ProductSlider products={products} loading1={loadingPage} details={details} setOpen={setOpen} portfolio={portfolio} />
+        </div>
+
+        <section className="relative py-16">
+            <div className="absolute inset-0">
+                <img
+                    src="/banner.png"
+                    alt="cta background"
+                    className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/70"></div>
+            </div>
+
+            {/* Content */}
+            <div className="relative z-10 max-w-5xl mx-auto text-center px-4 text-white">
+                <motion.h2
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="text-3xl md:text-4xl font-bold mb-4"
+                >
+                    {details?.cta?.heading}
+                </motion.h2>
+
+                <p className="text-gray-200 mb-6">
+                    {details?.cta?.subHeading}
+                </p>
+
+                {/* Buttons */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="flex flex-col sm:flex-row gap-4 justify-center"
+                >
+
+                    {/* Call Now */}
+                    <a
+                        href={`tel:${details?.user?.phone}`}
+                        className="flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-lg font-medium transition"
+                    >
+                        <Phone size={18} />
+                        Call Now
+                    </a>
+
+                    {/* Request Quote */}
+                    <button onClick={() => setOpen(true)} className="flex items-center justify-center gap-2 bg-white text-black hover:bg-gray-200 px-6 py-3 rounded-lg font-medium transition">
+                        <FileText size={18} />
+                        Request a Quote
+                    </button>
+
+                    {/* WhatsApp */}
+                    <a
+                        href={details?.user?.business?.social?.whatsapp}
+                        target="_blank"
+                        className="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 px-6 py-3 rounded-lg font-medium transition"
+                    >
+                        <MessageCircle size={18} />
+                        WhatsApp
+                    </a>
+
+                </motion.div>
+            </div>
+        </section>
 
         <section id="about-us" className="bg-amber-50 px-4 py-10 md:px-10 grid grid-cols-1 lg:grid-cols-2">
             <div className="">
@@ -352,67 +414,94 @@ export default function Portfolio() {
             <ProductsList products={products} loading1={loadingPage} details={details} setOpen={setOpen} portfolio={portfolio} />
         </section>
 
-        <section id="contact-us" className="relative py-16">
-            <div className="absolute inset-0">
-                <img
-                    src="/banner.png"
-                    alt="cta background"
-                    className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-black/70"></div>
+        <sectio id="contact-us" style={{ backgroundColor: details?.hero?.color }}
+            className="py-12 px-4 md:px-8"
+        >
+            <div className="max-w-5xl mx-auto">
+                <div className="bg-white rounded-2xl shadow-xl p-6">
+                    {submitted ? (
+                        <div className="text-center py-10">
+                            <h2 className="text-2xl font-bold text-amber-600">
+                                🎉 Thank You!
+                            </h2>
+
+                            <p className="text-gray-800 mt-2">
+                                Your enquiry has been submitted successfully.
+                            </p>
+
+                            <p className="text-gray-700 text-sm mt-1">
+                                Our team will contact you shortly.
+                            </p>
+                        </div>
+                    ) : (
+                        <>
+                            <h3 className="text-4xl font-semibold text-gray-800 text-center mb-6 flex justify-center flex-col items-center">
+                                Send Inquiry
+                                <div className="bg-black w-15 h-1 mt-2"></div>
+                            </h3>
+
+                            <form onSubmit={handleSubmit} className="space-y-4">
+                                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                    <div className="flex items-center text-black border border-gray-300 rounded-lg px-3 py-3">
+                                        <User size={18} className="text-gray-500 mr-2" />
+                                        <input
+                                            name="contactPerson"
+                                            type="text"
+                                            placeholder="Your Name"
+                                            className="w-full outline-none"
+                                        />
+                                    </div>
+
+                                    <div className="flex items-center text-black border border-gray-300 rounded-lg px-3 py-3">
+                                        <MapPin size={18} className="text-gray-500 mr-2" />
+                                        <input
+                                            name="city"
+                                            type="text"
+                                            placeholder="Your City"
+                                            className="w-full outline-none"
+                                        />
+                                    </div>
+
+                                    <div className="flex items-center text-black border border-gray-300 rounded-lg px-3 py-3">
+                                        <Mail size={18} className="text-gray-500 mr-2" />
+                                        <input
+                                            name="email"
+                                            type="email"
+                                            placeholder="Your Email"
+                                            className="w-full outline-none"
+                                        />
+                                    </div>
+
+                                    <div className="flex items-center text-black border border-gray-300 rounded-lg px-3 py-3">
+                                        <Phone size={18} className="text-gray-500 mr-2" />
+                                        <input
+                                            name="phone"
+                                            type="tel"
+                                            placeholder="Your Phone"
+                                            className="w-full outline-none"
+                                        />
+                                    </div>
+                                </div>
+
+                                <textarea
+                                    name="message"
+                                    rows={3}
+                                    placeholder="Your Message"
+                                    className="w-full text-black border border-gray-300 rounded-lg px-4 py-3 outline-none"
+                                />
+
+                                <button type="submit" disabled={loading}
+                                    style={{ backgroundColor: details?.hero?.color, }}
+                                    className="w-full text-white py-3 rounded-lg font-medium hover:opacity-90 transition"
+                                >
+                                    {loading ? "Submitting..." : "Submit Inquiry"}
+                                </button>
+                            </form>
+                        </>
+                    )}
+                </div>
             </div>
-
-            {/* Content */}
-            <div className="relative z-10 max-w-5xl mx-auto text-center px-4 text-white">
-                <motion.h2
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="text-3xl md:text-4xl font-bold mb-4"
-                >
-                    {details?.cta?.heading}
-                </motion.h2>
-
-                <p className="text-gray-200 mb-6">
-                    {details?.cta?.subHeading}
-                </p>
-
-                {/* Buttons */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="flex flex-col sm:flex-row gap-4 justify-center"
-                >
-
-                    {/* Call Now */}
-                    <a
-                        href={`tel:${details?.user?.phone}`}
-                        className="flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-lg font-medium transition"
-                    >
-                        <Phone size={18} />
-                        Call Now
-                    </a>
-
-                    {/* Request Quote */}
-                    <button onClick={() => setOpen(true)} className="flex items-center justify-center gap-2 bg-white text-black hover:bg-gray-200 px-6 py-3 rounded-lg font-medium transition">
-                        <FileText size={18} />
-                        Request a Quote
-                    </button>
-
-                    {/* WhatsApp */}
-                    <a
-                        href={details?.user?.business?.social?.whatsapp}
-                        target="_blank"
-                        className="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 px-6 py-3 rounded-lg font-medium transition"
-                    >
-                        <MessageCircle size={18} />
-                        WhatsApp
-                    </a>
-
-                </motion.div>
-            </div>
-        </section>
+        </sectio>
 
         <section className="py-10 bg-gray-100">
             <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
@@ -482,7 +571,6 @@ export default function Portfolio() {
                 </div>
             </div>
         </section>
-
 
         <Footer details={details} portfolio={portfolio} navLinks={navLinks} />
 

@@ -24,7 +24,7 @@ export default function Footer({ details, portfolio, navLinks }) {
                         <p className='mt-2'>
                             At <span className='font-bold'>{details?.user?.business?.companyName},</span> we are proud to be recognised as one of India’s most trusted suppliers of
                             {details?.products?.slice(0, 4).map((i, idx) => (
-                                <span className='font-bold'> {i?.name},</span>
+                                <span className='font-bold' key={idx}> {i?.name},</span>
                             ))} etc.
                         </p>
 
@@ -116,6 +116,11 @@ export default function Footer({ details, portfolio, navLinks }) {
                                     </Link>
                                 </li>
                             ))}
+                            <li>
+                                <Link href={`/${portfolio}/sitemap`} className="hover:text-white transition">
+                                    Sitemap
+                                </Link>
+                            </li>
                         </ul>
                     </div>
 

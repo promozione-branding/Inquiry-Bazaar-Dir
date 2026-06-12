@@ -16,6 +16,36 @@ const stats = [
   { label: "Delivery", value: 71 },
 ];
 
+const reviews = [
+  {
+    name: "Aarav Sharma",
+    place: "Indore",
+    date: "2 days ago",
+    rating: 5,
+    review:
+      "Excellent service. Fast response and the final delivery exceeded expectations. Highly recommended.",
+    tags: ["Response", "Quality", "Delivery"],
+  },
+  {
+    name: "Manish",
+    place: "Delhi",
+    date: "1 week ago",
+    rating: 4,
+    review:
+      "Good experience overall. Delivery was smooth and communication was professional.",
+    tags: ["Quality", "Delivery"],
+  },
+  {
+    name: "Jyoti Gupta",
+    place: "Bihar",
+    date: "3 weeks ago",
+    rating: 5,
+    review:
+      "Amazing support and excellent quality. Everything was completed before deadline.",
+    tags: ["Response", "Quality"],
+  },
+];
+
 export default function RatingsUI() {
   return (
     <div className="px-3 sm:px-6 md:px-10 mt-5">
@@ -117,44 +147,98 @@ export default function RatingsUI() {
         </div>
 
         {/* REVIEWS */}
-        <div className="mt-8 sm:mt-10 space-y-6 sm:space-y-10 text-gray-600">
+        <div className="mt-10">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-lg font-semibold text-gray-800">
+              Customer Reviews
+            </h3>
 
-          {[ 
-            { place: "Indore", date: "17 September, 2021" },
-            { place: "Sri Lanka", date: "24 January, 2021" }
-          ].map((review, i) => (
-            <div
-              key={i}
-              className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4"
-            >
-              {/* LEFT */}
-              <div className="flex gap-4 sm:gap-6 items-center">
-                <span className="bg-green-600 text-white px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-medium">
-                  5 ★
-                </span>
-                <div>
-                  <p className="text-gray-700 text-sm sm:text-base">
-                    {review.place}
-                  </p>
-                  <p className="text-xs sm:text-sm text-gray-400">
-                    {review.date}
-                  </p>
-                </div>
-              </div>
+            <button className="text-green-600 text-sm font-medium hover:underline">
+              View all →
+            </button>
+          </div>
 
-              {/* ACTIONS */}
-              <div className="flex flex-wrap gap-2 sm:gap-3">
-                {["Response", "Quality", "Delivery"].map((tag) => (
-                  <div
-                    key={tag}
-                    className="flex items-center gap-1 text-[10px] sm:text-xs px-2 sm:px-3 py-1 bg-gray-100 text-gray-800 rounded-full"
-                  >
-                    <ThumbsUp size={12} /> {tag}
+          <div className="space-y-5">
+
+            {reviews.map((review, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                className="border rounded-xl p-5 hover:shadow-md transition bg-white"
+              >
+                {/* HEADER */}
+                <div className="flex justify-between items-start">
+
+                  <div className="flex gap-3">
+
+                    <div className="w-12 h-12 rounded-full bg-green-100 text-green-700 font-semibold flex items-center justify-center">
+                      {review.name.charAt(0)}
+                    </div>
+
+                    <div>
+                      <div className="flex items-center gap-2">
+
+                        <h4 className="font-semibold text-gray-800">
+                          {review.name}
+                        </h4>
+
+                        <span className="text-[11px] bg-green-50 text-green-700 px-2 py-1 rounded-full">
+                          Verified
+                        </span>
+
+                      </div>
+
+                      <p className="text-sm text-gray-500">
+                        {review.place} • {review.date}
+                      </p>
+
+                      <div className="flex mt-1 text-yellow-400">
+                        {[...Array(review.rating)].map((_, idx) => (
+                          <FaStar key={idx} size={14} />
+                        ))}
+                      </div>
+
+                    </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          ))}
+
+                </div>
+
+                {/* REVIEW */}
+                <p className="text-gray-600 mt-4 leading-7 text-sm">
+                  "{review.review}"
+                </p>
+
+                {/* TAGS */}
+                <div className="flex flex-wrap gap-2 mt-4">
+
+                  {review.tags.map((tag) => (
+                    <div key={tag}
+                      className="flex items-center gap-1 px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-xs"
+                    >
+                      <ThumbsUp size={12} />
+                      {tag}
+                    </div>
+                  ))}
+
+                </div>
+
+                {/* FOOTER */}
+                <div className="mt-4 pt-4 border-t flex justify-between text-sm">
+
+                  <button className="text-gray-500 hover:text-green-600">
+                    👍 Helpful (24)
+                  </button>
+
+                  <button className="text-gray-500 hover:text-gray-800">
+                    Report
+                  </button>
+
+                </div>
+
+              </motion.div>
+            ))}
+
+          </div>
 
         </div>
       </div>

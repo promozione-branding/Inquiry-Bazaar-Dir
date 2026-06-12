@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from "next/navigation";
 import ContactModal from '@/components/Main/ContactModal';
 import { BsWhatsapp } from 'react-icons/bs';
+import RatingsUI from '@/components/Product/ReviewSection';
 
 export default function Product() {
     const router = useRouter();
@@ -96,12 +97,12 @@ export default function Product() {
         }
     }, [product]);
 
-    console.log(product)
+    // console.log(product)
 
     return (<>
         <Navbar details={details} portfolio={portfolio} navLinks={navLinks} />
 
-        <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="max-w-7xl mx-auto px-4 pt-8 pb-4">
             <div className="grid lg:grid-cols-[500px_1fr] gap-8 items-start">
                 <div className="lg:sticky lg:top-24 h-fit">
                     <div className="bg-white border rounded-xl overflow-hidden shadow-sm">
@@ -326,6 +327,11 @@ export default function Product() {
                 />
             </div>
         </div>
+
+        <div className='xl:px-18 pb-10'>
+            <RatingsUI />
+        </div>
+
         <ContactModal open={openPopup} setOpen={setOpenPopup} product={popupProduct} />
         <Footer details={details} portfolio={portfolio} navLinks={navLinks} />
     </>)
