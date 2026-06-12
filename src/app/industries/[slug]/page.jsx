@@ -1,19 +1,17 @@
+import React from 'react'
 import IndustryPage from "./IndustryPage";
 
 export async function generateMetadata({ params }) {
     const { slug } = await params; // ✅ no await
 
     try {
-        const res = await fetch(
-            `${process.env.NEXT_PUBLIC_Backend_URL}/api/industries/${slug}`,
-            { cache: "no-store" }
-        );
+        const res = await fetch(`${process.env.NEXT_PUBLIC_Backend_URL}api/industries/${slug}`, { cache: "no-store" });
 
         const industry = await res.json();
-        // console.log(industry);
+        // console.log(industry, slug);
         if (!industry) {
             return {
-                title: "Inquiry Bazaar",
+                title: "Inquiry Bazaa---r",
                 description: "Inquiry Bazaar",
             };
         }
@@ -26,6 +24,7 @@ export async function generateMetadata({ params }) {
         };
 
     } catch (err) {
+        // console.log(err);
         return {
             title: "Inquiry Bazaar",
             description: "Inquiry Bazaar",

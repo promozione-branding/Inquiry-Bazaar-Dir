@@ -8,8 +8,8 @@ import { FaLinkedin, FaXTwitter } from 'react-icons/fa6'
 export default function Footer({ details, portfolio, navLinks }) {
     return (
         <footer className="bg-gray-950 text-gray-300">
-            <div className="max-w-7xl mx-auto px-6 py-12">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+            <div className="md:px-20 px-4 py-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
                     <div>
                         <div className="bg-white p-2 rounded-lg w-fit">
                             <Image
@@ -21,7 +21,14 @@ export default function Footer({ details, portfolio, navLinks }) {
                             />
                         </div>
 
-                        <div className="flex gap-2 mt-5">
+                        <p className='mt-2'>
+                            At <span className='font-bold'>{details?.user?.business?.companyName},</span> we are proud to be recognised as one of India’s most trusted suppliers of
+                            {details?.products?.slice(0, 4).map((i, idx) => (
+                                <span className='font-bold'> {i?.name},</span>
+                            ))} etc.
+                        </p>
+
+                        <div className="flex gap-2 mt-4">
                             {details?.user?.business?.social?.linkedin && (
                                 <a
                                     href={details?.user?.business.social.linkedin}
@@ -114,13 +121,31 @@ export default function Footer({ details, portfolio, navLinks }) {
 
                     <div>
                         <h3 className="text-white font-semibold text-lg mb-4">
+                            Our Products
+                        </h3>
+
+                        <ul className="space-y-3 text-sm">
+                            {details?.products?.slice(0, 6).map((i, idx) => (
+                                <li key={idx}>
+                                    <Link href={`/${portfolio}/${i?.slug}`} className="hover:text-white transition">
+                                        {i?.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 className="text-white font-semibold text-lg mb-4">
                             Contact
                         </h3>
 
-                        <ul className="space-y-3 text-sm text-gray-400">
+                        <ul className="space-y-3 text-sm text-gray-200">
                             <li>{details?.user?.business?.address}</li>
                             <li>{details?.user?.phone}</li>
+                            <li>{details?.user?.otherPhone}</li>
                             <li>{details?.user?.email}</li>
+                            <li>{details?.user?.otherEmail}</li>
                         </ul>
                     </div>
 
@@ -129,9 +154,8 @@ export default function Footer({ details, portfolio, navLinks }) {
                             Trust & Excellence
                         </h3>
 
-                        <p className="text-sm text-gray-400">
-                            Delivering trusted products and services with excellence.
-                            Connect with us through our social platforms.
+                        <p className="text-sm text-gray-200">
+                            We are proud to present the TrustElite Certificate of Excellence to <span className='font-extrabold'>{details?.user?.business?.companyName},</span> recognizing their commitment to exceptional customer service, outstanding business practices, and a dedication to building trust with their customers.
                         </p>
 
                         <img

@@ -156,6 +156,7 @@ export default function Portfolio() {
     if (loadingPage) {
         return <CatalogSkeleton />;
     }
+    console.log(details)
 
     return (<>
         <Navbar details={details} portfolio={portfolio} navLinks={navLinks} />
@@ -281,7 +282,7 @@ export default function Portfolio() {
     prose-h2:text-lg prose-h2:font-semibold
     prose-h3:text-base
     prose-p:text-sm
-    md:prose-h1:text-3xl md:prose-h2:text-2xl md:prose-h3:text-xl
+    md:prose-h1:text-3xl md:prose-h2:text-2xl md:prose-h3:text-xl text-black!
   "
                     dangerouslySetInnerHTML={{ __html: details?.about?.description }}
                 />
@@ -401,7 +402,7 @@ export default function Portfolio() {
 
                     {/* WhatsApp */}
                     <a
-                        href={details?.user?.business.social.whatsapp}
+                        href={details?.user?.business?.social?.whatsapp}
                         target="_blank"
                         className="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 px-6 py-3 rounded-lg font-medium transition"
                     >
@@ -436,7 +437,7 @@ export default function Portfolio() {
 
                     {/* FAQ */}
                     <div className="space-y-3">
-                        {details?.faqSection?.faqs.map((faq, index) => {
+                        {details?.faqSection?.faqs?.map((faq, index) => {
                             const isOpen = activeIndex === index;
 
                             return (
