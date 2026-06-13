@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react'
 import Popup from '../Main/Popup';
+import { MdVerified } from "react-icons/md";
 
 export default function Navbar({ details, portfolio, navLinks }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -50,7 +51,7 @@ export default function Navbar({ details, portfolio, navLinks }) {
                         height={200}
                         src={details?.user?.profileImage || "/no-image.webp"}
                         alt="Logo"
-                        className="w-auto h-16 border border-gray-200 rounded-lg"
+                        className="w-auto h-18 border border-gray-200 rounded-lg"
                     />
                     <div>
                         <p className='text-xl md:text-2xl font-semibold' style={{ color: details?.hero?.color }}>
@@ -59,6 +60,17 @@ export default function Navbar({ details, portfolio, navLinks }) {
                         <p className='text-black flex text-sm items-center gap-1'>
                             <MapPin size={16} className='-mt-0.5' />
                             {details?.user?.business?.city}, India
+                        </p>
+                        <p className='flex gap-1 items-center mt-1'>
+                            <MdVerified size={16} className='text-green-600 -mt-0.5' />
+                            <p className='text-xs flex flex-col'>
+                                {/* <span className='text-[#1e3a56] font-semibold'>
+                                    Inquiry Bazaar
+                                </span> */}
+                                <span className='text-green-500 font-semibold'>
+                                    Verified Supplier
+                                </span>
+                            </p>
                         </p>
                     </div>
                 </Link>

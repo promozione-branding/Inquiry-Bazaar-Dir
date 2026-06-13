@@ -25,11 +25,11 @@ export default function ProductSlider({ products, loading1, details, setOpen, po
     }, [products]);
 
     return (
-        <section className="bg-gray-100 py-6 md:px-12 px-4">
+        <section className="bg-gray-100 md:py-6 md:px-12 px-2 py-2">
             <Swiper
                 spaceBetween={20}
                 breakpoints={{
-                    320: { slidesPerView: 1.1 },
+                    320: { slidesPerView: 1 },
                     640: { slidesPerView: 2 },
                     1024: { slidesPerView: 3 },
                     1280: { slidesPerView: 5 },
