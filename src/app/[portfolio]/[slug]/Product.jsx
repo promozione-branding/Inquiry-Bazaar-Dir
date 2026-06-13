@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 import ContactModal from '@/components/Main/ContactModal';
 import { BsWhatsapp } from 'react-icons/bs';
 import RatingsUI from '@/components/Product/ReviewSection';
+import StickyButtons from '@/components/Webpage/StickyButtons';
+import Stickyfooter from '@/components/Webpage/StickyFooter';
 
 export default function Product() {
     const router = useRouter();
@@ -332,6 +334,8 @@ export default function Product() {
             <RatingsUI />
         </div>
 
+        <StickyButtons details={details} />
+        <Stickyfooter details={details} portfolio={portfolio} />
         <ContactModal open={openPopup} setOpen={setOpenPopup} product={popupProduct} />
         <Footer details={details} portfolio={portfolio} navLinks={navLinks} />
     </>)

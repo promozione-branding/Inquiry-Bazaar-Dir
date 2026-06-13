@@ -28,6 +28,7 @@ import ProductsList from "@/components/Webpage/ProductsList";
 import StickyButtons from "@/components/Webpage/StickyButtons";
 import Navbar from "@/components/Webpage/Navbar";
 import Footer from "@/components/Webpage/Footer";
+import Stickyfooter from "@/components/Webpage/StickyFooter";
 
 export default function Portfolio() {
     const { portfolio } = useParams()
@@ -575,6 +576,7 @@ export default function Portfolio() {
         <Footer details={details} portfolio={portfolio} navLinks={navLinks} />
 
         <StickyButtons details={details} />
+        <Stickyfooter details={details} portfolio={portfolio} />
         <Popup open={open} setOpen={setOpen} details={details} />
     </>)
 }

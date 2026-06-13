@@ -42,14 +42,16 @@ export default function ProductsList({ products, loading1, details, portfolio })
                         className="relative bg-white rounded-xl shadow-sm border overflow-hidden group border-gray-200"
                     >
                         <div className="w-full h-60 overflow-hidden">
-                            <img
-                                src={product.media?.[0]?.url || "/no-image.webp"}
-                                alt={product.name}
-                                className="w-full h-full object-contain group-hover:scale-105 transition duration-300"
-                            />
+                            <Link href={`${portfolio}/${product.slug}`} className='relative'>
+                                <img
+                                    src={product.media?.[0]?.url || "/no-image.webp"}
+                                    alt={product.name}
+                                    className="w-full h-full object-contain group-hover:scale-105 transition duration-300"
+                                />
+                            </Link>
                         </div>
 
-                        <div className="absolute inset-0 flex items-end justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div className="absolute inset-0 lg:flex hidden items-end justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition duration-300">
                             <Link href={`${portfolio}/${product.slug}`} style={{ backgroundColor: details?.hero?.color || "#8B4513", }} className="text-white p-3 rounded-full shadow-lg hover:scale-110 transition mb-15">
                                 <Eye size={20} />
                             </Link>

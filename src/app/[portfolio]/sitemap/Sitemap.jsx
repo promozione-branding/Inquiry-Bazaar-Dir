@@ -6,6 +6,8 @@ import { Home, Info, Mail, ShoppingBag } from 'lucide-react';
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useMemo, useState } from 'react'
 import Link from "next/link";
+import StickyButtons from '@/components/Webpage/StickyButtons';
+import Stickyfooter from '@/components/Webpage/StickyFooter';
 
 export default function Sitemap() {
     const { portfolio } = useParams()
@@ -158,7 +160,8 @@ export default function Sitemap() {
                 </main>
             </div>
         </section>
-
+        <StickyButtons details={details} />
+        <Stickyfooter details={details} portfolio={portfolio} />
         <Footer details={details} portfolio={portfolio} navLinks={navLinks} />
     </>)
 }

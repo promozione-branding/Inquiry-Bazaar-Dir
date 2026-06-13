@@ -7,7 +7,7 @@ import { FaLinkedin, FaXTwitter } from 'react-icons/fa6'
 
 export default function Footer({ details, portfolio, navLinks }) {
     return (
-        <footer className="bg-gray-950 text-gray-300">
+        <footer className="bg-gray-950 text-gray-300 md:pb-0 pb-20">
             <div className="md:px-20 px-4 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
                     <div>
@@ -173,8 +173,7 @@ export default function Footer({ details, portfolio, navLinks }) {
             </div>
 
             <div className="border-t border-gray-800">
-                <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-4">
-
+                <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
                     <p className="text-sm text-gray-400">
                         © {new Date().getFullYear()} Inquiry Bazaar. All rights reserved.
                     </p>
@@ -189,6 +188,10 @@ export default function Footer({ details, portfolio, navLinks }) {
                         >
                             Inquiry Bazaar Pvt. Ltd.
                         </a>
+                    </p>
+
+                    <p className='bg-white rounded-md'>
+                        <img src="/Business Syndicate (21).png" alt="logo" className='w-50 h-10 object-cover scale-100' style={{objectPosition:"50% 53%"}} />
                     </p>
                 </div>
             </div>
