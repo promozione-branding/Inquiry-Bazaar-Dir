@@ -26,7 +26,7 @@ export default function ProductSlider({ products, loading1, details, setOpen, po
 
     return (
         <section className="bg-gray-100 py-6 md:px-12 px-4">
-           
+             <h1 className="text-black  text-4xl font-bold py-2">OUR PRODUCTS</h1>
             <Swiper
                 spaceBetween={20}
                 breakpoints={{
