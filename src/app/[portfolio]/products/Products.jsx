@@ -13,6 +13,8 @@ import {
     Boxes,
 } from "lucide-react";
 import Link from 'next/link';
+import StickyButtons from '@/components/Webpage/StickyButtons';
+import Stickyfooter from '@/components/Webpage/StickyFooter';
 
 export default function Products() {
     const { portfolio } = useParams()
@@ -205,7 +207,8 @@ export default function Products() {
                 )}
             </div>
         </div>
-
+        <StickyButtons details={details} />
+        <Stickyfooter details={details} portfolio={portfolio} />
         <Footer details={details} portfolio={portfolio} navLinks={navLinks} />
     </>)
 }

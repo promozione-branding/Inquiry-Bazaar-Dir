@@ -61,7 +61,7 @@ export default function StickyButtons({ details }) {
     return (<>
         {details?.user?.business?.social?.whatsapp && (
             <button onClick={() => handleWhatsappClick(details, details?.user?.business?.social?.whatsapp)} disabled={loadingType !== null}
-                className={`fixed bottom-5 right-4 z-50 text-white p-3 rounded-full shadow-lg transition
+                className={`fixed bottom-18 md:bottom-5 right-4 z-50 text-white p-3 rounded-full shadow-lg transition
              ${loadingType == "whatsapp" ? "bg-green-300 cursor-not-allowed" : "bg-green-500 hover:bg-green-600 animate-bounce"}`}>
                 <FaWhatsapp size={30} />
             </button>
@@ -69,7 +69,7 @@ export default function StickyButtons({ details }) {
 
         {details?.user?.phone && (
             <button onClick={() => handleCallClick(details, details?.user?.phone)} disabled={loadingType !== null}
-                className={`fixed bottom-21 right-4 z-50 text-white p-3 rounded-full shadow-lg transition
+                className={`fixed bottom-33 md:bottom-21 right-4 z-50 text-white p-3 rounded-full shadow-lg transition
                  ${loadingType == "call" ? "bg-red-300 cursor-not-allowed" : "bg-red-500 hover:bg-red-600 animate-bounce"}`}>
                 <FaPhoneAlt size={27} />
             </button>

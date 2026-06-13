@@ -1,4 +1,4 @@
-import { Building2, Factory, Home, Info, Mail, Menu, Phone, ShieldCheck, ShoppingBag, Users, X } from 'lucide-react';
+import { Building2, Factory, Home, Info, Mail, MapPin, Menu, Phone, ShieldCheck, ShoppingBag, Users, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react'
@@ -9,10 +9,9 @@ export default function Navbar({ details, portfolio, navLinks }) {
     const [open, setOpen] = useState(false);
 
     return (<>
-        <div className="py-2 text-black lg:block hidden" style={{ backgroundColor: details?.hero?.color }}>
+        <div className="py-2 text-black" style={{ backgroundColor: details?.hero?.color }}>
             <div className="max-w-7xl mx-auto px-4">
                 <div className="flex flex-wrap items-center justify-center gap-20 text-sm">
-
                     <div className="flex items-center gap-2">
                         <ShieldCheck size={18} className="text-black" />
                         <span className="font-semibold">
@@ -23,37 +22,45 @@ export default function Navbar({ details, portfolio, navLinks }) {
                         </span>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="lg:flex items-center gap-2 hidden">
                         <Factory size={18} className="text-black" />
                         <span>
                             {details?.user?.business?.businessType}
                         </span>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="lg:flex items-center gap-2 hidden">
                         <Building2 size={18} className="text-black" />
                         <span>{details?.user?.business?.businessField}</span>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="lg:flex items-center gap-2 hidden">
                         <Users size={18} className="text-black" />
                         <span>{details?.user?.business?.numberOfEmployees}</span>
                     </div>
-
                 </div>
             </div>
         </div>
 
         <section className="w-full bg-gray-50 border-b border-b-gray-200 sticky top-0 z-50">
-            <div className="flex justify-between items-center px-4 py-2">
-                <Link href={`/${portfolio}`} className="border border-gray-200 p-1">
+            <div className="flex justify-between items-center md:px-4 px-2 py-2">
+                <Link href={`/${portfolio}`} className="p-1 flex gap-2 items-center">
                     <Image
                         width={200}
                         height={200}
                         src={details?.user?.profileImage || "/no-image.webp"}
                         alt="Logo"
-                        className="w-auto h-16"
+                        className="w-auto h-16 border border-gray-200 rounded-lg"
                     />
+                    <div>
+                        <p className='text-xl md:text-2xl font-semibold' style={{ color: details?.hero?.color }}>
+                            {details?.user?.business?.companyName}
+                        </p>
+                        <p className='text-black flex text-sm items-center gap-1'>
+                            <MapPin size={16} className='-mt-0.5' />
+                            {details?.user?.business?.city}, India
+                        </p>
+                    </div>
                 </Link>
 
                 <div className="hidden lg:flex items-center gap-6 text-black">
