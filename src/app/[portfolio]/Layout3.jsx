@@ -13,6 +13,8 @@ import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import AddressContact from "@/components/Webpage/Layout3/Address";
 import Footer from "@/components/Webpage/Layout3/Footer";
+import StickyButtons from "@/components/Webpage/Layout3/StickyButtons";
+import Stats from "@/components/Webpage/Layout3/Stats"
 
 export default function Layout2() {
   const { portfolio } = useParams();
@@ -57,7 +59,8 @@ export default function Layout2() {
   return (
     <>
       <Navbar details={details} />
-      {/* <Hero details={details} /> */}
+       <Stats details={details} /> 
+
       <ProductSlider
         products={products}
         details={details}
@@ -71,6 +74,7 @@ export default function Layout2() {
       <AddressContact details={details} />
 
       <Footer />
+      <StickyButtons/>
     </>
   );
 }
