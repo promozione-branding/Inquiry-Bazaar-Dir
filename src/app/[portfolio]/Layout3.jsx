@@ -15,7 +15,7 @@ import AddressContact from "@/components/Webpage/Layout3/Address";
 import Footer from "@/components/Webpage/Layout3/Footer";
 import StickyButtons from "@/components/Webpage/Layout3/StickyButtons";
 import Stats from "@/components/Webpage/Layout3/Stats"
-
+import Gmb from "@/components/Webpage/Layout3/Gmb"
 export default function Layout2() {
   const { portfolio } = useParams();
   const router = useRouter();
@@ -72,7 +72,7 @@ export default function Layout2() {
       <Form details={details} />
 
       <AddressContact details={details} />
-
+<Gmb details={details}/>
       <Footer />
       <StickyButtons/>
     </>
