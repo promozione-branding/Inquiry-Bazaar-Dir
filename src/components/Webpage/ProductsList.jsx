@@ -22,7 +22,7 @@ export default function ProductsList({ products, loading1, details, portfolio })
                 </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
                 {loading1 ? Array.from({ length: 6 }).map((_, index) => (
                     <div key={index} className="bg-gray-200 border border-gray-300 rounded-xl shadow-sm animate-pulse">
                         <div className='h-60 bg-white rounded-xl w-full border border-gray-300'>
@@ -41,7 +41,7 @@ export default function ProductsList({ products, loading1, details, portfolio })
                         whileHover={{ y: -8 }}
                         className="relative bg-white rounded-xl shadow-sm border overflow-hidden group border-gray-200"
                     >
-                        <div className="w-full h-60 overflow-hidden">
+                        <div className="w-full md:h-60 h-40 overflow-hidden">
                             <Link href={`${portfolio}/${product.slug}`} className='relative'>
                                 <img
                                     src={product.media?.[0]?.url || "/no-image.webp"}
@@ -57,8 +57,8 @@ export default function ProductsList({ products, loading1, details, portfolio })
                             </Link>
                         </div>
 
-                        <div className="p-4 text-center">
-                            <h3 className="text-lg font-semibold text-gray-800">
+                        <div className="md:p-4 p-2 text-center">
+                            <h3 className="md:text-lg text-sm font-semibold text-gray-800">
                                 {product.name}
                             </h3>
                         </div>

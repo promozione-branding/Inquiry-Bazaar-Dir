@@ -25,12 +25,8 @@ export default function ProductSlider({ products, loading1, details, setOpen, po
     }, [products]);
 
     return (
-<<<<<<< HEAD
         <section className="bg-gray-100 py-6 md:px-12 px-4">
-           
-=======
-        <section className="bg-gray-100 md:py-6 md:px-12 px-2 py-2">
->>>>>>> 6bf97a6d50738009b304ae6c37c55acdb0d75a95
+
             <Swiper
                 spaceBetween={20}
                 breakpoints={{
@@ -65,7 +61,7 @@ export default function ProductSlider({ products, loading1, details, setOpen, po
                         <motion.div whileHover={{ y: -6, transition: { duration: 0.2 }, }}
                             className="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-lg h-[380px] flex flex-col"
                         >
-                            <div className="w-full h-60 bg-white flex items-center justify-center p- overflow-hidden">
+                            <div className="w-full h-70 bg-white flex items-center justify-center p- overflow-hidden">
                                 <img
                                     src={product.media?.[0]?.url || "/no-image.webp"}
                                     alt={product.name}

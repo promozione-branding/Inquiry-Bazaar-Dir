@@ -32,12 +32,12 @@ const reviews = [
 
 export default function Testimonials() {
   return (
-    <section className="py-8 bg-white">
+    <section className="pt-8 bg-white">
       <div className="max-w-7xl mx-auto px-4">
-        
+
         {/* Header */}
-        <div className="flex items-center justify-between mb-10">
-          <h2 className="text-2xl md:text-4xl font-bold text-slate-900">
+        <div className="flex items-center justify-between md:mb-10 mb-5">
+          <h2 className="text-xl md:text-4xl font-bold text-slate-900">
             WHAT OUR CUSTOMERS SAY
           </h2>
 
@@ -48,23 +48,13 @@ export default function Testimonials() {
         </div>
 
         <div className="relative">
-          
-          {/* Prev Button */}
-          <button className="testimonial-prev absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-blue-600 text-white shadow-lg flex items-center justify-center hover:scale-105 transition">
-            <ChevronLeft size={24} />
-          </button>
-
-          {/* Next Button */}
-          <button className="testimonial-next absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-blue-600 text-white shadow-lg flex items-center justify-center hover:scale-105 transition">
-            <ChevronRight size={24} />
-          </button>
 
           <Swiper
-            modules={[Navigation, Autoplay]}
-            navigation={{
-              prevEl: ".testimonial-prev",
-              nextEl: ".testimonial-next",
-            }}
+            modules={[Autoplay]}
+            // navigation={{
+            //   prevEl: ".testimonial-prev",
+            //   nextEl: ".testimonial-next",
+            // }}
             autoplay={{
               delay: 4000,
               disableOnInteraction: false,
@@ -82,12 +72,12 @@ export default function Testimonials() {
                 slidesPerView: 3,
               },
             }}
-            className="px-14"
+            className="pb-10!"
           >
             {reviews.map((review, index) => (
               <SwiperSlide key={index}>
                 <div className="bg-white border border-gray-200 rounded-3xl p-6 shadow-sm hover:shadow-lg transition-all h-full min-h-[240px]">
-                  
+
                   {/* Stars */}
                   <div className="flex gap-1 mb-5">
                     {[...Array(5)].map((_, i) => (
@@ -112,14 +102,6 @@ export default function Testimonials() {
               </SwiperSlide>
             ))}
           </Swiper>
-        </div>
-
-        {/* Mobile View All */}
-        <div className="flex justify-center mt-8 md:hidden">
-          <button className="flex items-center gap-2 text-blue-600 font-semibold">
-            View All
-            <ChevronRight size={20} />
-          </button>
         </div>
       </div>
     </section>

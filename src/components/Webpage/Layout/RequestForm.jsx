@@ -78,7 +78,7 @@ export default function RequestForm({ details }) {
   return (
     <div className="py-5" id="quote-form">
       <section className="px-4">
-        <div className="max-w-6xl mx-auto bg-gradient-to-b from-slate-50 to-gray-100 border border-gray-200 rounded-3xl p-6 md:p-8">
+        <div className="max-w-7xl mx-auto bg-gradient-to-b from-slate-50 to-gray-100 border border-gray-200 rounded-3xl p-6 md:p-8">
           <div className="grid lg:grid-cols-[2fr_1fr] gap-8 items-start">
             
             {/* Form */}
@@ -177,18 +177,13 @@ export default function RequestForm({ details }) {
 
                   {!loading && <ChevronRight size={22} />}
                 </button>
-
-                <div className="flex items-center justify-center gap-2 text-gray-600 font-medium">
-                  <Clock3 size={16} />
-                  <span>Response Within 15 Minutes</span>
-                </div>
               </form>
             </div>
 
             {/* Benefits */}
-            <div className="space-y-5">
+            <div className="space-y-2 lg:space-y-7">
               {benefits.map((item, index) => (
-                <div key={index} className="flex items-center gap-3">
+                <div key={index} className="flex items-center gap-5">
                   <CheckCircle2
                     size={24}
                     className="text-green-500"
@@ -199,7 +194,6 @@ export default function RequestForm({ details }) {
                 </div>
               ))}
             </div>
-
           </div>
         </div>
       </section>

@@ -25,17 +25,17 @@ export default function ProductSlider({ products, loading1, details, setOpen, po
     }, [products]);
 
     return (
-        <section className="bg-gray-100 py-6 md:px-12 px-4">
-             <h1 className="text-black  text-4xl font-bold py-2">OUR PRODUCTS</h1>
+        <section className="bg-gray-100 lg:py-6 py-4 lg:px-12 px-4">
+            <h1 className="text-black text-4xl font-bold py-2">OUR PRODUCTS</h1>
             <Swiper
                 spaceBetween={20}
                 breakpoints={{
-                    320: { slidesPerView: 1.1 },
+                    320: { slidesPerView: 1 },
                     640: { slidesPerView: 2 },
                     1024: { slidesPerView: 3 },
                     1280: { slidesPerView: 5 },
                 }}
-                modules={[Autoplay]}
+                // modules={[Autoplay]}
                 autoplay={{
                     delay: 2500,
                     disableOnInteraction: false,
@@ -59,13 +59,13 @@ export default function ProductSlider({ products, loading1, details, setOpen, po
                 )) : sliderProducts.slice(0, 10).map((product, index) => (
                     <SwiperSlide key={`${product.id}-${index}`}>
                         <motion.div whileHover={{ y: -6, transition: { duration: 0.2 }, }}
-                            className="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-lg h-[380px] flex flex-col"
+                            className="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-lg h-[420px] flex flex-col"
                         >
-                            <div className="w-full h-60 bg-white flex items-center justify-center p- overflow-hidden">
+                            <div className="w-full h-70 bg-white flex items-center justify-center p- overflow-hidden">
                                 <img
                                     src={product.media?.[0]?.url || "/no-image.webp"}
                                     alt={product.name}
-                                    className="w-full h-full object-contain transition duration-300 hover:scale-105"
+                                    className="w-full h-full object-conatin transition duration-300 hover:scale-105"
                                 />
                             </div>
 

@@ -35,7 +35,7 @@ export default function CTA({ details }) {
 
   return (
     <section className="py-4 md:py-8 px-4">
-      <div className="max-w-6xl mx-auto bg-white rounded-2xl md:rounded-3xl shadow-md border border-gray-100 overflow-hidden">
+      <div className="max-w-7xl mx-auto bg-white rounded-2xl md:rounded-3xl shadow-md border border-gray-100 overflow-hidden">
         
         <div className="grid grid-cols-2 lg:grid-cols-4">
           {highlights.map((item, index) => {

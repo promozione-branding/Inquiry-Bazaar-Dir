@@ -36,8 +36,8 @@ export default function CTA2({details}) {
   ];
 
   return (
-    <section className="py-6 px-4">
-      <div className="max-w-6xl mx-auto bg-white border border-gray-200 rounded-2xl shadow-sm">
+    <section className="py-8 px-4">
+      <div className="max-w-7xl mx-auto bg-white border border-gray-200 rounded-2xl shadow-sm">
         
         <div className="grid grid-cols-2 lg:grid-cols-4">
           {stats.map((item, index) => {
