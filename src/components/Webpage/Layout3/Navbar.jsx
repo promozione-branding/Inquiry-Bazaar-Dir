@@ -23,8 +23,8 @@ export default function Navbar3({ details, portfolio }) {
               {details?.user?.business?.companyName ?? "Company Name"}
             </h1>
 
-            <p className="text-xs font-semibold text-gray-800 mt-1">
-              INQUIRY BAZAAR VERIFIED SUPPLIER
+            <p className="text-xs font-medium text-gray-800 mt-1">
+              ● Distributor ● Supplier ● Manufacturer
             </p>
 
             <div className="flex flex-wrap items-center gap-2">
@@ -51,15 +51,15 @@ export default function Navbar3({ details, portfolio }) {
         </Link>
 
         <div className="flex gap-2 mt-3 items-center justify-center">
-          <span className="p-1 md:p-2 rounded-full bg-green-100 text-green-700 text-xs font-semibold">
+          <span className="p-2 rounded-full bg-green-100 text-green-700 text-xs font-semibold">
             GST Verified
           </span>
 
-          <span className="p-1 md:p-2 rounded-full bg-orange-100 text-orange-700 text-xs font-semibold">
+          <span className="p-2 rounded-full bg-orange-100 text-orange-700 text-xs font-semibold">
             Trusted Seller
           </span>
 
-          <span className="p-1 md:p-2 rounded-full bg-purple-100 text-purple-700 text-xs font-semibold">
+          <span className="p-2 rounded-full bg-purple-100 text-purple-700 text-xs font-semibold">
             Est. 1988
           </span>
         </div>

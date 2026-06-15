@@ -64,7 +64,7 @@ export default function Layout2() {
     // console.log(details);
     return (
         <>
-            <Navbar2 details={details} portfolio={portfolio}/>
+            <Navbar2 details={details} portfolio={portfolio} />
             {/* <Hero details={details} /> */}
             <ProductSlider products={products} details={details} portfolio={portfolio} setOpen={setOpen} />
             <CTA details={details} />
@@ -113,7 +113,7 @@ export default function Layout2() {
             <WhatsAppCTA details={details} />
             <Footer details={details} portfolio={portfolio} navLinks={navLinks} />
             <Popup open={open} setOpen={setOpen} details={details} />
-            <StickyButtons details={details} />
+            {/* <StickyButtons details={details} /> */}
         </>
     )
 }

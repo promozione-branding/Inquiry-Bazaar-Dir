@@ -12,7 +12,7 @@ export default function Footer({ details, portfolio, navLinks }) {
             <div className="md:px-20 px-4 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
                     <div>
-                        <div className="bg-white p-2 rounded-lg w-fit">
+                        <div className="bg-gray- p-2 rounded-lg w-fit">
                             <Image
                                 src={details?.user?.profileImage || "/no-image.webp"}
                                 alt="Business Logo"

@@ -9,7 +9,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import axios from 'axios';
 import React, { useState } from 'react'
 
-const StickyButtons1 = () => {
+const StickyButtons1 = ({details}) => {
   const [loadingType, setLoadingType] = useState(null);
 
   const trackEvent = async (eventType, productDetails) => {

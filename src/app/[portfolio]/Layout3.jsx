@@ -129,7 +129,7 @@ export default function Layout2() {
       <Footer details={details} portfolio={portfolio} navLinks={navLinks} />
       <Popup open={open} setOpen={setOpen} details={details} />
       <StickyButtons1 details={details} />
-      <StickyButtons details={details} />
+      {/* <StickyButtons details={details} /> */}
     </>
   );
 }

@@ -35,7 +35,7 @@ export default function ProductSlider({ products, loading1, details, setOpen, po
                     1024: { slidesPerView: 3 },
                     1280: { slidesPerView: 5 },
                 }}
-                // modules={[Autoplay]}
+                modules={[Autoplay]}
                 autoplay={{
                     delay: 2500,
                     disableOnInteraction: false,
