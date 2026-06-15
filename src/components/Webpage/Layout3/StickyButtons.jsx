@@ -8,10 +8,11 @@ import {
 import { FaWhatsapp } from "react-icons/fa";
 import axios from 'axios';
 import React, { useState } from 'react'
+import Popup from "@/components/Main/Popup";
 
-const StickyButtons1 = ({details}) => {
+const StickyButtons1 = ({ details }) => {
   const [loadingType, setLoadingType] = useState(null);
-
+  const [open, setOpen] = useState(false);
   const trackEvent = async (eventType, productDetails) => {
     // console.log("Tracking Event:", eventType);
     try {
@@ -67,7 +68,7 @@ const StickyButtons1 = ({details}) => {
       {/* Buttons */}
       <div className="border-t bg-white p-3 flex gap-2">
 
-        <button className="flex-1 h-[54px] rounded-xl bg-[#13653A] text-white font-semibold flex items-center justify-center gap-2">
+        <button onClick={() => setOpen(!open)} className="flex-1 h-[54px] rounded-xl bg-[#13653A] text-white font-semibold flex items-center justify-center gap-2">
           <Send size={18} />
           Send Inquiry
         </button>
@@ -81,6 +82,7 @@ const StickyButtons1 = ({details}) => {
           <FaWhatsapp size={22} />
         </button>
       </div>
+      <Popup open={open} setOpen={setOpen} details={details} />
     </div>
   )
 }

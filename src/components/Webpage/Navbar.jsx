@@ -118,7 +118,7 @@ export default function Navbar({ details, portfolio, navLinks }) {
                         );
                     })}
 
-                    <button className="flex items-center justify-center gap-2 bg-orange-400 hover:bg-orange-500 px-5 py-2 rounded-lg text-white">
+                    <button onClick={() => setOpen(!open)} className="flex items-center justify-center gap-2 bg-orange-400 hover:bg-orange-500 px-5 py-2 rounded-lg text-white">
                         <Phone size={18} />
                         Get in Touch
                     </button>

@@ -7,12 +7,12 @@ export default function CTA2({ details }) {
       label: "Years in business",
     },
     {
-      value: `${prod}+`,
-      label: "Products",
+      value: `${details?.work?.projects}+`,
+      label: "Projects Completed",
     },
     {
-      value: `${details?.brands?.length || 0}+`,
-      label: "Brands",
+      value: `${details?.work?.awards}+`,
+      label: "Awards Won",
     },
     {
       value: `${details?.work?.clients || 0}+`,
