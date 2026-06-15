@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import Portfolio from "./Portfolio";
-import Layout2 from "./Layout2";
+import Layout3 from "./Layout3";
+// import Layout2 from "./Layout2"
 
 export async function generateMetadata({ params }) {
     const { portfolio } = await params;
@@ -41,7 +42,14 @@ export default async function Page({ params }) {
             redirect("/");
         }
 
-        return <Layout2 initialData={data} />;
+        return(
+
+
+        <>
+        {/* <Layout2 initialData={data} />; */}
+        <Layout3 initialData={data} />
+        </> 
+        )
 
     } catch (err) {
         redirect("/");
