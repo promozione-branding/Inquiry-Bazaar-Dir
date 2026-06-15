@@ -21,25 +21,23 @@ export default function CTA2({ details }) {
   ];
 
   return (
-  <section className="w-full bg-[#f4f4f4] border border-gray-300">
-  <div className="grid grid-cols-4 px-1">
-    {stats.map((item, index) => (
-      <div
-        key={index}
-        className={`flex flex-col items-center justify-center h-18 ${
-          index !== stats.length - 1 ? "border-r border-gray-300" : ""
-        }`}
-      >
-        <h2 className="text-[18px] md:text-[22px] font-bold text-[#0E5C3A] leading-none">
-          {item.value}
-        </h2>
+    <section className="w-full bg-[#f4f4f4] border border-gray-300">
+      <div className="grid grid-cols-2 md:grid-cols-4 px-1 py-4 gap-5">
+        {stats.map((item, index) => (
+          <div key={index}
+            className={`flex flex-col items-center justify-center ${index !== stats.length - 1 ? "border-r border-gray-300" : ""
+              }`}
+          >
+            <h2 style={{ color: details?.hero?.color }} className="text-[25px] md:text-[40px] font-bold leading-none">
+              {item.value}
+            </h2>
 
-        <p className="mt-2 text-[11px] text-black font-medium">
-          {item.label}
-        </p>
+            <p className="mt-2 text-[15px] md:text-[20px] text-black font-medium">
+              {item.label}
+            </p>
+          </div>
+        ))}
       </div>
-    ))}
-  </div>
-</section>
+    </section>
   );
 }

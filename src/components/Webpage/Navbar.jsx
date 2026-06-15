@@ -1,3 +1,4 @@
+"use client"
 import { Building2, Factory, Home, Info, Mail, MapPin, Menu, Phone, ShieldCheck, ShoppingBag, Users, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';

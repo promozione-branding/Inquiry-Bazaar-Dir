@@ -8,6 +8,8 @@ import React, { useEffect, useMemo, useState } from 'react'
 import Link from "next/link";
 import StickyButtons from '@/components/Webpage/StickyButtons';
 import Stickyfooter from '@/components/Webpage/StickyFooter';
+import Navbar3 from '@/components/Webpage/Layout3/Navbar';
+import Navbar2 from '@/components/Webpage/Layout/Navbar';
 
 export default function Sitemap() {
     const { portfolio } = useParams()
@@ -67,8 +69,19 @@ export default function Sitemap() {
         }, {});
     }, [products]);
 
+    const NavbarComponent =
+        portfolio === "sangam-plastic-industries"
+            ? Navbar3
+            : portfolio === "matrix-tissue"
+                ? Navbar2
+                : Navbar;
+
     return (<>
-        <Navbar details={details} portfolio={portfolio} navLinks={navLinks} />
+        <NavbarComponent
+            details={details}
+            portfolio={portfolio}
+            navLinks={navLinks}
+        />
 
         <section className="bg-gray-50 min-h-screen text-black">
             <div className="px-4 md:px-10 flex">

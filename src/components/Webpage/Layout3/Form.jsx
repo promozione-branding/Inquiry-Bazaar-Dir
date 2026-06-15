@@ -5,7 +5,7 @@ import axios from "axios";
 import {
   User,
   Send,
-  Phone ,
+  Phone,
   Package,
   ShieldCheck,
   CheckCircle2,
@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 
 import { FaWhatsapp } from "react-icons/fa";
-export default function RequestForm({ details ,products }) {
+export default function RequestForm({ details, products }) {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -80,16 +80,16 @@ export default function RequestForm({ details ,products }) {
   return (
     <div className="py-5" id="quote-form">
       <section className="px-4">
-        <div className="max-w-6xl mx-auto bg-gradient-to-b from-slate-50 to-gray-100 border border-gray-200 rounded-3xl p-6 md:p-8">
-          <div className="grid lg:grid-cols-[2fr_1fr] gap-8 items-start">
-            
+        <div className="max-w-5xl mx-auto bg-gradient-to-b from-slate-50 to-gray-100 border border-gray-200 rounded-3xl p-6 md:p-8">
+          <div className="grid gap-8 items-center">
+
             {/* Form */}
             <div>
               <div className="flex flex-wrap items-center gap-2 mb-6">
-              <Mail size={18} className="text-[#156734]" />
-  <h2 className="text-xl font-bold text-[#111827]">
-    Send Your Requirement
-  </h2>
+                <Mail size={18} className="text-[#156734]" />
+                <h2 className="text-xl font-bold text-[#111827]">
+                  Send Your Requirement
+                </h2>
 
                 <div className="flex items-center gap-2 text-gray-500 text-sm">
                   <ShieldCheck size={16} />
@@ -100,7 +100,7 @@ export default function RequestForm({ details ,products }) {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 gap-4 text-black">
 
-                 
+
                   <div className="relative">
                     <User
                       size={18}
@@ -115,7 +115,7 @@ export default function RequestForm({ details ,products }) {
                     />
                   </div>
 
-               
+
                   <div className="relative">
                     <Phone
                       size={18}
@@ -131,7 +131,7 @@ export default function RequestForm({ details ,products }) {
                     />
                   </div>
 
-               
+
                   <div className="relative">
                     <Mail
                       size={18}
@@ -153,51 +153,51 @@ export default function RequestForm({ details ,products }) {
 
 
 
-<div className="relative">
-  <Package
-    size={18}
-    className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 z-10"
-  />
+                  <div className="relative">
+                    <Package
+                      size={18}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 z-10"
+                    />
 
-  <select
-    name="product"
-    required
-    defaultValue=""
-    className="w-full h-14 pl-12 pr-10 rounded-xl border border-gray-200 bg-white outline-none focus:border-orange-500 appearance-none cursor-pointer"
-  >
-    <option value="" disabled>
-      Select Product Category
-    </option>
+                    <select
+                      name="product"
+                      required
+                      defaultValue=""
+                      className="w-full h-14 pl-12 pr-10 rounded-xl border border-gray-200 bg-white outline-none focus:border-orange-500 appearance-none cursor-pointer"
+                    >
+                      <option value="" disabled>
+                        Select Product Category
+                      </option>
 
-    {products?.slice(0, 50).map((product) => (
-      <option
-        key={product._id}
-        value={product.name}
-      >
-        {product.name}
-      </option>
-    ))}
-  </select>
+                      {products?.slice(0, 50).map((product) => (
+                        <option
+                          key={product._id}
+                          value={product.name}
+                        >
+                          {product.name}
+                        </option>
+                      ))}
+                    </select>
 
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M19 9l-7 7-7-7"
-    />
-  </svg>
-</div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </div>
 
 
 
-                
+
                   <div className="relative">
                     <Package
                       size={18}
@@ -214,18 +214,18 @@ export default function RequestForm({ details ,products }) {
 
                 </div>
 
-             
+
                 {submitted && (
                   <div className="bg-green-100 border border-green-200 text-green-700 rounded-xl p-3 text-center font-medium">
                     Inquiry submitted successfully!
                   </div>
                 )}
 
-            
-             <button
-  type="submit"
-  disabled={loading}
-  className="
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="
   w-full
   h-[60px]
   rounded-2xl
@@ -240,18 +240,18 @@ export default function RequestForm({ details ,products }) {
   hover:bg-[#0f552c]
   transition
 "
->
-  <Send size={20} />
-  {loading
-    ? "Submitting..."
-    : "Submit Inquiry on InquiryBazaar"}
-</button>
+                >
+                  <Send size={20} />
+                  {loading
+                    ? "Submitting..."
+                    : "Submit Inquiry on InquiryBazaar"}
+                </button>
 
 
-<a
-  href={`https://wa.me/${details?.user?.phone}`}
-  target="_blank"
-  className="
+                <a
+                  href={`https://wa.me/${details?.user?.phone}`}
+                  target="_blank"
+                  className="
   mt-4
   flex
   h-[60px]
@@ -265,10 +265,10 @@ export default function RequestForm({ details ,products }) {
   text-md md:text-xl
   font-bold
 "
->
-  <FaWhatsapp size={22} />
-  Chat directly on WhatsApp
-</a>
+                >
+                  <FaWhatsapp size={22} />
+                  Chat directly on WhatsApp
+                </a>
 
 
                 <div className="flex items-center justify-center gap-2 text-gray-600 font-medium">
@@ -278,7 +278,7 @@ export default function RequestForm({ details ,products }) {
               </form>
             </div>
 
-         
+
 
           </div>
         </div>

@@ -15,6 +15,8 @@ import {
 import Link from 'next/link';
 import StickyButtons from '@/components/Webpage/StickyButtons';
 import Stickyfooter from '@/components/Webpage/StickyFooter';
+import Navbar3 from '@/components/Webpage/Layout3/Navbar';
+import Navbar2 from '@/components/Webpage/Layout/Navbar';
 
 export default function Products() {
     const { portfolio } = useParams()
@@ -81,8 +83,19 @@ export default function Products() {
         }
     }, [categories, selectedCategory]);
 
+    const NavbarComponent =
+        portfolio === "sangam-plastic-industries"
+            ? Navbar3
+            : portfolio === "matrix-tissue"
+                ? Navbar2
+                : Navbar;
+
     return (<>
-        <Navbar details={details} portfolio={portfolio} navLinks={navLinks} />
+        <NavbarComponent
+            details={details}
+            portfolio={portfolio}
+            navLinks={navLinks}
+        />
 
         <div className="min-h-screen bg-slate-50">
             <section className="bg-white border-b px-4 py-4 text-center">

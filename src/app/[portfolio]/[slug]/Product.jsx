@@ -11,6 +11,8 @@ import { BsWhatsapp } from 'react-icons/bs';
 import RatingsUI from '@/components/Product/ReviewSection';
 import StickyButtons from '@/components/Webpage/StickyButtons';
 import Stickyfooter from '@/components/Webpage/StickyFooter';
+import Navbar3 from '@/components/Webpage/Layout3/Navbar';
+import Navbar2 from '@/components/Webpage/Layout/Navbar';
 
 export default function Product() {
     const router = useRouter();
@@ -99,10 +101,72 @@ export default function Product() {
         }
     }, [product]);
 
-    // console.log(product)
+    const [loadingType, setLoadingType] = useState(null);
+
+    const trackEvent = async (eventType, productDetails) => {
+        // console.log("Tracking Event:", eventType);
+        try {
+            await axios.post(`${process.env.NEXT_PUBLIC_LEAD_BACKEND_BASE_URL}/api/tracking/create`,
+                {
+                    productId: product.name,
+                    supplierToken: productDetails?.user?._id,
+                    eventType,
+                    source: "Dir Product Page",
+                }
+            );
+        } catch (error) {
+            console.log("Tracking Error:", error);
+        }
+    };
+
+    const handleWhatsappClick = async (product, link) => {
+        if (loadingType) return;
+
+        try {
+            setLoadingType("whatsapp");
+
+            await trackEvent("whatsapp_click", product);
+
+            window.open(
+                link,
+                "_blank"
+            );
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoadingType(null);
+        }
+    };
+
+    const handleCallClick = async (product, link) => {
+        if (loadingType) return;
+
+        try {
+            setLoadingType("call");
+
+            await trackEvent("call_click", product);
+
+            window.location.href = `tel:${link}`;
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoadingType(null);
+        }
+    };
+
+    const NavbarComponent =
+        portfolio === "sangam-plastic-industries"
+            ? Navbar3
+            : portfolio === "matrix-tissue"
+                ? Navbar2
+                : Navbar;
 
     return (<>
-        <Navbar details={details} portfolio={portfolio} navLinks={navLinks} />
+        <NavbarComponent
+            details={details}
+            portfolio={portfolio}
+            navLinks={navLinks}
+        />
 
         <div className="max-w-7xl mx-auto px-4 pt-8 pb-4">
             <div className="grid lg:grid-cols-[500px_1fr] gap-8 items-start">
@@ -299,24 +363,24 @@ export default function Product() {
                     </div>
 
                     {/* Buttons */}
-                    <div className="flex flex-wrap gap-4 mt-4">
+                    <div className="flex flex-col md:flex-row gap-4 mt-4">
                         <button onClick={() => { setOpenPopup(true); setPopupProduct(product) }} className="border border-orange-600 text-orange-600 hover:bg-orange-50 px-8 py-3 rounded-lg font-semibold transition">
                             Get Best Price
                         </button>
 
-                        <a href={`tel:${product.supplier?.phone}`} target='blank' className="flex items-center gap-3 border border-blue-600 text-blue-600 hover:bg-blue-50 px-4 py-3 rounded-lg font-semibold transition">
+                        <button onClick={() => handleCallClick(details, details?.user?.phone)} disabled={loadingType !== null} className="flex items-center justify-center gap-3 border border-blue-600 text-blue-600 hover:bg-blue-50 px-4 py-3 rounded-lg font-semibold transition">
                             <PhoneCall size={18} /> Contact Us
-                        </a>
+                        </button>
 
-                        <a href={`${product.supplier?.business?.social?.whatsapp}`} target='blank' className="flex items-center gap-3 border border-green-600 text-green-600 hover:bg-green-50 px-4 py-3 rounded-lg font-semibold transition">
+                        <button onClick={() => handleWhatsappClick(details, details?.user?.business?.social?.whatsapp)} disabled={loadingType !== null} className="flex items-center justify-center gap-3 border border-green-600 text-green-600 hover:bg-green-50 px-4 py-3 rounded-lg font-semibold transition">
                             <BsWhatsapp size={20} /> Whatsapp Us
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
 
             {/* DESCRIPTION */}
-            <div className="mt-8 bg-white rounded-xl p-8 shadow-md border border-gray-200">
+            <div className="mt-8 bg-white rounded-xl p-8 shadow-md border text-black border-gray-200">
                 <h2 className="text-2xl font-bold text-slate-900 mb-6">
                     Product Description
                 </h2>

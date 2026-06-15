@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import Portfolio from "./Portfolio";
 import Layout3 from "./Layout3";
-// import Layout2 from "./Layout2"
+import Layout2 from "./Layout2"
 
 export async function generateMetadata({ params }) {
     const { portfolio } = await params;
@@ -42,14 +42,14 @@ export default async function Page({ params }) {
             redirect("/");
         }
 
-        return(
+        if (portfolio === "sangam-plastic-industries") {
+            return <Layout3 initialData={data} />;
+        } else if (portfolio === "matrix-tissue") {
+            return <Layout2 initialData={data} />;
+        } else {
+            return <Portfolio initialData={data} />;
+        }
 
-
-        <>
-        {/* <Layout2 initialData={data} />; */}
-        <Layout3 initialData={data} />
-        </> 
-        )
 
     } catch (err) {
         redirect("/");

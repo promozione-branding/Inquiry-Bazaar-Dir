@@ -1,15 +1,69 @@
 "use client";
-
-import React from "react";
+import React, { useState } from 'react'
 import { CircleCheckBig, FileText, MapPin, MessageCircle, Phone } from "lucide-react";
+import axios from 'axios';
+import Link from 'next/link';
 
-export default function Navbar({ details }) {
+export default function Navbar2({ details, portfolio }) {
+  const [loadingType, setLoadingType] = useState(null);
+
+  const trackEvent = async (eventType, productDetails) => {
+    // console.log("Tracking Event:", eventType);
+    try {
+      await axios.post(`${process.env.NEXT_PUBLIC_LEAD_BACKEND_BASE_URL}/api/tracking/create`,
+        {
+          productId: "N/A",
+          supplierToken: productDetails?.user?._id,
+          eventType,
+          source: "Dir Web Page",
+        }
+      );
+    } catch (error) {
+      console.log("Tracking Error:", error);
+    }
+  };
+
+  const handleWhatsappClick = async (product, link) => {
+    if (loadingType) return;
+
+    try {
+      setLoadingType("whatsapp");
+
+      await trackEvent("whatsapp_click", product);
+
+      window.open(
+        link,
+        "_blank"
+      );
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingType(null);
+    }
+  };
+
+  const handleCallClick = async (product, link) => {
+    if (loadingType) return;
+
+    try {
+      setLoadingType("call");
+
+      await trackEvent("call_click", product);
+
+      window.location.href = `tel:${link}`;
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingType(null);
+    }
+  };
+
   return (
     <>
       <div className="w-full bg-white border-b border-gray-300 shadow-sm p-2 sticky top-0 z-50">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-          <div className="flex items-center gap-3 md:gap-5 min-w-0">
-            <div className="w-10 h-10 sm:w-24 sm:h-24 shrink-0 border flex items-center justify-center overflow-hidden bg-white">
+        <div className="flex items-center justify-between md:gap-5 gap-2">
+          <Link href={`/${portfolio}`} className="flex items-center gap-1 md:gap-5 min-w-0">
+            <div className="w-12 h-12 sm:w-24 sm:h-24 shrink-0 border flex items-center justify-center overflow-hidden bg-white">
               <img
                 src={details?.user?.profileImage}
                 alt={details?.user?.business?.companyName}
@@ -19,11 +73,11 @@ export default function Navbar({ details }) {
 
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2 flex-wrap">
-                <h2 className="text-lg sm:text-2xl md:text-3xl font-bold text-slate-900 break-words">
+                <h2 className="text-base sm:text-2xl md:text-3xl font-bold text-slate-900 break-words">
                   {details?.user?.business?.companyName}
                 </h2>
 
-                <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center shrink-0 mt-1">
+                <div className="md:w-6 md:h-6 w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center shrink-0 mt-1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-3 h-3 text-white"
@@ -46,7 +100,7 @@ export default function Navbar({ details }) {
                   ★★★★★
                 </div>
 
-                <span className="font-semibold text-sm md:text-base text-gray-800">
+                <span className="font-semibold text-xs md:text-base text-gray-800">
                   4.8
                 </span>
 
@@ -62,20 +116,20 @@ export default function Navbar({ details }) {
                 </span>
               </div>
             </div>
-          </div>
+          </Link>
 
-          <div className="md:block hidden w-full md:w-auto bg-slate-50 rounded-2xl border border-slate-300 p-4">
-            <h3 className="text-center font-bold leading-tight">
-              <span className="text-blue-700 text-sm md:text-base">
+          <div className="w-auto bg-slate-50 rounded-md md:rounded-2xl border border-slate-300 md:p-4 p-1">
+            <h3 className="text-center md:font-bold leading-tight">
+              <span className="text-blue-700 text-xs md:text-base">
                 INQUIRY BAZAAR
               </span>
               <br />
-              <span className="text-green-600 text-sm md:text-base">
+              <span className="text-green-600 text-xs md:text-base">
                 VERIFIED SUPPLIER
               </span>
             </h3>
 
-            <div className="flex items-center justify-center gap-2 mt-3 text-gray-700">
+            <div className="hidden md:flex items-center justify-center gap-2 mt-3 text-gray-700">
               <CircleCheckBig
                 size={18}
                 className="text-green-600"
@@ -91,30 +145,26 @@ export default function Navbar({ details }) {
       <div className="fixed -bottom-1 left-0 right-0 bg-white border-t shadow-lg z-50 lg:hidden">
         <div className="grid grid-cols-3">
 
-          <a
-            href={`tel:${details?.user?.phone}`}
+          <button onClick={() => handleCallClick(details, details?.user?.phone)} disabled={loadingType !== null}
             className="flex items-center justify-center gap-2 bg-blue-500 py-4 border-r"
           >
             <Phone size={18} className="text-white" />
             <span className="text-sm font-bold">Call Now</span>
-          </a>
+          </button>
 
-          <a
-            href="#quote-form"
+          <a href="#quote-form"
             className="flex items-center justify-center gap-2 py-4 bg-orange-500 border-r"
           >
             <FileText size={18} className="text-white" />
             <span className="text-sm font-bold">Get Quote</span>
           </a>
 
-          <a
-            href="https://wa.me/919999999999"
-            target="_blank"
+          <button onClick={() => handleWhatsappClick(details, details?.user?.business?.social?.whatsapp)} disabled={loadingType !== null}
             className="flex items-center justify-center gap-2 py-4 bg-green-500 text-white"
           >
             <MessageCircle size={18} />
             <span className="text-sm font-bold">WhatsApp</span>
-          </a>
+          </button>
 
         </div>
       </div>

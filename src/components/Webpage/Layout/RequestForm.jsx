@@ -76,12 +76,10 @@ export default function RequestForm({ details }) {
   };
 
   return (
-    <div className="py-5" id="quote-form">
+    <div className="py-5 " id="quote-form">
       <section className="px-4">
         <div className="max-w-7xl mx-auto bg-gradient-to-b from-slate-50 to-gray-100 border border-gray-200 rounded-3xl p-6 md:p-8">
           <div className="grid lg:grid-cols-[2fr_1fr] gap-8 items-start">
-            
-            {/* Form */}
             <div>
               <div className="flex flex-wrap items-center gap-3 mb-6">
                 <h2 className="text-2xl md:text-3xl font-bold text-[#1d376d]">
@@ -180,7 +178,6 @@ export default function RequestForm({ details }) {
               </form>
             </div>
 
-            {/* Benefits */}
             <div className="space-y-2 lg:space-y-7">
               {benefits.map((item, index) => (
                 <div key={index} className="flex items-center gap-5">
