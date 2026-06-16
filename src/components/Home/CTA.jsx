@@ -82,6 +82,8 @@ export default function CTA() {
             <div className="flex items-center gap-2 border border-gray-400 rounded-lg px-3 py-2 flex-1">
               <Phone className="text-gray-800" size={18} />
               <input
+                maxLength={10}
+                minLength={10}
                 name="phone"
                 type="tel"
                 placeholder="Phone Number"

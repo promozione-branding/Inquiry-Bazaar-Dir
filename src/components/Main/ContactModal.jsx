@@ -224,6 +224,8 @@ export default function ContactModal({ open, setOpen, product }) {
                                     <div className="flex items-center border rounded-lg px-2 border-gray-300 shadow-sm">
                                         <Phone size={16} className="text-orange-500" />
                                         <input
+                                            maxLength={10}
+                                            minLength={10}
                                             name="phone"
                                             type="tel"
                                             placeholder="Phone Number"

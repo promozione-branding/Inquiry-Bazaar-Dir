@@ -71,7 +71,7 @@ export default function Popup({ open, setOpen, details }) {
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         exit={{ scale: 0.8, opacity: 0, y: 50 }}
                         transition={{ duration: 0.3 }}
-                      className="fixed z-50 w-[90%] max-w-md top-1/2 left-1/2 p-4 -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-lg overflow-hidden"
+                        className="fixed z-50 w-[90%] max-w-md top-1/2 left-1/2 p-4 -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-lg overflow-hidden"
                     >
 
                         <div className="relative">
@@ -130,6 +130,8 @@ export default function Popup({ open, setOpen, details }) {
                                     <div className="w-full flex items-center border rounded-lg px-2 border-gray-400">
                                         <Phone size={16} className="text-[#0A5B93]" />
                                         <input
+                                            maxLength={10}
+                                            minLength={10}
                                             name="phone"
                                             type="tel"
                                             placeholder="Phone Number"

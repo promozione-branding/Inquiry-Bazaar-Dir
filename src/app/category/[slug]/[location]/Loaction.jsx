@@ -633,6 +633,8 @@ export default function Loaction() {
 
                             <div className="flex items-center border rounded-lg border-gray-300 shadow mb-4">
                                 <input
+                                    maxLength={10}
+                                    minLength={10}
                                     name="phone"
                                     type="tel"
                                     placeholder="Phone Number"

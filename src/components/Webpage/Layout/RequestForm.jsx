@@ -120,6 +120,7 @@ export default function RequestForm({ details }) {
                       name="phone"
                       required
                       maxLength={10}
+                      minLength={10}
                       type="tel"
                       placeholder="Mobile Number"
                       className="w-full h-14 pl-12 pr-4 rounded-xl border border-gray-200 bg-white outline-none focus:border-orange-500"

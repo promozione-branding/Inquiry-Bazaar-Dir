@@ -376,6 +376,8 @@ export default function Portfolio() {
                                     <div className="flex items-center text-black border border-gray-300 rounded-lg px-3 py-3">
                                         <Phone size={18} className="text-gray-500 mr-2" />
                                         <input
+                                            maxLength={10}
+                                            minLength={10}
                                             name="phone"
                                             type="tel"
                                             placeholder="Your Phone"
