@@ -28,6 +28,14 @@ export default function Industries() {
     fetchData();
   }, []);
 
+
+useEffect(() => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+}, [slug]);
+
   return (<>
     <Navbar />
 

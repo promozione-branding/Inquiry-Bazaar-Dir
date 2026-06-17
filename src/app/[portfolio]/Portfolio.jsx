@@ -167,6 +167,7 @@ export default function Portfolio() {
         </div>
 
         <section className="relative py-16">
+            
             <div className="absolute inset-0">
                 <img
                     src="/banner.png"
@@ -213,6 +214,8 @@ export default function Portfolio() {
                         <FileText size={18} />
                         Request a Quote
                     </button>
+
+                    
 
                     {/* WhatsApp */}
                     <a

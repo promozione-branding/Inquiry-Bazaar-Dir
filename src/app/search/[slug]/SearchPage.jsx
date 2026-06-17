@@ -427,11 +427,7 @@ export default function SearchPage() {
                       )}
                     </div>
 
-                    {i.brandName && (
-                      <div className="bg-[#0A5B93] text-xs text-white px-2 py-1 rounded-xl">
-                        {i.brandName}
-                      </div>
-                    )}
+                 
                   </div>
 
                   <div className="mt-4 border border-gray-200 rounded-lg overflow-hidden">

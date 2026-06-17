@@ -1,4 +1,4 @@
-"use client"
+
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -7,12 +7,14 @@ import { FaFacebook, FaInstagram, FaYoutube } from 'react-icons/fa'
 import { FaLinkedin, FaXTwitter } from 'react-icons/fa6'
 
 export default function Footer({ details, portfolio, navLinks }) {
+
+    
     return (
         <footer className="bg-gray-950 text-gray-300 md:pb-0 pb-20">
             <div className="md:px-20 px-4 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
                     <div>
-                        <div className="bg-gray- p-2 rounded-lg w-fit">
+                        <div className="bg-white p-2 rounded-lg w-fit">
                             <Image
                                 src={details?.user?.profileImage || "/no-image.webp"}
                                 alt="Business Logo"
@@ -122,6 +124,16 @@ export default function Footer({ details, portfolio, navLinks }) {
                                     Sitemap
                                 </Link>
                             </li>
+  <li>
+                                <Link href="/terms-of-use" className="hover:text-white transition">
+                                    Terms of use
+                                </Link>
+                            </li>
+
+
+
+
+
                         </ul>
                     </div>
 
