@@ -50,6 +50,7 @@ export default function Portfolio() {
                     router.replace("/");
                     return;
                 }
+                console.log(res.data.data)
                 setProducts(res.data.data?.products || []);
                 setDetails(res.data.data);
             } catch (err) {
@@ -116,7 +117,7 @@ export default function Portfolio() {
         const data = {
             supplierToken: details?.user?._id,
             platform: "Inquiry Bazaar Dir Portfolio Form",
-            platformEmail: "shreeshaktiinfratech@gmail.com",
+            platformEmail: details?.user?.email || "NA",
             name: formData.get("contactPerson"),
             email: formData.get("email"),
             company: 'NA',
@@ -163,11 +164,11 @@ export default function Portfolio() {
         <Navbar details={details} portfolio={portfolio} navLinks={navLinks} />
 
         <div id="home">
-            <ProductSlider products={products} loading1={loadingPage} details={details} setOpen={setOpen} portfolio={portfolio} />
+            <ProductSlider products={details?.featuredProducts?.products || products} loading1={loadingPage} details={details} setOpen={setOpen} portfolio={portfolio} />
         </div>
 
         <section className="relative py-16">
-            
+
             <div className="absolute inset-0">
                 <img
                     src="/banner.png"
@@ -215,7 +216,7 @@ export default function Portfolio() {
                         Request a Quote
                     </button>
 
-                    
+
 
                     {/* WhatsApp */}
                     <a
@@ -315,7 +316,7 @@ export default function Portfolio() {
         </section>
 
         <section id="products" className="py-10 bg-gray-100">
-            <ProductsList products={products} loading1={loadingPage} details={details} setOpen={setOpen} portfolio={portfolio} />
+            <ProductsList products={details?.popularProducts?.products || products} loading1={loadingPage} details={details} setOpen={setOpen} portfolio={portfolio} />
         </section>
 
         <sectio id="contact-us" style={{ backgroundColor: details?.hero?.color }}

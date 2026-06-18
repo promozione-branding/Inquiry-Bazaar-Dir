@@ -76,7 +76,7 @@ export default function Layout2() {
       <Stats details={details} />
 
       <ProductSlider
-        products={products}
+        products={details?.featuredProducts?.products || products}
         details={details}
         portfolio={portfolio}
         setOpen={setOpen}
@@ -117,7 +117,7 @@ export default function Layout2() {
       </section>
 
       <div className="py-10">
-        <ProductsList products={products} loading1={loadingPage} details={details} setOpen={setOpen} portfolio={portfolio} />
+        <ProductsList products={details?.popularProducts?.products || products} loading1={loadingPage} details={details} setOpen={setOpen} portfolio={portfolio} />
       </div>
 
       <Testimonials />

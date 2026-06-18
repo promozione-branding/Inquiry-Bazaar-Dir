@@ -66,7 +66,7 @@ export default function Layout2() {
         <>
             <Navbar2 details={details} portfolio={portfolio} />
             {/* <Hero details={details} /> */}
-            <ProductSlider products={products} details={details} portfolio={portfolio} setOpen={setOpen} />
+            <ProductSlider  products={details?.featuredProducts?.products || products} details={details} portfolio={portfolio} setOpen={setOpen} />
             <CTA details={details} />
             <RequestForm details={details} />
 
@@ -105,7 +105,7 @@ export default function Layout2() {
             </section>
 
             <div className='py-6'>
-                <ProductsList products={products} loading1={loadingPage} details={details} setOpen={setOpen} portfolio={portfolio} />
+                <ProductsList products={details?.popularProducts?.products || products} loading1={loadingPage} details={details} setOpen={setOpen} portfolio={portfolio} />
             </div>
 
             <CTA2 details={details} />

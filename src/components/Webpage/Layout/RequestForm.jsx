@@ -33,7 +33,7 @@ export default function RequestForm({ details }) {
     const data = {
       supplierToken: details?.user?._id,
       platform: "Inquiry Bazaar Dir Portfolio Form",
-      platformEmail: "shreeshaktiinfratech@gmail.com",
+      platformEmail: details?.user?.email || "NA",
 
       name: formData.get("contactPerson"),
       email: formData.get("email"),
