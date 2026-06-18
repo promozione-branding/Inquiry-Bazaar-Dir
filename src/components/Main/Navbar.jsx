@@ -1,17 +1,19 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { LogIn, Menu, X, User, LogOut, Bell, MapPin, ChevronDown } from "lucide-react";
+import { LogIn, Menu, X, User, LogOut, Bell, MapPin, ChevronDown, Layers } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import axios from "axios";
 import { locations } from "../../../data";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeLocation, setLocation } from "@/redux/slices/locationSlice";
+import { setUser } from "@/redux/slices/userSlice";
 
 export default function Navbar() {
     const dispatch = useDispatch();
     const location = useSelector((state) => state.location.city);
+    const user = useSelector((state) => state.user.user);
     const [open, setOpen] = useState(false);
     const [profileOpen, setProfileOpen] = useState(false);
     const [locationOpen, setLocationOpen] = useState(false);
@@ -32,7 +34,20 @@ export default function Navbar() {
         }
     };
 
+    const login = async () => {
+        try {
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/dir/me`,
+                { withCredentials: true, }
+            );
+
+            dispatch(setUser(res.data.user));
+        } catch (err) {
+            console.log(err.response?.data);
+        }
+    };
+
     useEffect(() => {
+        login()
         function handleClickOutside(event) {
             if (profileRef.current && !profileRef.current.contains(event.target)) {
                 setProfileOpen(false);
@@ -52,6 +67,8 @@ export default function Navbar() {
     useEffect(() => {
         dispatch(initializeLocation());
     }, [dispatch]);
+
+    console.log(user);
 
     return (
         <nav className="w-full border-b border-b-gray-300 bg-white sticky top-0 z-50 h-auto relative">
@@ -90,18 +107,80 @@ export default function Navbar() {
                 </div>
 
                 <div className="hidden md:flex items-center gap-4">
-                    <Link href="https://seller.inquirybazaar.com/register" className="px-4 py-2.5 text-sm font-medium border text-white rounded-lg bg-[#f45a06] hover:bg-[#eb5505]">
-                        Register as Supplier
-                    </Link>
+                    {user ? (
+                        <div ref={profileRef} className="relative">
+                            <button onClick={() => setProfileOpen(!profileOpen)}
+                                className="flex items-center gap-3 border rounded-full hover:bg-gray-50 border-gray-200"
+                            >
+                                <Image
+                                    src={user.profileImage || "/profile.png"}
+                                    alt={user.name}
+                                    width={40}
+                                    height={40}
+                                    className="rounded-full object-cover w-15 h-15"
+                                />
+                            </button>
 
-                    <Link href="https://buyer.inquirybazaar.com/register" className="px-4 py-2.5 text-sm border font-medium text-white bg-[#1e3a56] rounded-lg hover:bg-[#0b426a]">
-                        Register as Buyer
-                    </Link>
+                            {profileOpen && (
+                                <div className="absolute right-0 mt-1 w-72 bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden">
+                                    <div className="px-4 py-2 border-b border-gray-200">
+                                        <div className="flex flex-col justify-center items-center">
+                                            <h3 className="font-semibold text-black">
+                                                {user.name}
+                                            </h3>
 
-                    <Link href="/login" className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                        <LogIn size={18} />
-                        Sign In
-                    </Link>
+                                            <p className="text-sm text-gray-800">
+                                                {user.email}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="p-2">
+                                        {user.role == "supplier" && <>
+                                            <Link href="https://seller.inquirybazaar.com/profile"
+                                                className="px-4 py-3 rounded-lg hover:bg-gray-100 text-black flex gap-2 items-center"
+                                            >
+                                                <User size={18} className="-mt-0.5" />  Profile
+                                            </Link>
+                                            <Link href="https://seller.inquirybazaar.com/dashboard"
+                                                className="px-4 py-3 rounded-lg hover:bg-gray-100 text-black flex gap-2 items-center"
+                                            >
+                                                <Layers size={18} className="-mt-0.5" />  Dashboard
+                                            </Link>
+                                        </>}
+                                        {user.role == "buyer" && <>
+                                            <Link href="https://buyer.inquirybazaar.com/profile"
+                                                className="px-4 py-3 rounded-lg hover:bg-gray-100 text-black flex gap-2 items-center"
+                                            >
+                                                <User size={18} className="-mt-0.5" />  Profile
+                                            </Link>
+                                            <Link href="https://buyer.inquirybazaar.com/dashboard"
+                                                className="px-4 py-3 rounded-lg hover:bg-gray-100 text-black flex gap-2 items-center"
+                                            >
+                                                <Layers size={18} className="-mt-0.5" />  Dashboard
+                                            </Link>
+                                        </>}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    ) : (
+                        <>
+                            <Link href="https://seller.inquirybazaar.com/register" className="px-4 py-2.5 text-sm font-medium border text-white rounded-lg bg-[#f45a06] hover:bg-[#eb5505]">
+                                Register as Supplier
+                            </Link>
+
+                            <Link href="https://buyer.inquirybazaar.com/register" className="px-4 py-2.5 text-sm border font-medium text-white bg-[#1e3a56] rounded-lg hover:bg-[#0b426a]">
+                                Register as Buyer
+                            </Link>
+
+                            <Link href="/login" className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                <LogIn size={18} />
+                                Sign In
+                            </Link>
+                        </>
+                    )}
+
                 </div>
 
                 <button className="md:hidden bg-[#1e3a56] px-3 py-2 rounded-md mr-2" onClick={() => setLocationOpen(!locationOpen)}>

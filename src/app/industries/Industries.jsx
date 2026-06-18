@@ -28,7 +28,6 @@ export default function Industries() {
     fetchData();
   }, []);
 
-
   // useEffect(() => {
   //   window.scrollTo({
   //     top: 0,

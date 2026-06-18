@@ -32,7 +32,7 @@ export default function Category() {
             <div className="absolute top-0 left-0 w-72 h-72 bg-orange-100 rounded-full blur-3xl opacity-30" />
             <div className="absolute bottom-0 right-0 w-72 h-72 bg-orange-200 rounded-full blur-3xl opacity-20" />
 
-            <div className="relative z-10 mb-6 flex items-center justify-between">
+            <div className="relative z-10 mb-6 flex md:items-center items-start justify-between">
                 <div>
                     <p className="text-sm uppercase tracking-[4px] font-semibold text-orange-500">
                         Discover
@@ -44,7 +44,7 @@ export default function Category() {
                 </div>
 
                 <Link href="/categories"
-                    className="text-[#f45a06] hidden sm:flex items-center gap-2 hover:underline"
+                    className="text-[#f45a06] flex text-nowrap items-center gap-2 hover:underline"
                 >
                     View All
 

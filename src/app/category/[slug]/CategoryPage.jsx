@@ -35,6 +35,7 @@ import { BsTelegram } from 'react-icons/bs';
 import { FaXTwitter } from 'react-icons/fa6';
 import CategoryPopup from '@/components/Main/CategoryPopup';
 import { useSelector } from 'react-redux';
+import FAQSection from '@/components/Category/Category';
 
 export default function CategoryPage() {
   const { slug } = useParams()
@@ -161,7 +162,7 @@ export default function CategoryPage() {
     }
   };
 
-  // console.info(subCategory?.category);
+  console.info(subCategory?.category);
 
   return (<>
     <Navbar />
@@ -654,6 +655,10 @@ export default function CategoryPage() {
         </div>
       </div>
     </div>
+
+    {subCategory?.category?.faqs && (
+      <FAQSection faqs={subCategory?.category?.faqs} />
+    )}
 
     <ContactModal open={openPopup} setOpen={setOpenPopup} product={popupProduct} />
     <Footer />
