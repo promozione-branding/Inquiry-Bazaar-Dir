@@ -78,7 +78,7 @@ export default function RequestForm({ details }) {
   return (
     <div className="py-5 " id="quote-form">
       <section className="px-4">
-        <div className="max-w-7xl mx-auto bg-gradient-to-b from-slate-50 to-gray-100 border border-gray-200 rounded-3xl p-6 md:p-8">
+        <div className="max-w-7xl mx-auto bg-gradient-to-b from-blue-50 to-blue-100 border border-gray-200 rounded-3xl p-6 md:p-8">
           <div className="grid lg:grid-cols-[2fr_1fr] gap-8 items-start">
             <div>
               <div className="flex flex-wrap items-center gap-3 mb-6">

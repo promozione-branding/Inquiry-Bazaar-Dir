@@ -69,6 +69,7 @@ export default function Layout2() {
     { name: "Products", href: `${portfolio}/products`, icon: ShoppingBag },
     { name: "Contact", href: "#contact-us", icon: Mail },
   ];
+  console.log(details)
 
   return (
     <>
@@ -82,10 +83,10 @@ export default function Layout2() {
         setOpen={setOpen}
       />
 
-      <section id="about-us" className="bg-amber-50 px-4 py-10 md:px-10 grid grid-cols-1 lg:grid-cols-2">
+      <section id="about-us" className="bg-gray-50 px-4 py-10 md:px-10 grid grid-cols-1 lg:grid-cols-2">
         <div className="">
-          <div className="w-fit text-lg px-4 py-1 mb-2 rounded-full font-medium text-orange-600 bg-orange-200">
-            {details?.about?.heading}
+          <div style={{ color: details?.hero?.color }} className="w-fit text-lg px-4 py-1 mb-2 rounded-full font-medium flex items-center gap-2">
+            <Info className="-mt-0.5" size={20} /> {details?.about?.heading}
           </div>
           <h1 className="text-3xl md:text-5xl mb-4 text-black font-bold">
             {details?.about?.subHeading}
@@ -105,14 +106,60 @@ export default function Layout2() {
           />
         </div>
 
-        <div>
-          <Image
-            width={200}
-            height={200}
-            className="w-full h-80 object-contain"
-            alt="image"
-            src={details?.about?.image || "/no-image.webp"}
-          />
+        <div className="grid grid-cols-2 gap-4">
+          <div className="bg-green-100 rounded-xl p-5">
+            <p className="text-sm font-semibold text-gray-700">
+              Business Type
+            </p>
+            <p className="mt-2 text-xl font-bold text-black">
+             {details?.user?.business?.businessType}
+            </p>
+          </div>
+
+          <div className="bg-green-100 rounded-xl p-5">
+            <p className="text-sm font-semibold text-gray-700">
+              Established
+            </p>
+            <p className="mt-2 text-xl font-bold text-black">
+              1993
+            </p>
+          </div>
+
+          <div className="bg-green-100 rounded-xl p-5">
+            <p className="text-sm font-semibold text-gray-700">
+              Proprietor
+            </p>
+            <p className="mt-2 text-xl font-bold text-black">
+              {details?.user?.business?.ceoName}
+            </p>
+          </div>
+
+          <div className="bg-green-100 rounded-xl p-5">
+            <p className="text-sm font-semibold text-gray-700">
+              Certifications
+            </p>
+            <p className="mt-2 text-xl font-bold text-black">
+              ISO - MSME
+            </p>
+          </div>
+
+          <div className="bg-green-100 rounded-xl p-5">
+            <p className="text-sm font-semibold text-gray-700">
+              Working Days
+            </p>
+            <p className="mt-2 text-xl font-bold text-black">
+              Mon – Sat
+            </p>
+          </div>
+
+          <div className="bg-green-100 rounded-xl p-5">
+            <p className="text-sm font-semibold text-gray-700">
+              Payment Mode
+            </p>
+            <p className="mt-2 text-xl font-bold text-black">
+              All Modes
+            </p>
+          </div>
         </div>
       </section>
 

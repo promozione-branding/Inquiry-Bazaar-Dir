@@ -8,7 +8,7 @@ export default function AddressContact({ details }) {
 
   const mapUrl =
     details?.business?.gmbMap ||
-    "https://www.google.com/maps/embed?pb=...";
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3499.5868131497205!2d77.1662442!3d28.702004099999993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d0223846e0903%3A0x6b8f0fbb73c40b4c!2sSangam%20Plastic%20Industries%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1781845977301!5m2!1sen!2sin";
 
   return (
     <section className="py-10 md:px-10 px-4">
@@ -42,14 +42,14 @@ export default function AddressContact({ details }) {
                   className="flex items-center gap-2 font-medium text-green-700 hover:text-green-800"
                 >
                   <Phone size={18} />
-                  { details?.user?.phone}
+                  {details?.user?.phone}
                 </a>
 
                 <a
                   className="flex items-center gap-2 font-medium text-green-700 hover:text-green-800"
                 >
                   <Mail size={18} />
-                 { details?.user?.email}
+                  {details?.user?.email}
                 </a>
               </div>
             </div>

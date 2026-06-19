@@ -63,7 +63,7 @@ export default function Navbar2({ details, portfolio }) {
       <div className="w-full bg-white border-b border-gray-300 shadow-sm p-2 sticky top-0 z-50">
         <div className="flex items-center justify-between md:gap-5 gap-2">
           <Link href={`/${portfolio}`} className="flex items-center gap-1 md:gap-5 min-w-0">
-            <div className="w-12 h-12 sm:w-24 sm:h-24 shrink-0 border flex items-center justify-center overflow-hidden bg-white">
+            <div className="w-12 h-12 sm:w-24 sm:h-24 shrink-0 border border-gray-300 rounded-md flex items-center justify-center overflow-hidden bg-white">
               <img
                 src={details?.user?.profileImage}
                 alt={details?.user?.business?.companyName}
