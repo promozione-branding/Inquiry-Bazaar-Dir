@@ -10,7 +10,7 @@ export default function Navbar3({ details, portfolio }) {
       <div className="md:p-4 p-2 flex md:flex-row flex-col justify-between md:gap-4 ">
         <Link href={`/${portfolio}`} className="flex gap-2">
           {/* Logo */}
-          <div style={{ backgroundColor: details?.hero?.color }} className="w-20 h-20 rounded-2xl flex items-center justify-center shrink-0 overflow-hidden">
+          <div style={{ backgroundColor: details?.hero?.color }} className="w-22 h-20 rounded-2xl flex items-center justify-center shrink-0 overflow-hidden">
             <img
               src={details?.user?.profileImage}
               alt={details?.user?.business?.companyName}

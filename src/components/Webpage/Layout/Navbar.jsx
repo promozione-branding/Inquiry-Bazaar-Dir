@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react'
-import { CircleCheckBig, FileText, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Building2, CircleCheckBig, Factory, FileText, MapPin, MessageCircle, Phone, ShieldCheck, Users } from "lucide-react";
 import axios from 'axios';
 import Link from 'next/link';
 
@@ -60,10 +60,26 @@ export default function Navbar2({ details, portfolio }) {
 
   return (
     <>
+      <div className="py-2 flex md:hidden text-white" style={{ backgroundColor: details?.hero?.color }}>
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex flex-wrap items-center justify-center gap-20 text-sm">
+            <div className="flex items-center gap-2">
+              <ShieldCheck size={18} className="text-white -mt-0.5" />
+              <span className="font-semibold">
+                INQUIRY BAZAAR
+              </span>
+              <span className="opacity-90">
+                VERIFIED SUPPLIER
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="w-full bg-white border-b border-gray-300 shadow-sm p-2 sticky top-0 z-50">
         <div className="flex items-center justify-between md:gap-5 gap-2">
           <Link href={`/${portfolio}`} className="flex items-center gap-1 md:gap-5 min-w-0">
-            <div className="w-12 h-12 sm:w-24 sm:h-24 shrink-0 border border-gray-300 rounded-md flex items-center justify-center overflow-hidden bg-white">
+            <div className="w-25 h-16 sm:w-24 sm:h-24 shrink-0 border border-gray-300 rounded-md flex items-center justify-center overflow-hidden bg-white">
               <img
                 src={details?.user?.profileImage}
                 alt={details?.user?.business?.companyName}
@@ -73,7 +89,7 @@ export default function Navbar2({ details, portfolio }) {
 
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2 flex-wrap">
-                <h2 className="text-base sm:text-2xl md:text-3xl font-bold text-slate-900 break-words">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 break-words">
                   {details?.user?.business?.companyName}
                 </h2>
 
@@ -118,7 +134,7 @@ export default function Navbar2({ details, portfolio }) {
             </div>
           </Link>
 
-          <div className="w-auto bg-slate-50 rounded-md md:rounded-2xl border border-slate-300 md:p-4 p-1">
+          <div className="w-auto hidden md:flex bg-slate-50 rounded-md md:rounded-2xl border border-slate-300 md:p-4 p-1">
             <h3 className="text-center md:font-bold leading-tight">
               <span className="text-blue-700 text-xs md:text-base">
                 INQUIRY BAZAAR
