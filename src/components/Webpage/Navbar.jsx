@@ -11,11 +11,11 @@ export default function Navbar({ details, portfolio, navLinks }) {
     const [open, setOpen] = useState(false);
 
     return (<>
-        <div className="py-2 text-black" style={{ backgroundColor: details?.hero?.color }}>
+        <div className="py-2 text-white" style={{ backgroundColor: details?.hero?.color }}>
             <div className="max-w-7xl mx-auto px-4">
                 <div className="flex flex-wrap items-center justify-center gap-20 text-sm">
                     <div className="flex items-center gap-2">
-                        <ShieldCheck size={18} className="text-black" />
+                        <ShieldCheck size={18} className="text-white" />
                         <span className="font-semibold">
                             GST Verified
                         </span>
@@ -25,26 +25,26 @@ export default function Navbar({ details, portfolio, navLinks }) {
                     </div>
 
                     <div className="lg:flex items-center gap-2 hidden">
-                        <Factory size={18} className="text-black" />
+                        <Factory size={18} className="text-white" />
                         <span>
                             {details?.user?.business?.businessType}
                         </span>
                     </div>
 
                     <div className="lg:flex items-center gap-2 hidden">
-                        <Building2 size={18} className="text-black" />
+                        <Building2 size={18} className="text-white" />
                         <span>{details?.user?.business?.businessField}</span>
                     </div>
 
                     <div className="lg:flex items-center gap-2 hidden">
-                        <Users size={18} className="text-black" />
+                        <Users size={18} className="text-white" />
                         <span>{details?.user?.business?.numberOfEmployees}</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <section className="w-full bg-gray-50 border-b border-b-gray-200 sticky top-0 z-50">
+        <section className="w-full bg-gray-50 border-b border-b-gray-300 shadow-sm sticky top-0 z-50">
             <div className="flex justify-between items-center md:px-4 px-2 py-2">
                 <Link href={`/${portfolio}`} className="p-1 flex gap-2 items-center">
                     <Image
@@ -95,7 +95,7 @@ export default function Navbar({ details, portfolio, navLinks }) {
                     </button>
                 </div>
 
-                <button className="lg:hidden bg-orange-400 hover:bg-orange-500 p-3 rounded-lg text-white"
+                <button style={{ backgroundColor: details?.hero?.color }} className="lg:hidden p-3 rounded-lg text-white"
                     onClick={() => setIsOpen(!isOpen)}
                 >
                     {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -118,7 +118,7 @@ export default function Navbar({ details, portfolio, navLinks }) {
                         );
                     })}
 
-                    <button onClick={() => setOpen(!open)} className="flex items-center justify-center gap-2 bg-orange-400 hover:bg-orange-500 px-5 py-2 rounded-lg text-white">
+                    <button onClick={() => setOpen(!open)} style={{ backgroundColor: details?.hero?.color }} className="flex items-center justify-center gap-2 px-5 py-2 rounded-lg text-white">
                         <Phone size={18} />
                         Get in Touch
                     </button>
