@@ -34,6 +34,7 @@ import React, { useEffect, useState } from 'react'
 import { BsTelegram } from 'react-icons/bs';
 import { FaXTwitter } from 'react-icons/fa6';
 import CategoryPopup from '@/components/Main/CategoryPopup';
+import FAQSection from '@/components/Category/Category';
 
 export default function Loaction() {
     const { slug } = useParams()
@@ -160,7 +161,7 @@ export default function Loaction() {
         }
     };
 
-    // console.info(slug, location);
+    // console.info(subCategory);
 
     return (<>
         <Navbar />
@@ -659,6 +660,10 @@ export default function Loaction() {
                 </div>
             </div>
         </div>
+
+        {subCategory?.category?.faqs && (
+            <FAQSection faqs={subCategory?.category?.faqs} />
+        )}
 
         <ContactModal open={openPopup} setOpen={setOpenPopup} product={popupProduct} />
         <Footer />

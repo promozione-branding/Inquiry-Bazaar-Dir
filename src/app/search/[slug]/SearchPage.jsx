@@ -33,6 +33,7 @@ import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { BsTelegram } from 'react-icons/bs';
 import { FaXTwitter } from 'react-icons/fa6';
+import FAQSection from '@/components/Category/Category';
 
 export default function SearchPage() {
   const { slug } = useParams()
@@ -158,6 +159,7 @@ export default function SearchPage() {
       setLoading1(false);
     }
   };
+  // console.log(subCategory)
 
   return (<>
     <Navbar />
@@ -427,7 +429,7 @@ export default function SearchPage() {
                       )}
                     </div>
 
-                 
+
                   </div>
 
                   <div className="mt-4 border border-gray-200 rounded-lg overflow-hidden">
@@ -646,6 +648,10 @@ export default function SearchPage() {
         </div>
       </div>
     </div>
+
+    {subCategory?.category?.faqs && (
+      <FAQSection faqs={subCategory?.category?.faqs} />
+    )}
 
     <ContactModal open={openPopup} setOpen={setOpenPopup} product={popupProduct} />
     <Footer />

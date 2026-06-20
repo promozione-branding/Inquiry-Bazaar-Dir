@@ -162,7 +162,7 @@ export default function CategoryPage() {
     }
   };
 
-  console.info(subCategory?.category);
+  // console.info(subCategory?.category);
 
   return (<>
     <Navbar />

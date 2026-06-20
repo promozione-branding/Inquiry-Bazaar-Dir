@@ -68,7 +68,7 @@ export default function Navbar() {
         dispatch(initializeLocation());
     }, [dispatch]);
 
-    console.log(user);
+    // console.log(user);
 
     return (
         <nav className="w-full border-b border-b-gray-300 bg-white sticky top-0 z-50 h-auto relative">
