@@ -76,11 +76,11 @@ export default function ProductSlider({ products, loading1, details, setOpen, po
       setLoadingType(null);
     }
   };
-  console.log(products)
+  // console.log(products)
 
   return (
-    <section className="bg-white py-6 md:px-6 px-3">
-      <div className="flex items-center justify-between mb-4">
+    <section className="bg-white md:py-6 py-4 md:px-6 px-3">
+      <div className="flex items-center justify-between md:mb-4 mb-2">
         <h2 className="text-lg md:text-2xl font-bold text-[#111827]">
           Top Products & Services
         </h2>
@@ -114,12 +114,8 @@ export default function ProductSlider({ products, loading1, details, setOpen, po
             >
               {/* image */}
               <div className="relative h-[170px] bg-[#EEF2EF] flex items-center justify-center">
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setOpen(true);
-                  }}
-                  className="absolute top-3 right-3 bg-[#156734] text-white text-xs font-semibold px-3 py-1 rounded-lg"
+                <button onClick={(e) => { e.preventDefault(); setOpen(true); }}
+                  className="absolute md:top-3 top-1 md:right-3 right-1 bg-[#156734] text-white text-xs font-semibold px-3 py-1 rounded-lg"
                 >
                   Inquire
                 </button>
@@ -131,17 +127,16 @@ export default function ProductSlider({ products, loading1, details, setOpen, po
                 />
               </div>
 
-
-              <div className="p-3">
-                <h3 className="font-bold text-[18px] leading-tight text-black line-clamp-2">
+              <div className="md:p-3 p-1">
+                <h3 className="font-bold md:text-[18px] text-sm leading-tight text-black line-clamp-2">
                   {product.name}
                 </h3>
 
-                <p className="text-gray-500 text-sm mt-1">
+                <p className="text-gray-500 text-sm md:mt-1">
                   {product.subCategoryId?.name || "Industrial Products"}
                 </p>
 
-                <button onClick={() => handleCallClick(details, details?.user?.phone)} disabled={loadingType !== null} className="text-[#ff6600] font-bold mt-2 animate-pulse">
+                <button onClick={() => handleCallClick(details, details?.user?.phone)} disabled={loadingType !== null} className="text-[#ff6600] font-bold md:mt-2 animate-pulse">
                   Get Best Price
                 </button>
               </div>

@@ -22,7 +22,7 @@ export default function CTA2({ details }) {
 
   return (
     <section className="w-full bg-[#f4f4f4] border border-gray-300">
-      <div className="grid grid-cols-2 md:grid-cols-4 px-1 py-4 gap-5">
+      <div className="grid grid-cols-2 md:grid-cols-4 px-1 md:py-4 py-2 md:gap-5 gap-2">
         {stats.map((item, index) => (
           <div key={index}
             className={`flex flex-col items-center justify-center ${index !== stats.length - 1 ? "border-r border-gray-300" : ""
@@ -32,7 +32,7 @@ export default function CTA2({ details }) {
               {item.value}
             </h2>
 
-            <p className="mt-2 text-[15px] md:text-[20px] text-black font-medium">
+            <p className="md:mt-2 text-[15px] md:text-[20px] text-black font-medium">
               {item.label}
             </p>
           </div>
