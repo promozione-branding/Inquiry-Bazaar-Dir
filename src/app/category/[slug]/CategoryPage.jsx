@@ -162,6 +162,13 @@ export default function CategoryPage() {
     }
   };
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [slug]);
+
   // console.info(subCategory?.category);
 
   return (<>

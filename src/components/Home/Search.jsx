@@ -6,10 +6,9 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export default function SearchBar() {
+export default function SearchBar({handleFocus,setShowDropdown,showDropdown}) {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState(null);
-    const [showDropdown, setShowDropdown] = useState(false);
     const searchRef = useRef(null);
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const router = useRouter();
@@ -56,15 +55,6 @@ export default function SearchBar() {
                 setShowDropdown(false);
             }
         }
-    };
-
-    const handleFocus = () => {
-        setShowDropdown(true);
-
-        window.scrollTo({
-            top: 170, // change if needed
-            behavior: "smooth",
-        });
     };
 
     useEffect(() => {
@@ -124,7 +114,7 @@ export default function SearchBar() {
 
     return (
         <div ref={searchRef} className="w-full relative">
-            <div className="mt-4 flex items-center bg-white shadow-md rounded-full px-4 py-3">
+            <div className="mt-4 flex items-center bg-white shadow-md rounded-xl px-4 py-3">
                 <Search
                     className="text-orange-600 mr-2"
                     size={20}

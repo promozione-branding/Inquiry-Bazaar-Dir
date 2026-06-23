@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { LogIn, Menu, X, User, LogOut, Bell, MapPin, ChevronDown, Layers } from "lucide-react";
+import { LogIn, Menu, X, User, LogOut, Bell, MapPin, ChevronDown, Layers, Search } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import axios from "axios";
@@ -9,6 +9,7 @@ import { locations } from "../../../data";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeLocation, setLocation } from "@/redux/slices/locationSlice";
 import { setUser } from "@/redux/slices/userSlice";
+import SearchBar from "../Home/Search";
 
 export default function Navbar() {
     const dispatch = useDispatch();
@@ -16,6 +17,7 @@ export default function Navbar() {
     const user = useSelector((state) => state.user.user);
     const [open, setOpen] = useState(false);
     const [profileOpen, setProfileOpen] = useState(false);
+    const [searchOpen, setSearchOpen] = useState(false);
     const [locationOpen, setLocationOpen] = useState(false);
     const profileRef = useRef(null);
     const [bellOpen, setBellOpen] = useState(false);
@@ -68,7 +70,14 @@ export default function Navbar() {
         dispatch(initializeLocation());
     }, [dispatch]);
 
+    const [showDropdown, setShowDropdown] = useState(false);
     // console.log(user);
+
+    const handleFocus = () => {
+        setShowDropdown(true);
+
+
+    };
 
     return (
         <nav className="w-full border-b border-b-gray-300 bg-white sticky top-0 z-50 h-auto relative">
@@ -89,9 +98,9 @@ export default function Navbar() {
                         <select onChange={(e) => { dispatch(setLocation(e.target.value)); (pathname.startsWith("/category") || pathname.startsWith("/search")) && handleSelect(e) }} value={location}
                             className=" w-full appearance-none rounded-xl border border-orange-300 bg-white py-2.5 pl-10 pr-10
       text-sm font-medium text-gray-700 shadow-sm transition-all duration-200 outline-none hover:border-[#f45a06] focus:border-[#f45a06] focus:ring-1 focus:ring-orange-100 cursor-pointer">
-                            <option value="" disabled>
+                            {/* <option value="All India">
                                 All India
-                            </option>
+                            </option> */}
 
                             {locations.flatMap((state) =>
                                 state.cities.map((city) => (
@@ -183,12 +192,16 @@ export default function Navbar() {
 
                 </div>
 
+                <button className="md:hidden bg-blue-600 px-3 py-2 rounded-md mr-2" onClick={() => setSearchOpen(!searchOpen)}>
+                    <Search size={20} />
+                </button>
+
                 <button className="md:hidden bg-[#1e3a56] px-3 py-2 rounded-md mr-2" onClick={() => setLocationOpen(!locationOpen)}>
-                    <MapPin size={25} />
+                    <MapPin size={20} />
                 </button>
 
                 <button className="md:hidden bg-[#f45a06] px-3 py-2 rounded-md" onClick={() => setOpen(!open)}>
-                    {open ? <X size={25} /> : <Menu size={25} />}
+                    {open ? <X size={20} /> : <Menu size={20} />}
                 </button>
             </div>
 
@@ -217,6 +230,34 @@ export default function Navbar() {
                     </div>
                 </div>
             )}
+
+            {searchOpen && (
+                <div className="fixed inset-0 z-50">
+                    {/* Backdrop */}
+                    <div className="absolute inset-0 bg-black/50" />
+
+                    {/* Modal Content */}
+                    <div className="relative flex justify-center">
+                        <button
+                            onClick={() => setSearchOpen(false)}
+                            className="absolute top-5 right-5 text-white hover:text-black"
+                        >
+                            ✕
+                        </button>
+                        <div className="absolute top-[20vh] bg-wite px-4 pb-4 rounded-lg shadow-lg w-full max-w-xl">
+
+                            {/* Close Button */}
+
+                            <SearchBar
+                                showDropdown={showDropdown}
+                                setShowDropdown={setShowDropdown}
+                                handleFocus={handleFocus}
+                            />
+                        </div>
+                    </div>
+                </div>
+            )}
+
         </nav>
     );
 }

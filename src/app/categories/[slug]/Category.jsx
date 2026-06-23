@@ -34,7 +34,14 @@ export default function Category() {
     fetchData();
   }, [slug]);
 
-  // console.info(category);
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [slug]);
+
+  // console.info(subCategory);
   return (<>
     <Navbar />
 
@@ -92,7 +99,7 @@ export default function Category() {
           </div>
         ))) :
           (subCategory?.map((i, idx) => (
-            <div key={idx} className="bg-white rounded-lg border mb-4 flex gap-6 border-gray-200 shadow-md">
+            <div key={idx} className="bg-white rounded-lg border mb-4 flex gap-4 border-gray-200 shadow-md">
               <div className="w-45 flex flex-col items-center p-4 justify-center border-r border-r-gray-200 pr-4">
                 <div className="w-28 h-28 relative mb-2">
                   <Image
@@ -103,7 +110,7 @@ export default function Category() {
                   />
                 </div>
 
-                <Link href={`/category/${i.slug}`}
+                <Link href={`/category/${i?.slug}`}
                   className="text-center font-semibold text-gray-800 hover:text-orange-500"
                 >
                   {i.name}
@@ -111,7 +118,7 @@ export default function Category() {
               </div>
 
               <div className="flex-1 overflow-x-auto py-3">
-                <div className="flex gap-8 items-start">
+                <div className="grid grid-cols-6 gap-5 items-start">
                   {i?.products?.slice(0, 8).map((product, index) => (
                     <Link href={`/products/${product.slug}`} key={index}
                       className="p-2 min-w-35 flex flex-col rounded-lg group items-center text-center border border-gray-200 shadow-sm hover:border-gray-300 hover:shadow-md transition"
@@ -139,11 +146,10 @@ export default function Category() {
                   ))}
                 </div>
 
-                {i?.products?.length > 8 && (
+                {i?.products?.length > 5 && (
                   <div className="flex justify-center mt-4">
-                    <Link
-                      href={`/${i.slug}`}
-                      className="bg-[#2E3192] text-white px-6 py-2 rounded text-sm"
+                    <Link href={`/category/${i?.slug}`}
+                      className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded text-sm"
                     >
                       View More ↓
                     </Link>

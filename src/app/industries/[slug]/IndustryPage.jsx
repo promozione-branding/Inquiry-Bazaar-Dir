@@ -30,14 +30,12 @@ export default function IndustryPage() {
     fetchData();
   }, []);
 
-
-useEffect(() => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-}, [slug]);
-
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [slug]);
 
   return (<>
     <Navbar />

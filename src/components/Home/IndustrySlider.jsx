@@ -41,7 +41,7 @@ export default function IndustrySlider() {
         ? [...industries, ...industries, ...industries] : industries;
 
     return (
-        <div className="w-full px-4 md:px-6 pt-10 overflow-hidden bg-linear-to-b from-white to-orange-50">
+        <div className="w-full px-4 md:px-6 md:pt-10 pt-5 overflow-hidden bg-linear-to-b from-white to-orange-50">
             <div className="flex items-center justify-between">
                 <div>
                     <p className="text-sm font-semibold text-orange-500 uppercase tracking-wider">
@@ -54,7 +54,7 @@ export default function IndustrySlider() {
                 </div>
 
                 <Link href="/industries"
-                    className="text-[#f45a06] hidden sm:flex items-center gap-2 hover:underline"
+                    className="text-[#f45a06] flex items-center gap-2 hover:underline"
                 >
                     View All
 
@@ -84,19 +84,19 @@ export default function IndustrySlider() {
                 speed={900}
                 breakpoints={{
                     0: {
-                        slidesPerView: 1,
-                    },
-                    480: {
                         slidesPerView: 2,
+                        spaceBetween: 10
                     },
                     768: {
                         slidesPerView: 3,
+                        spaceBetween: 15
                     },
                     1024: {
                         slidesPerView: 5,
+                        spaceBetween: 20
                     },
                 }}
-                className="pb-12! pt-6! lg:px-4!"
+                className="md:pb-12! md:pt-6! pt-2! pb-10! lg:px-4!"
             >
                 {loading ? [...Array(5)].map((_, index) => (
                     <SwiperSlide key={index}>
@@ -119,7 +119,7 @@ export default function IndustrySlider() {
                                 viewport={{ once: true }}
                                 className="group relative overflow-hidden rounded-3xl bg-white border border-orange-100 shadow-sm hover:shadow-2xl transition-all duration-300"
                             >
-                                <div className="relative h-60 overflow-hidden">
+                                <div className="relative h-40 md:h-60 overflow-hidden">
                                     <img
                                         src={item?.imageUrl}
                                         alt={item?.name}
@@ -128,31 +128,31 @@ export default function IndustrySlider() {
 
                                     <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
 
-                                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md p-2 rounded-full shadow-md">
+                                    <div className="absolute top-2 right-2 md:top-4 md:right-4 bg-white/90 backdrop-blur-md p-2 rounded-full shadow-md">
                                         <BriefcaseBusiness
                                             size={18}
                                             className="text-orange-500"
                                         />
                                     </div>
 
-                                    <div className="absolute bottom-4 left-4 right-4">
-                                        <h3 className="text-xl font-bold text-white line-clamp-1">
+                                    <div className="absolute bottom-2 left-2 right-2 md:bottom-4 md:left-4 md:right-4">
+                                        <h3 className="text-sm md:text-xl font-bold text-white line-clamp-1">
                                             {item?.name}
                                         </h3>
 
-                                        <p className="text-sm text-gray-200 mt-1">
+                                        <p className="text-xs md:text-sm text-gray-200 mt-1">
                                             Explore opportunities
                                         </p>
                                     </div>
                                 </div>
 
-                                <div className="flex items-center justify-between px-5 py-4">
+                                <div className="flex items-center justify-between p-2 md:px-5 md:py-4">
                                     <span className="text-sm font-medium text-gray-800">
                                         View Industry
                                     </span>
 
                                     <motion.div whileHover={{ rotate: 45 }}
-                                        className="flex items-center justify-center w-10 h-10 rounded-full bg-orange-100 text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-all"
+                                        className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-orange-100 text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-all"
                                     >
                                         <ArrowUpRight size={18} />
                                     </motion.div>

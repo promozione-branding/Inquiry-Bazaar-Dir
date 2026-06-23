@@ -14,6 +14,7 @@ import {
     Building2,
     BadgeCheck,
     Factory,
+    Package,
 } from "lucide-react";
 import CountUp from "react-countup";
 import { motion, AnimatePresence } from "framer-motion";
@@ -122,7 +123,7 @@ export default function Portfolio() {
             email: formData.get("email"),
             company: 'NA',
             phone: formData.get("phone"),
-            product: "Bar Bending Machine",
+            product: formData.get("product") || "NA",
             place: formData.get("city"),
             message: formData.get("message"),
         };
@@ -158,17 +159,31 @@ export default function Portfolio() {
     if (loadingPage) {
         return <CatalogSkeleton />;
     }
+
+    const groupedProducts = products.reduce((acc, product) => {
+        const categoryName = product?.subCategoryId?.name || "Uncategorized";
+
+        if (!acc[categoryName]) {
+            acc[categoryName] = [];
+        }
+
+        acc[categoryName].push(product);
+
+        return acc;
+    }, {});
+
+    const categories = Object.keys(groupedProducts);
+
     // console.log(details)
 
     return (<>
         <Navbar details={details} portfolio={portfolio} navLinks={navLinks} />
 
         <div id="home">
-            <ProductSlider products={details?.featuredProducts?.products || products} loading1={loadingPage} details={details} setOpen={setOpen} portfolio={portfolio} />
+            <ProductSlider products={details?.featuredProducts?.products.length === 0 ? products : details?.featuredProducts?.products} loading1={loadingPage} details={details} setOpen={setOpen} portfolio={portfolio} />
         </div>
 
         <section className="relative py-16">
-
             <div className="absolute inset-0">
                 <img
                     src="/banner.png"
@@ -186,11 +201,11 @@ export default function Portfolio() {
                     transition={{ duration: 0.6 }}
                     className="text-3xl md:text-4xl font-bold mb-4"
                 >
-                    {details?.cta?.heading}
+                    {details?.cta?.heading || `Largest ${categories[0]} Supplier in India`}
                 </motion.h2>
 
                 <p className="text-gray-200 mb-6">
-                    {details?.cta?.subHeading}
+                    {details?.cta?.subHeading || "For More Details Contact Us Now!"}
                 </p>
 
                 {/* Buttons */}
@@ -316,10 +331,10 @@ export default function Portfolio() {
         </section>
 
         <section id="products" className="py-10 bg-gray-100">
-            <ProductsList products={details?.popularProducts?.products || products} loading1={loadingPage} details={details} setOpen={setOpen} portfolio={portfolio} />
+            <ProductsList products={details?.popularProducts?.products.length === 0 ? products : details?.popularProducts?.products} loading1={loadingPage} details={details} setOpen={setOpen} portfolio={portfolio} />
         </section>
 
-        <sectio id="contact-us" style={{ backgroundColor: details?.hero?.color }}
+        <section id="contact-us" style={{ backgroundColor: details?.hero?.color }}
             className="py-12 px-4 md:px-8"
         >
             <div className="max-w-5xl mx-auto">
@@ -346,7 +361,7 @@ export default function Portfolio() {
                             </h3>
 
                             <form onSubmit={handleSubmit} className="space-y-4">
-                                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                                     <div className="flex items-center text-black border border-gray-300 rounded-lg px-3 py-3">
                                         <User size={18} className="text-gray-500 mr-2" />
                                         <input
@@ -388,6 +403,16 @@ export default function Portfolio() {
                                             className="w-full outline-none"
                                         />
                                     </div>
+
+                                    <div className="flex items-center text-black border border-gray-300 rounded-lg px-3 py-3">
+                                        <Package size={18} className="text-gray-500 mr-2" />
+                                        <select name="product" id="" className="w-full outline-none text-black">
+                                            <option value="">Select Product</option>
+                                            {categories.map((i, idx) => (
+                                                <option key={idx} value={i}>{i}</option>
+                                            ))}
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <textarea
@@ -397,8 +422,7 @@ export default function Portfolio() {
                                     className="w-full text-black border border-gray-300 rounded-lg px-4 py-3 outline-none"
                                 />
 
-                                <button type="submit" disabled={loading}
-                                    style={{ backgroundColor: details?.hero?.color, }}
+                                <button type="submit" disabled={loading} style={{ backgroundColor: details?.hero?.color|| "black" }}
                                     className="w-full text-white py-3 rounded-lg font-medium hover:opacity-90 transition"
                                 >
                                     {loading ? "Submitting..." : "Submit Inquiry"}
@@ -408,76 +432,77 @@ export default function Portfolio() {
                     )}
                 </div>
             </div>
-        </sectio>
-
-        <section className="py-10 bg-gray-100">
-            <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
-                <div className="flex justify-center">
-                    <img
-                        src={`${details?.faqSection?.image || "/no-image.webp"}`}
-                        alt="machine"
-                        className="max-h-112 object-contain"
-                    />
-                </div>
-
-                <div>
-                    <div className="mb-6">
-                        <p className="text-orange-500 font-semibold uppercase text-sm">
-                            Popular Questions
-                        </p>
-
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
-                            Frequently Asked Questions
-                        </h2>
-                    </div>
-
-                    {/* FAQ */}
-                    <div className="space-y-3">
-                        {details?.faqSection?.faqs?.map((faq, index) => {
-                            const isOpen = activeIndex === index;
-
-                            return (
-                                <div
-                                    key={index}
-                                    className="bg-white rounded-lg border overflow-hidden"
-                                >
-                                    {/* Question */}
-                                    <button
-                                        onClick={() => toggleFAQ(index)}
-                                        className="w-full flex justify-between items-center px-4 py-4 text-left"
-                                    >
-                                        <span className="font-medium text-gray-800">
-                                            {faq.question}
-                                        </span>
-
-                                        {isOpen ? (
-                                            <Minus size={18} className="text-gray-800" />
-                                        ) : (
-                                            <Plus size={18} className="text-gray-800" />
-                                        )}
-                                    </button>
-
-                                    {/* Answer */}
-                                    <AnimatePresence>
-                                        {isOpen && (
-                                            <motion.div
-                                                initial={{ height: 0, opacity: 0 }}
-                                                animate={{ height: "auto", opacity: 1 }}
-                                                exit={{ height: 0, opacity: 0 }}
-                                                transition={{ duration: 0.3 }}
-                                                className="px-4 pb-4 text-gray-600"
-                                            >
-                                                {faq.answer}
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-            </div>
         </section>
+
+        {details?.faqSection?.faqs.length > 0 &&
+            <section className="py-10 bg-gray-100">
+                <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
+                    <div className="flex justify-center">
+                        <img
+                            src={`${details?.faqSection?.image || "/no-image.webp"}`}
+                            alt="machine"
+                            className="max-h-112 object-contain"
+                        />
+                    </div>
+
+                    <div>
+                        <div className="mb-6">
+                            <p className="text-orange-500 font-semibold uppercase text-sm">
+                                Popular Questions
+                            </p>
+
+                            <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
+                                Frequently Asked Questions
+                            </h2>
+                        </div>
+
+                        {/* FAQ */}
+                        <div className="space-y-3">
+                            {details?.faqSection?.faqs?.map((faq, index) => {
+                                const isOpen = activeIndex === index;
+
+                                return (
+                                    <div
+                                        key={index}
+                                        className="bg-white rounded-lg border overflow-hidden"
+                                    >
+                                        {/* Question */}
+                                        <button
+                                            onClick={() => toggleFAQ(index)}
+                                            className="w-full flex justify-between items-center px-4 py-4 text-left"
+                                        >
+                                            <span className="font-medium text-gray-800">
+                                                {faq.question}
+                                            </span>
+
+                                            {isOpen ? (
+                                                <Minus size={18} className="text-gray-800" />
+                                            ) : (
+                                                <Plus size={18} className="text-gray-800" />
+                                            )}
+                                        </button>
+
+                                        {/* Answer */}
+                                        <AnimatePresence>
+                                            {isOpen && (
+                                                <motion.div
+                                                    initial={{ height: 0, opacity: 0 }}
+                                                    animate={{ height: "auto", opacity: 1 }}
+                                                    exit={{ height: 0, opacity: 0 }}
+                                                    transition={{ duration: 0.3 }}
+                                                    className="px-4 pb-4 text-gray-600"
+                                                >
+                                                    {faq.answer}
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </div>
+            </section>}
 
         <Footer details={details} portfolio={portfolio} navLinks={navLinks} />
 

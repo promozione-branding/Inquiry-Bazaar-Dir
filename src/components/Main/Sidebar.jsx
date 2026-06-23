@@ -53,7 +53,7 @@ export default function Sidebar({ open, setOpen, slug }) {
 
                         <select onChange={(e) => { dispatch(setLocation(e.target.value)); handleSelect(e) }} value={location}
                             className="w-full appearance-none border border-gray-200 text-gray-800 pl-8 pr-4 py-2 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-300 bg-white shadow-sm">
-                            <option>All India</option>
+                            {/* <option>All India</option> */}
                             {locations.flatMap((state) =>
                                 state.cities.map((city) => (
                                     <option key={`${state.state}-${city}`} value={city}>

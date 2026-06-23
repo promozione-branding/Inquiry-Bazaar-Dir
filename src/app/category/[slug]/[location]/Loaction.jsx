@@ -161,7 +161,12 @@ export default function Loaction() {
         }
     };
 
-    // console.info(subCategory);
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    }, [slug]);
 
     return (<>
         <Navbar />

@@ -11,7 +11,7 @@ export default function Navbar({ details, portfolio, navLinks }) {
     const [open, setOpen] = useState(false);
 
     return (<>
-        <div className="py-2 text-white" style={{ backgroundColor: details?.hero?.color }}>
+        <div className="py-2 text-white" style={{ backgroundColor: details?.hero?.color || "black" }}>
             <div className="max-w-7xl mx-auto px-4">
                 <div className="flex flex-wrap items-center justify-center gap-20 text-sm">
                     <div className="flex items-center gap-2">
@@ -55,7 +55,7 @@ export default function Navbar({ details, portfolio, navLinks }) {
                         className="w-auto h-18 border border-gray-200 rounded-lg"
                     />
                     <div>
-                        <p className='text-xl md:text-2xl font-semibold' style={{ color: details?.hero?.color }}>
+                        <p className='text-xl md:text-2xl font-semibold' style={{ color: details?.hero?.color || "black" }}>
                             {details?.user?.business?.companyName}
                         </p>
                         <p className='text-black flex text-sm items-center gap-1'>
@@ -89,13 +89,13 @@ export default function Navbar({ details, portfolio, navLinks }) {
                         );
                     })}
 
-                    <button onClick={() => setOpen(true)} style={{ backgroundColor: details?.hero?.color }} className="flex items-center text-xl font-semibold gap-2 px-5 py-2 rounded-lg text-white">
+                    <button onClick={() => setOpen(true)} style={{ backgroundColor: details?.hero?.color || "black" }} className="flex items-center text-xl font-semibold gap-2 px-5 py-2 rounded-lg text-white">
                         <Phone size={18} />
                         Get in Touch
                     </button>
                 </div>
 
-                <button style={{ backgroundColor: details?.hero?.color }} className="lg:hidden p-3 rounded-lg text-white"
+                <button style={{ backgroundColor: details?.hero?.color || "black" }} className="lg:hidden p-3 rounded-lg text-white"
                     onClick={() => setIsOpen(!isOpen)}
                 >
                     {isOpen ? <X size={28} /> : <Menu size={28} />}

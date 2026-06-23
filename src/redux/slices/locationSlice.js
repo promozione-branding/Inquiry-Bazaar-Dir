@@ -1,14 +1,10 @@
-// redux/slices/locationSlice.js
-
 import { createSlice } from "@reduxjs/toolkit";
-
-const initialState = {
-  city: "Delhi",
-};
+const initialState = { city: "Delhi" };
 
 const locationSlice = createSlice({
   name: "location",
   initialState,
+
   reducers: {
     setLocation: (state, action) => {
       state.city = action.payload;
@@ -20,11 +16,16 @@ const locationSlice = createSlice({
 
     initializeLocation: (state) => {
       if (typeof window !== "undefined") {
-        state.city = localStorage.getItem("location");
+        const savedLocation = localStorage.getItem("location");
+        state.city = savedLocation || "Delhi";
+
+        if (!savedLocation) {
+          localStorage.setItem("location", "Delhi");
+        }
       }
     },
   },
 });
 
-export const { setLocation, initializeLocation } = locationSlice.actions;
+export const { setLocation, initializeLocation, } = locationSlice.actions;
 export default locationSlice.reducer;

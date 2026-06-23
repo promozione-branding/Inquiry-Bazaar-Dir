@@ -22,7 +22,7 @@ const Stickyfooter = ({ portfolio, details }) => {
         { href: `/${portfolio}#contact-us`, label: "Contact", icon: Mail },
         { href: `/${portfolio}/sitemap`, label: "Sitemap", icon: Map },
     ];
-    console.log(pathname)
+    // console.log(pathname)
 
     return (
         <div className="md:hidden fixed bottom-0 left-0 right-0 z-50">

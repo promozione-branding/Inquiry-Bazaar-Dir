@@ -1,5 +1,11 @@
 export const locations = [
     {
+        "state": "India",
+        "cities": [
+            "All India",
+        ]
+    },
+    {
         "state": "Delhi",
         "cities": [
             "Delhi",
