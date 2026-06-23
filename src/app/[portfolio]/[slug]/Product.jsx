@@ -294,59 +294,65 @@ export default function Product() {
                     <div className="mt-4 border border-gray-300 rounded-xl overflow-hidden">
                         <table className="w-full text-black">
                             <tbody>
-                                <tr className="border-b border-gray-300">
-                                    <td className="bg-slate-50 p-4 font-medium w-1/3">
-                                        Brand
-                                    </td>
-                                    <td className="p-4">
-                                        {product?.brandName || "-"}
-                                    </td>
-                                </tr>
+                                {product?.brandName &&
+                                    <tr className="border-b border-gray-300">
+                                        <td className="bg-slate-50 p-4 font-medium w-1/3">
+                                            Brand
+                                        </td>
+                                        <td className="p-4">
+                                            {product?.brandName || "-"}
+                                        </td>
+                                    </tr>}
 
-                                <tr className="border-b border-gray-300">
-                                    <td className="bg-slate-50 p-4 font-medium">
-                                        Mini Order Quantity
-                                    </td>
-                                    <td className="p-4">
-                                        {product?.minOrderQty || "-"}
-                                    </td>
-                                </tr>
+                                {product?.minOrderQty &&
+                                    <tr className="border-b border-gray-300">
+                                        <td className="bg-slate-50 p-4 font-medium">
+                                            Mini Order Quantity
+                                        </td>
+                                        <td className="p-4">
+                                            {product?.minOrderQty || "-"}
+                                        </td>
+                                    </tr>}
 
-                                <tr className="border-b border-gray-300">
-                                    <td className="bg-slate-50 p-4 font-medium">
-                                        Packaging
-                                    </td>
-                                    <td className="p-4">
-                                        {product?.packagingDetails || "-"}
-                                    </td>
-                                </tr>
+                                {product?.packagingDetails &&
+                                    <tr className="border-b border-gray-300">
+                                        <td className="bg-slate-50 p-4 font-medium">
+                                            Packaging
+                                        </td>
+                                        <td className="p-4">
+                                            {product?.packagingDetails || "-"}
+                                        </td>
+                                    </tr>}
 
-                                <tr className="border-b border-gray-300">
-                                    <td className="bg-slate-50 p-4 font-medium">
-                                        Delivery Time
-                                    </td>
-                                    <td className="p-4 border-gray-300">
-                                        {product?.deliveryTime || "-"}
-                                    </td>
-                                </tr>
+                                {product?.deliveryTime &&
+                                    <tr className="border-b border-gray-300">
+                                        <td className="bg-slate-50 p-4 font-medium">
+                                            Delivery Time
+                                        </td>
+                                        <td className="p-4 border-gray-300">
+                                            {product?.deliveryTime || "-"}
+                                        </td>
+                                    </tr>}
 
-                                <tr className="border-b border-gray-300">
-                                    <td className="bg-slate-50 p-4 font-medium">
-                                        Supply Ability
-                                    </td>
-                                    <td className="p-4">
-                                        {product?.supplyAbility || "-"}
-                                    </td>
-                                </tr>
+                                {product?.supplyAbility &&
+                                    <tr className="border-b border-gray-300">
+                                        <td className="bg-slate-50 p-4 font-medium">
+                                            Supply Ability
+                                        </td>
+                                        <td className="p-4">
+                                            {product?.supplyAbility || "-"}
+                                        </td>
+                                    </tr>}
 
-                                <tr>
-                                    <td className="bg-slate-50 p-4 font-medium">
-                                        Payment Terms
-                                    </td>
-                                    <td className="p-4">
-                                        {product?.paymentTerms || "-"}
-                                    </td>
-                                </tr>
+                                {product?.paymentTerms &&
+                                    <tr>
+                                        <td className="bg-slate-50 p-4 font-medium">
+                                            Payment Terms
+                                        </td>
+                                        <td className="p-4">
+                                            {product?.paymentTerms || "-"}
+                                        </td>
+                                    </tr>}
 
                                 {product?.specifications?.map((spec, index) => (
                                     <tr key={index} className="border-t border-gray-300">

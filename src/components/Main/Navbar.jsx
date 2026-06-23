@@ -242,7 +242,7 @@ export default function Navbar() {
                             onClick={() => setSearchOpen(false)}
                             className="absolute top-5 right-5 text-white hover:text-black"
                         >
-                            ✕
+                            <X size={28} />
                         </button>
                         <div className="absolute top-[20vh] bg-wite px-4 pb-4 rounded-lg shadow-lg w-full max-w-xl">
 

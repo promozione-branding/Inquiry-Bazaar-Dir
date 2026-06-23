@@ -159,7 +159,13 @@ export default function SearchPage() {
       setLoading1(false);
     }
   };
-  // console.log(subCategory)
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [slug]);
 
   return (<>
     <Navbar />
@@ -185,7 +191,7 @@ export default function SearchPage() {
           </>
         )}
         <p>/</p>
-        <p className="text-gray-600">{subCategory?.category?.name}</p>
+        <p className="text-gray-600">{subCategory?.category?.name || slug.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase())}</p>
       </div>
     </div>
 

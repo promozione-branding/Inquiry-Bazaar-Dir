@@ -70,10 +70,10 @@ export default function Portfolio() {
     }, [portfolio, router]);
 
     const navLinks = [
-        { name: "Home", href: "#home", icon: Home },
-        { name: "About", href: "#about-us", icon: Info },
+        { name: "Home", href: `/${portfolio}/#home`, icon: Home },
+        { name: "About", href: `/${portfolio}/#about-us`, icon: Info },
         { name: "Products", href: `${portfolio}/products`, icon: ShoppingBag },
-        { name: "Contact", href: "#contact-us", icon: Mail },
+        { name: "Contact", href: `/${portfolio}/#contact-us`, icon: Mail },
     ];
 
     const stats = [
@@ -179,9 +179,9 @@ export default function Portfolio() {
     return (<>
         <Navbar details={details} portfolio={portfolio} navLinks={navLinks} />
 
-        <div id="home">
+        <section id="home">
             <ProductSlider products={details?.featuredProducts?.products.length === 0 ? products : details?.featuredProducts?.products} loading1={loadingPage} details={details} setOpen={setOpen} portfolio={portfolio} />
-        </div>
+        </section>
 
         <section className="relative py-16">
             <div className="absolute inset-0">
@@ -330,7 +330,7 @@ export default function Portfolio() {
             </div>
         </section>
 
-        <section id="products" className="py-10 bg-gray-100">
+        <section className="py-10 bg-gray-100">
             <ProductsList products={details?.popularProducts?.products.length === 0 ? products : details?.popularProducts?.products} loading1={loadingPage} details={details} setOpen={setOpen} portfolio={portfolio} />
         </section>
 
@@ -422,7 +422,7 @@ export default function Portfolio() {
                                     className="w-full text-black border border-gray-300 rounded-lg px-4 py-3 outline-none"
                                 />
 
-                                <button type="submit" disabled={loading} style={{ backgroundColor: details?.hero?.color|| "black" }}
+                                <button type="submit" disabled={loading} style={{ backgroundColor: details?.hero?.color || "black" }}
                                     className="w-full text-white py-3 rounded-lg font-medium hover:opacity-90 transition"
                                 >
                                     {loading ? "Submitting..." : "Submit Inquiry"}
