@@ -99,7 +99,7 @@ export default function Category() {
           </div>
         ))) : (subCategory?.map((i, idx) => (
           <div key={idx} className="bg-white rounded-lg border mb-4 flex gap-4 border-gray-200 shadow-md">
-            <div className="w-45 flex flex-col items-center p-4 justify-center border-r border-r-gray-200 pr-4">
+            <div className="w-30 md:w-45 flex flex-col items-center p-4 justify-center border-r border-r-gray-200 pr-4">
               <div className="w-28 h-28 relative mb-2">
                 <Image
                   src={i.imageUrl}
@@ -110,7 +110,7 @@ export default function Category() {
               </div>
 
               <Link href={`/category/${i?.slug}`}
-                className="text-center font-semibold text-gray-800 hover:text-orange-500"
+                className="md:text-base text-xs text-center font-semibold text-gray-800 hover:text-orange-500"
               >
                 {i.name}
               </Link>
@@ -146,7 +146,7 @@ export default function Category() {
               </div>
 
               {i?.products?.length > 5 && (
-                <div className="flex justify-center mt-4">
+                <div className="hidden md:flex justify-center mt-4">
                   <Link href={`/category/${i?.slug}`}
                     className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded text-sm"
                   >

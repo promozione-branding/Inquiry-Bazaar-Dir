@@ -388,7 +388,7 @@ export default function Product() {
             {/* DESCRIPTION */}
             <div className="mt-8 bg-white rounded-xl p-8 shadow-md border text-black border-gray-200">
                 <h2 className="text-2xl font-bold text-slate-900 mb-6">
-                    Product Description
+                    Product Overview
                 </h2>
 
                 <div
