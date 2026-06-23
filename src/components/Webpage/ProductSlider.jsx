@@ -10,14 +10,14 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 export default function ProductSlider({ products, loading1, details, setOpen, portfolio }) {
-
+    console.log(products)
     const sliderProducts = useMemo(() => {
-        if (!products.length) return [];
+        if (!products?.length) return [];
 
-        if (products.length >= 5) return products;
+        if (products?.length >= 5) return products;
 
         const repeated = [];
-        while (repeated.length < 10) {
+        while (repeated?.length < 10) {
             repeated.push(...products);
         }
 
@@ -54,7 +54,7 @@ export default function ProductSlider({ products, loading1, details, setOpen, po
                             </div>
                         </div>
                     </SwiperSlide>
-                )) : sliderProducts.slice(0, 10).map((product, index) => (
+                )) : sliderProducts?.slice(0, 10).map((product, index) => (
                     <SwiperSlide key={`${product.id}-${index}`}>
                         <motion.div whileHover={{ y: -6, transition: { duration: 0.2 }, }}
                             className="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-lg md:h-105 h-60 flex flex-col"
@@ -119,7 +119,7 @@ export default function ProductSlider({ products, loading1, details, setOpen, po
                             </div>
                         </div>
                     </SwiperSlide>
-                )) : sliderProducts.slice(0, 10).reverse().map((product, index) => (
+                )) : sliderProducts?.slice(0, 10).reverse().map((product, index) => (
                     <SwiperSlide key={`${product.id}-${index}`}>
                         <motion.div whileHover={{ y: -6, transition: { duration: 0.2 }, }}
                             className="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-lg md:h-105 h-60 flex flex-col"

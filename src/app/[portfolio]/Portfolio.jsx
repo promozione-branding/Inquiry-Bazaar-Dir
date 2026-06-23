@@ -180,7 +180,13 @@ export default function Portfolio() {
         <Navbar details={details} portfolio={portfolio} navLinks={navLinks} />
 
         <section id="home">
-            <ProductSlider products={details?.featuredProducts?.products?.length === 0 ? products : details?.featuredProducts?.products} loading1={loadingPage} details={details} setOpen={setOpen} portfolio={portfolio} />
+            <ProductSlider
+                products={details?.featuredProducts?.products?.length ? details?.featuredProducts?.products : products}
+                loading1={loadingPage}
+                details={details}
+                setOpen={setOpen}
+                portfolio={portfolio}
+            />
         </section>
 
         <section className="relative py-16">
@@ -331,7 +337,7 @@ export default function Portfolio() {
         </section>
 
         <section className="py-10 bg-gray-100">
-            <ProductsList products={details?.popularProducts?.products?.length === 0 ? products : details?.popularProducts?.products} loading1={loadingPage} details={details} setOpen={setOpen} portfolio={portfolio} />
+            <ProductsList products={details?.popularProducts?.products?.length ? details?.popularProducts?.products : products} loading1={loadingPage} details={details} setOpen={setOpen} portfolio={portfolio} />
         </section>
 
         <section id="contact-us" style={{ backgroundColor: details?.hero?.color }}
@@ -434,7 +440,7 @@ export default function Portfolio() {
             </div>
         </section>
 
-        {details?.faqSection?.faqs.length > 0 &&
+        {details?.faqSection?.faqs?.length > 0 &&
             <section className="py-10 bg-gray-100">
                 <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
                     <div className="flex justify-center">

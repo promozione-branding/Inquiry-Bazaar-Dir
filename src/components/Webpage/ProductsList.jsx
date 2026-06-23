@@ -32,7 +32,7 @@ export default function ProductsList({ products, loading1, details, portfolio })
                             <div className="h-5 bg-gray-300 rounded w-3/4 mb-2"></div>
                         </div>
                     </div>
-                )) : products.slice(0, 6).map((product, index) => (
+                )) : products?.slice(0, 6).map((product, index) => (
                     <motion.div key={index}
                         initial={{ opacity: 0, y: 40 }}
                         whileInView={{ opacity: 1, y: 0 }}
