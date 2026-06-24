@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Eye } from 'lucide-react';
 import Link from 'next/link';
 
-export default function ProductsList({ products, loading1, details, portfolio }) {
+export default function ProductsList({ products, loading1, details, portfolio, setOpen }) {
     // console.log("ProductsList Rendered with products:", products, "loading1:", loading1);
     return (
         <div className="max-w-7xl mx-auto px-4">
@@ -22,7 +22,7 @@ export default function ProductsList({ products, loading1, details, portfolio })
                 </p>
             </motion.div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+            <div className="grid grid-cols-2 md:grid-cols-3 md:gap-5 gap-3">
                 {loading1 ? Array.from({ length: 6 }).map((_, index) => (
                     <div key={index} className="bg-gray-200 border border-gray-300 rounded-xl shadow-sm animate-pulse">
                         <div className='h-60 bg-white rounded-xl w-full border border-gray-300'>
@@ -58,9 +58,13 @@ export default function ProductsList({ products, loading1, details, portfolio })
                         </div>
 
                         <div className="md:p-4 p-2 text-center">
-                            <h3 className="md:text-lg text-sm font-semibold text-gray-800">
+                            <h3 className="md:text-lg text-xs font-semibold text-gray-800 line-clamp-2">
                                 {product.name}
                             </h3>
+
+                            <button className='flex text-xs mt-2 lg:hidden w-full py-2 justify-center rounded-md' onClick={() => setOpen(true)} style={{ backgroundColor: details?.hero?.color || "#8B4513", }}>
+                                Inquiry Now 
+                            </button>
                         </div>
                     </motion.div>
                 ))}

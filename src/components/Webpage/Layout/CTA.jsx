@@ -4,6 +4,7 @@ import {
   Package,
   Truck,
 } from "lucide-react";
+import { FaLock } from "react-icons/fa";
 
 export default function CTA({ details }) {
   const highlights = [
@@ -31,28 +32,38 @@ export default function CTA({ details }) {
       subtitle: "Fast & Safe Delivery",
       color: "text-blue-600",
     },
+    {
+      icon: FaLock,
+      title: "Secure Inquiries",
+      subtitle: "100% Buyer Protection",
+      color: "text-red-600",
+    },
   ];
 
   return (
     <section className="py-4 md:py-8 px-4">
       <div className="max-w-7xl mx-auto bg-white rounded-2xl md:rounded-3xl shadow-md border border-gray-100 overflow-hidden">
-        
-        <div className="grid grid-cols-2 lg:grid-cols-4">
+
+        <div
+          className="
+    grid grid-cols-2 lg:grid-cols-5
+    divide-y divide-gray-200
+    lg:divide-y-0
+    lg:divide-x
+  "
+        >
           {highlights.map((item, index) => {
             const Icon = item.icon;
 
             return (
               <div
                 key={index}
-                className={`
-                  flex flex-col sm:flex-row items-center sm:items-start
-                  text-center sm:text-left
-                  gap-3 p-4 md:p-6
-                  
-                  ${index % 2 === 0 ? "border-r border-gray-200 lg:border-r" : ""}
-                  ${index < 2 ? "border-b border-gray-200 lg:border-b-0" : ""}
-                  ${index !== highlights.length - 1 && index > 1 ? "lg:border-r lg:border-gray-200" : ""}
-                `}
+                className="
+          flex flex-col sm:flex-row
+          items-center sm:items-start
+          text-center sm:text-left
+          gap-3 p-4 md:p-6
+        "
               >
                 <Icon
                   size={36}

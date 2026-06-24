@@ -30,6 +30,8 @@ import StickyButtons from "@/components/Webpage/StickyButtons";
 import Navbar from "@/components/Webpage/Navbar";
 import Footer from "@/components/Webpage/Footer";
 import Stickyfooter from "@/components/Webpage/StickyFooter";
+import CTA from "@/components/Webpage/Layout/CTA";
+import MarqueeSection from "@/components/Webpage/MarqueeSection";
 
 export default function Portfolio() {
     const { portfolio } = useParams()
@@ -179,6 +181,8 @@ export default function Portfolio() {
     return (<>
         <Navbar details={details} portfolio={portfolio} navLinks={navLinks} />
 
+        <MarqueeSection />
+
         <section id="home">
             <ProductSlider
                 products={details?.featuredProducts?.products?.length ? details?.featuredProducts?.products : products}
@@ -188,6 +192,8 @@ export default function Portfolio() {
                 portfolio={portfolio}
             />
         </section>
+
+        <CTA details={details} />
 
         <section className="relative py-16">
             <div className="absolute inset-0">
@@ -222,32 +228,32 @@ export default function Portfolio() {
                     className="flex flex-col sm:flex-row gap-4 justify-center"
                 >
 
-                    {/* Call Now */}
-                    <a
-                        href={`tel:${details?.user?.phone}`}
-                        className="flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-lg font-medium transition"
-                    >
-                        <Phone size={18} />
-                        Call Now
-                    </a>
+                    <div className="flex gap-4">
+                        {/* Call Now */}
+                        <a
+                            href={`tel:${details?.user?.phone}`}
+                            className="flex w-full items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-lg font-medium transition"
+                        >
+                            <Phone size={18} />
+                            Call Now
+                        </a>
+
+                        {/* WhatsApp */}
+                        <a
+                            href={details?.user?.business?.social?.whatsapp}
+                            target="_blank"
+                            className="flex w-full items-center justify-center gap-2 bg-green-500 hover:bg-green-600 px-6 py-3 rounded-lg font-medium transition"
+                        >
+                            <MessageCircle size={18} />
+                            WhatsApp
+                        </a>
+                    </div>
 
                     {/* Request Quote */}
                     <button onClick={() => setOpen(true)} className="flex items-center justify-center gap-2 bg-white text-black hover:bg-gray-200 px-6 py-3 rounded-lg font-medium transition">
                         <FileText size={18} />
                         Request a Quote
                     </button>
-
-
-
-                    {/* WhatsApp */}
-                    <a
-                        href={details?.user?.business?.social?.whatsapp}
-                        target="_blank"
-                        className="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 px-6 py-3 rounded-lg font-medium transition"
-                    >
-                        <MessageCircle size={18} />
-                        WhatsApp
-                    </a>
 
                 </motion.div>
             </div>
@@ -442,15 +448,7 @@ export default function Portfolio() {
 
         {details?.faqSection?.faqs?.length > 0 &&
             <section className="py-10 bg-gray-100">
-                <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
-                    <div className="flex justify-center">
-                        <img
-                            src={`${details?.faqSection?.image || "/no-image.webp"}`}
-                            alt="machine"
-                            className="max-h-112 object-contain"
-                        />
-                    </div>
-
+                <div className="max-w-4xl mx-auto px-4 items-center">
                     <div>
                         <div className="mb-6">
                             <p className="text-orange-500 font-semibold uppercase text-sm">

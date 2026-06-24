@@ -17,7 +17,8 @@ import {
     Star,
     BadgeCheck,
     Store,
-    SquareArrowOutUpRight, PlayCircle
+    SquareArrowOutUpRight, PlayCircle,
+    ArrowUpRight
 } from "lucide-react";
 import {
     FaLinkedin,
@@ -669,61 +670,83 @@ export default function ProductPage() {
             <RatingsUI />
 
             {relatedProducts.length != 0 &&
-                <div className="py-8 px-4 md:px-10">
-                    <h2 className="text-3xl text-[#0A5B93] font-bold mb-2">Related Products</h2>
+                <div className="my-5 px-4 md:px-10">
+                    <div className="bg-white rounded-xl p-8 shadow-md border text-black border-gray-200">
+                        <h2 className="text-2xl font-bold text-slate-900 mb-6">
+                            Related Products
+                        </h2>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-                        {relatedProducts.map((i, idx) => (
-                            <Link href={`/products/${i.slug}`} key={idx}
-                                className="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition group border border-gray-200"
-                            >
-                                <div className="w-full h-40 relative mb-2">
-                                    <Image
-                                        src={i.media?.[0]?.url || "/noimage.png"}
-                                        alt={i.name}
-                                        fill
-                                        className="object-contain group-hover:scale-105 transition"
-                                    />
-                                </div>
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            {relatedProducts?.slice(0, 4)?.map((item) => {
+                                const discount = item?.oldPrice > item?.price ?
+                                    Math.round(((item.oldPrice - item.price) / item.oldPrice) * 100) : 0;
 
-                                <p className="text-gray-800 group-hover:underline font-semibold line-clamp-2 group-hover:text-[#0A5B93] transition">
-                                    {i.name}
-                                </p>
+                                return (
+                                    <Link href={""} key={item?._id}
+                                        className="group bg-white rounded-2xl border shadow-md border-gray-200 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                                    >
+                                        {/* Image */}
+                                        <div className="relative bg-slate-50 h-70 overflow-hidden">
+                                            <img
+                                                src={item?.media?.[0]?.url || "/placeholder-product.jpg"}
+                                                alt={item?.name}
+                                                className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                                            />
 
-                                <div className='flex items-center justify-between mt-1'>
-                                    {i.brandName && (
-                                        <div className="flex bg-[#0A5B93] items-center gap-1 text-xs text-white px-2 py-1 rounded-xl">
-                                            <Tag size={14} className="text-white" />
-                                            <span>{i.brandName}</span>
+                                            {discount > 0 && (
+                                                <span className="absolute top-2 right-2 bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                                    {discount}% OFF
+                                                </span>
+                                            )}
                                         </div>
-                                    )}
 
-                                    <div className="flex items-center text-sm font-semibold text-gray-800 justify-center">
-                                        <IndianRupee size={14} className="text-[#0A5B93] -mt-0.5" />
-                                        {i.price ? i.price : "On Request"}
-                                    </div>
-                                </div>
+                                        {/* Content */}
+                                        <div className="px-4 py-2">
+                                            {/* Product Name */}
+                                            <h3 className="font-semibold text-gray-900 line-clamp-1">
+                                                {item?.name}
+                                            </h3>
 
-                                <div className='flex flex-col items-start justify-start mt-2'>
-                                    {i?.supplier?.business.companyName && (
-                                        <div className="flex text-sm items-center gap-1 text-gray-800">
-                                            <Store size={14} className="text-[#0A5B93] -mt-0.5" />
-                                            <span>{i?.supplier?.business.companyName}</span>
+                                            {/* Price */}
+                                            <div className="flex items-center gap-2 mt-">
+                                                <span className="text-2xl font-bold text-orange-600">
+                                                    ₹{item?.price}
+                                                </span>
+
+                                                {item?.oldPrice > item?.price && (
+                                                    <span className="text-sm text-gray-400 line-through">
+                                                        ₹{item?.oldPrice}
+                                                    </span>
+                                                )}
+                                            </div>
+
+                                            {/* Bottom */}
+                                            <div className="flex items-center justify-between mt-">
+                                                <span className="text-sm font-semibold text-gray-700 group-hover:text-orange-600 transition">
+                                                    View Product
+                                                </span>
+
+                                                <div
+                                                    className="
+                                w-10 h-10
+                                rounded-full
+                                bg-orange-100
+                                text-orange-500
+                                flex items-center justify-center
+                                transition-all duration-300
+                                group-hover:bg-orange-500
+                                group-hover:text-white
+                                group-hover:rotate-45
+                            "
+                                                >
+                                                    <ArrowUpRight size={18} />
+                                                </div>
+                                            </div>
                                         </div>
-                                    )}
-
-                                    <div className="flex text-sm items-center gap-1 text-gray-800 line-clamp-1">
-                                        <MapPin size={14} className="text-[#0A5B93] -mt-0.5" />
-                                        <span className="line-clamp-1">{i?.supplier?.business?.address}</span>
-                                    </div>
-                                </div>
-
-                                <button onClick={(e) => { e.preventDefault(); setOpenPopup(true); setPopupProduct(i) }}
-                                    className='cursor-pointer w-full py-2 rounded-lg bg-[#0A5B93] hover:bg-[#0A5B93]/80 text-white mt-2'>
-                                    Contact Supplier
-                                </button>
-                            </Link>
-                        ))}
+                                    </Link>
+                                );
+                            })}
+                        </div>
                     </div>
                 </div>}
         </div>

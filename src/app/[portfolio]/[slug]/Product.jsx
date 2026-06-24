@@ -2,7 +2,7 @@
 import Footer from '@/components/Webpage/Footer';
 import Navbar from '@/components/Webpage/Navbar';
 import axios from 'axios';
-import { Home, Info, Mail, PhoneCall, ShoppingBag } from 'lucide-react';
+import { ArrowUpRight, Home, Info, Mail, PhoneCall, ShoppingBag } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { useRouter } from "next/navigation";
@@ -13,6 +13,7 @@ import StickyButtons from '@/components/Webpage/StickyButtons';
 import Stickyfooter from '@/components/Webpage/StickyFooter';
 import Navbar3 from '@/components/Webpage/Layout3/Navbar';
 import Navbar2 from '@/components/Webpage/Layout/Navbar';
+import Link from 'next/link';
 
 export default function Product() {
     const router = useRouter();
@@ -25,6 +26,7 @@ export default function Product() {
     const [showYoutube, setShowYoutube] = useState(false);
     const [openPopup, setOpenPopup] = useState(false);
     const [popupProduct, setPopupProduct] = useState({});
+    const [products, setProducts] = useState([]);
 
     useEffect(() => {
         if (!slug) return;
@@ -32,9 +34,11 @@ export default function Product() {
         const fetchData = async () => {
             try {
                 const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/product/${slug}`);
+                const res1 = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/webpage/${portfolio}`);
                 // console.log(res.data, "product details");
                 const data = res.data.data.product;
                 setProduct(data || {});
+                setProducts(res1.data.data?.products.filter((i) => i.slug != slug) || []);
 
                 if (data?.media?.length > 0) {
                     setSelectedImage(data.media[0].url);
@@ -161,6 +165,8 @@ export default function Product() {
                 ? Navbar2
                 : Navbar;
 
+    // console.log(products)
+
     return (<>
         <NavbarComponent
             details={details}
@@ -168,7 +174,7 @@ export default function Product() {
             navLinks={navLinks}
         />
 
-        <div className="max-w-7xl mx-auto px-4 pt-8 pb-4">
+        <div className="max-w-7xl mx-auto px-2 pt-8 pb-4">
             <div className="grid lg:grid-cols-[500px_1fr] gap-8 items-start">
                 <div className="lg:sticky lg:top-24 h-fit">
                     <div className="bg-white border rounded-xl overflow-hidden shadow-sm">
@@ -177,7 +183,7 @@ export default function Product() {
                             <iframe
                                 src={getYoutubeEmbedUrl(product.youtubeLink)}
                                 title="YouTube Video"
-                                className="w-full h-[500px]"
+                                className="w-full md:h-125"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
                             />
@@ -189,7 +195,7 @@ export default function Product() {
                                     "/placeholder-product.jpg"
                                 }
                                 alt={product?.name}
-                                className="w-full h-[500px] object-contain"
+                                className="w-full md:h-125 object-contain"
                             />
                         )}
                     </div>
@@ -288,6 +294,11 @@ export default function Product() {
                                 </span>
                             </>
                         )}
+
+                        {details?.user?.business?.social?.whatsapp &&
+                            <button onClick={() => handleWhatsappClick(details, details?.user?.business?.social?.whatsapp)} disabled={loadingType !== null} className='text-white animate-pulse [animation-duration:1s] hover:scale-105 transition-transform cursor-pointer font-semibold border bg-red-500 px-4 py-1.5 rounded-md'>
+                                Inquiry Now
+                            </button>}
                     </div>
 
                     {/* Specifications */}
@@ -296,70 +307,70 @@ export default function Product() {
                             <tbody>
                                 {product?.brandName &&
                                     <tr className="border-b border-gray-300">
-                                        <td className="bg-slate-50 p-4 font-medium w-1/3">
+                                        <td className="bg-slate-50 md:p-4 p-2 font-medium w-1/3">
                                             Brand
                                         </td>
-                                        <td className="p-4">
+                                        <td className="md:p-4 p-2">
                                             {product?.brandName || "-"}
                                         </td>
                                     </tr>}
 
                                 {product?.minOrderQty &&
                                     <tr className="border-b border-gray-300">
-                                        <td className="bg-slate-50 p-4 font-medium">
+                                        <td className="bg-slate-50 md:p-4 p-2 font-medium">
                                             Mini Order Quantity
                                         </td>
-                                        <td className="p-4">
+                                        <td className="md:p-4 p-2">
                                             {product?.minOrderQty || "-"}
                                         </td>
                                     </tr>}
 
                                 {product?.packagingDetails &&
                                     <tr className="border-b border-gray-300">
-                                        <td className="bg-slate-50 p-4 font-medium">
+                                        <td className="bg-slate-50 md:p-4 p-2 font-medium">
                                             Packaging
                                         </td>
-                                        <td className="p-4">
+                                        <td className="md:p-4 p-2">
                                             {product?.packagingDetails || "-"}
                                         </td>
                                     </tr>}
 
                                 {product?.deliveryTime &&
                                     <tr className="border-b border-gray-300">
-                                        <td className="bg-slate-50 p-4 font-medium">
+                                        <td className="bg-slate-50 md:p-4 p-2 font-medium">
                                             Delivery Time
                                         </td>
-                                        <td className="p-4 border-gray-300">
+                                        <td className="md:p-4 p-2 border-gray-300">
                                             {product?.deliveryTime || "-"}
                                         </td>
                                     </tr>}
 
                                 {product?.supplyAbility &&
                                     <tr className="border-b border-gray-300">
-                                        <td className="bg-slate-50 p-4 font-medium">
+                                        <td className="bg-slate-50 md:p-4 p-2 font-medium">
                                             Supply Ability
                                         </td>
-                                        <td className="p-4">
+                                        <td className="md:p-4 p-2">
                                             {product?.supplyAbility || "-"}
                                         </td>
                                     </tr>}
 
                                 {product?.paymentTerms &&
                                     <tr>
-                                        <td className="bg-slate-50 p-4 font-medium">
+                                        <td className="bg-slate-50 md:p-4 p-2 font-medium">
                                             Payment Terms
                                         </td>
-                                        <td className="p-4">
+                                        <td className="md:p-4 p-2">
                                             {product?.paymentTerms || "-"}
                                         </td>
                                     </tr>}
 
                                 {product?.specifications?.map((spec, index) => (
                                     <tr key={index} className="border-t border-gray-300">
-                                        <td className="bg-slate-50 p-4 font-medium text-black">
+                                        <td className="bg-slate-50 md:p-4 p-2 font-medium text-black">
                                             {spec.key}
                                         </td>
-                                        <td className="p-4 text-black">
+                                        <td className="md:p-4 p-2 text-black">
                                             {spec.value}
                                         </td>
                                     </tr>
@@ -374,13 +385,15 @@ export default function Product() {
                             Get Best Price
                         </button>
 
-                        <button onClick={() => handleCallClick(details, details?.user?.phone)} disabled={loadingType !== null} className="flex items-center justify-center gap-3 border border-blue-600 text-blue-600 hover:bg-blue-50 px-4 py-3 rounded-lg font-semibold transition">
-                            <PhoneCall size={18} /> Contact Us
-                        </button>
+                        <div className='flex gap-4'>
+                            <button onClick={() => handleCallClick(details, details?.user?.phone)} disabled={loadingType !== null} className="flex flex-1 items-center justify-center gap-3 border border-blue-600 text-blue-600 hover:bg-blue-50 px-4 py-3 rounded-lg font-semibold transition">
+                                <PhoneCall size={18} /> Contact Us
+                            </button>
 
-                        <button onClick={() => handleWhatsappClick(details, details?.user?.business?.social?.whatsapp)} disabled={loadingType !== null} className="flex items-center justify-center gap-3 border border-green-600 text-green-600 hover:bg-green-50 px-4 py-3 rounded-lg font-semibold transition">
-                            <BsWhatsapp size={20} /> Whatsapp Us
-                        </button>
+                            <button onClick={() => handleWhatsappClick(details, details?.user?.business?.social?.whatsapp)} disabled={loadingType !== null} className="flex flex-1 text-nowrap items-center justify-center gap-3 border border-green-600 text-green-600 hover:bg-green-50 px-4 py-3 rounded-lg font-semibold transition">
+                                <BsWhatsapp size={20} /> Whatsapp Us
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -391,13 +404,92 @@ export default function Product() {
                     Product Overview
                 </h2>
 
-                <div
-                    className="prose prose-slate max-w-none"
+                <div className="prose prose-slate max-w-none"
                     dangerouslySetInnerHTML={{
                         __html: product?.description || "",
                     }}
                 />
             </div>
+
+            {products.length != 0 &&
+                <div className="mt-5 bg-white rounded-xl md:p-8 px-2 py-4 shadow-md border text-black border-gray-200">
+                    <h2 className="text-2xl md:text-start text-center font-bold text-slate-900 mb-6">
+                        Related Products
+                    </h2>
+
+                    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 md:gap-4 gap-2">
+                        {products?.slice(0, 4)?.map((item) => {
+                            const discount = item?.oldPrice > item?.price ?
+                                Math.round(((item?.oldPrice - item?.price) / item?.oldPrice) * 100) : 0;
+
+                            return (
+                                <Link href={`/${portfolio}/${item?.slug}`}
+                                    key={item?._id}
+                                    className="group bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                                >
+                                    {/* Image */}
+                                    <div className="relative bg-slate-50 md:h-70 overflow-hidden">
+                                        <img
+                                            src={item?.media?.[0]?.url || "/placeholder-product.jpg"}
+                                            alt={item?.name}
+                                            className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                                        />
+
+                                        {discount > 0 && (
+                                            <span className="absolute md:top-2 top-1 md:right-2 right-1 bg-red-500 text-white md:text-xs text-[10px] font-semibold md:px-3 px-1 py-1 rounded-full">
+                                                {discount}% OFF
+                                            </span>
+                                        )}
+                                    </div>
+
+                                    {/* Content */}
+                                    <div className="md:px-4 px-2 py-2">
+                                        {/* Product Name */}
+                                        <h3 className="font-semibold md:text-base text-xs text-gray-900 line-clamp-1">
+                                            {item?.name}
+                                        </h3>
+
+                                        {/* Price */}
+                                        <div className="flex items-center gap-2 mt-">
+                                            <span className="md:text-2xl text-xs font-bold text-orange-600">
+                                                ₹{item?.price}
+                                            </span>
+
+                                            {item?.oldPrice > item?.price && (
+                                                <span className="md:text-sm text-xs text-gray-400 line-through">
+                                                    ₹{item?.oldPrice}
+                                                </span>
+                                            )}
+                                        </div>
+
+                                        {/* Bottom */}
+                                        <div className="flex items-center justify-between mt-">
+                                            <span className="md:text-sm text-xs font-semibold text-gray-700 group-hover:text-orange-600 transition">
+                                                View Product
+                                            </span>
+
+                                            <div
+                                                className="
+                                md:w-10 md:h-10 w-5 h-5
+                                rounded-full
+                                bg-orange-100
+                                text-orange-500
+                                flex items-center justify-center
+                                transition-all duration-300
+                                group-hover:bg-orange-500
+                                group-hover:text-white
+                                group-hover:rotate-45
+                            "
+                                            >
+                                                <ArrowUpRight className='md:w-5 md:h-5 w-3 h-3' />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+                            );
+                        })}
+                    </div>
+                </div>}
         </div>
 
         <div className='xl:px-18 pb-10'>

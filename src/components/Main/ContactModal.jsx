@@ -57,6 +57,8 @@ export default function ContactModal({ open, setOpen, product }) {
         }
     };
 
+    console.log(product)
+
     return (
         <AnimatePresence>
             {open && (
@@ -85,11 +87,11 @@ export default function ContactModal({ open, setOpen, product }) {
                             </button>
 
                             <div className="md:flex flex-col hidden">
-                                <div className="border border-gray-200 rounded-lg w-auto h-70">
+                                <div className="border border-gray-200 rounded-lg w-auto h-85">
                                     <img
                                         src={product.media?.[0]?.url}
                                         alt={product.name}
-                                        className="w-full h-full object-contain"
+                                        className="w-full h-full object"
                                     />
                                 </div>
                                 <Link href={`/products/${product?.slug}`} className="hover:underline text-center font-semibold mt-2 text-[#0A5B93]">
@@ -99,9 +101,9 @@ export default function ContactModal({ open, setOpen, product }) {
                                 <div className='flex items-center justify-between mt-1'>
                                     <div className="flex items-center gap-1 text-sm text-gray-600">
                                         {product.price ? (
-                                            <p className="text-lg font-semibold">
+                                            <p className="text-xl font-semibold">
                                                 ₹{product.price}
-                                                <span className="text-sm font-normal">/Piece</span>
+                                                <span className="text-sm font-normal">/{product.unit || "Piece"}</span>
                                             </p>
                                         ) : (
                                             <span className="bg-green-500 text-xs text-white px-2 py-1 rounded-xl">
@@ -109,13 +111,13 @@ export default function ContactModal({ open, setOpen, product }) {
                                             </span>
                                         )}
                                     </div>
-                                    <div className="flex items-center gap-1 text-sm text-gray-600">
-                                        <Store size={16} />
+                                    <div className="flex items-center gap-1 text-base text-gray-800">
+                                        <Store size={18} />
                                         <span>{supplier?.companyName || "Unknown Supplier"}</span>
                                     </div>
                                 </div>
 
-                                <div className="flex gap-5 justify-center mt-4">
+                                <div className="flex gap-5 justify-center mt-2">
                                     {supplier?.social?.linkedin && (
                                         <a
                                             href={supplier.social.linkedin}
@@ -198,16 +200,18 @@ export default function ContactModal({ open, setOpen, product }) {
                                 </div>
                             ) : (
                                 <form onSubmit={handleSubmit} className="space-y-4">
-                                    <h2 className="font-semibold text-3xl text-[#0A5B93] text-center">
+                                    <h2 className="mb-6 font-semibold text-3xl text-[#0A5B93] flex flex-col justify-center items-center">
                                         Contact Supplier
+                                        <div className="w-15 h-1 rounded-2xl bg-[#0A5B93] mt-1"></div>
                                     </h2>
+
                                     <div className="flex items-center border rounded-lg px-2 border-gray-300 shadow-sm">
                                         <User size={16} className="text-orange-500" />
                                         <input
                                             name="contactPerson"
                                             type="text"
                                             placeholder="Your Name"
-                                            className="w-full p-2 outline-none text-black"
+                                            className="w-full p-2.5 outline-none text-black"
                                         />
                                     </div>
 
@@ -217,7 +221,7 @@ export default function ContactModal({ open, setOpen, product }) {
                                             name="email"
                                             type="email"
                                             placeholder="Your Email"
-                                            className="w-full p-2 outline-none text-black"
+                                            className="w-full p-2.5 outline-none text-black"
                                         />
                                     </div>
 
@@ -229,7 +233,7 @@ export default function ContactModal({ open, setOpen, product }) {
                                             name="phone"
                                             type="tel"
                                             placeholder="Phone Number"
-                                            className="w-full p-2 outline-none text-black"
+                                            className="w-full p-2.5 outline-none text-black"
                                         />
                                     </div>
 
@@ -240,11 +244,11 @@ export default function ContactModal({ open, setOpen, product }) {
                                             type="text"
                                             rows={4}
                                             placeholder="Your Message"
-                                            className="w-full p-2 outline-none text-black"
+                                            className="w-full p-2.5 outline-none text-black"
                                         />
                                     </div>
 
-                                    <button disabled={loading} className="w-full bg-[#0A5B93] hover:bg-[#074f83] text-white py-2 rounded-lg">
+                                    <button disabled={loading} className="w-full bg-[#0A5B93] hover:bg-[#074f83] text-white py-3 rounded-lg">
                                         {loading ? "Submitting..." : "Submit Inquiry"}
                                     </button>
                                 </form>)}
