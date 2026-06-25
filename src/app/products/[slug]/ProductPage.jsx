@@ -66,10 +66,9 @@ export default function ProductPage() {
         const fetchData = async () => {
             try {
                 const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/product/${slug}`);
-                // console.log(res.data, "product details");
                 const data = res.data.data.product;
                 setProductDetails(data || null);
-                setRelatedProducts(res.data.data.relatedProducts || null);
+                setRelatedProducts(res.data.data.relatedProducts.filter((i) => i.supplierId === data?.supplierId));
             } catch (err) {
                 console.error(err);
             }
@@ -149,7 +148,7 @@ export default function ProductPage() {
         return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
     };
 
-    // console.log(productDetails, "details");
+    // console.log(productDetails, "details", relatedProducts);
 
     return (<>
         <Navbar />
@@ -671,12 +670,12 @@ export default function ProductPage() {
 
             {relatedProducts.length != 0 &&
                 <div className="my-5 px-4 md:px-10">
-                    <div className="bg-white rounded-xl p-8 shadow-md border text-black border-gray-200">
-                        <h2 className="text-2xl font-bold text-slate-900 mb-6">
+                    <div className="bg-white rounded-xl md:p-8 px-2 py-4 shadow-md border text-black border-gray-200">
+                        <h2 className="text-2xl md:text-start text-center font-bold text-slate-900 mb-6">
                             Related Products
                         </h2>
 
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 md:gap-4 gap-2">
                             {relatedProducts?.slice(0, 4)?.map((item) => {
                                 const discount = item?.oldPrice > item?.price ?
                                     Math.round(((item.oldPrice - item.price) / item.oldPrice) * 100) : 0;
@@ -686,7 +685,7 @@ export default function ProductPage() {
                                         className="group bg-white rounded-2xl border shadow-md border-gray-200 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                                     >
                                         {/* Image */}
-                                        <div className="relative bg-slate-50 h-70 overflow-hidden">
+                                        <div className="relative bg-slate-50 md:h-70 overflow-hidden">
                                             <img
                                                 src={item?.media?.[0]?.url || "/placeholder-product.jpg"}
                                                 alt={item?.name}
@@ -694,27 +693,27 @@ export default function ProductPage() {
                                             />
 
                                             {discount > 0 && (
-                                                <span className="absolute top-2 right-2 bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                                <span className="absolute md:top-2 top-1 md:right-2 right-1 bg-red-500 text-white md:text-xs text-[10px] font-semibold md:px-3 px-1 py-1 rounded-full">
                                                     {discount}% OFF
                                                 </span>
                                             )}
                                         </div>
 
                                         {/* Content */}
-                                        <div className="px-4 py-2">
+                                        <div className="md:px-4 px-2 py-2">
                                             {/* Product Name */}
-                                            <h3 className="font-semibold text-gray-900 line-clamp-1">
+                                            <h3 className="font-semibold md:text-base text-xs text-gray-900 line-clamp-1">
                                                 {item?.name}
                                             </h3>
 
                                             {/* Price */}
                                             <div className="flex items-center gap-2 mt-">
-                                                <span className="text-2xl font-bold text-orange-600">
+                                                <span className="md:text-2xl text-xs font-bold text-orange-600">
                                                     ₹{item?.price}
                                                 </span>
 
                                                 {item?.oldPrice > item?.price && (
-                                                    <span className="text-sm text-gray-400 line-through">
+                                                    <span className="md:text-sm text-xs text-gray-400 line-through">
                                                         ₹{item?.oldPrice}
                                                     </span>
                                                 )}
@@ -722,24 +721,24 @@ export default function ProductPage() {
 
                                             {/* Bottom */}
                                             <div className="flex items-center justify-between mt-">
-                                                <span className="text-sm font-semibold text-gray-700 group-hover:text-orange-600 transition">
+                                                <span className="md:text-sm text-xs font-semibold text-gray-700 group-hover:text-orange-600 transition">
                                                     View Product
                                                 </span>
 
                                                 <div
                                                     className="
-                                w-10 h-10
-                                rounded-full
-                                bg-orange-100
-                                text-orange-500
-                                flex items-center justify-center
-                                transition-all duration-300
-                                group-hover:bg-orange-500
-                                group-hover:text-white
-                                group-hover:rotate-45
-                            "
+                                                                       md:w-10 md:h-10 w-5 h-5
+                                                                       rounded-full
+                                                                       bg-orange-100
+                                                                       text-orange-500
+                                                                       flex items-center justify-center
+                                                                       transition-all duration-300
+                                                                       group-hover:bg-orange-500
+                                                                       group-hover:text-white
+                                                                       group-hover:rotate-45
+                                                                   "
                                                 >
-                                                    <ArrowUpRight size={18} />
+                                                    <ArrowUpRight className='md:w-5 md:h-5 w-3 h-3' />
                                                 </div>
                                             </div>
                                         </div>

@@ -14,7 +14,7 @@ const brands = [
     { initials: "EC", name: "Eco Corp", category: "Sustainability", color: "text-emerald-600 bg-emerald-50" },
 
 
-    { initials: "MT", name: "Matrix Tissue", category: "Paper & Packaging", color: "text-pink-600 bg-pink-50" },
+    { initials: "MT", name: "Matrix Tissues", category: "Paper & Packaging", color: "text-pink-600 bg-pink-50" },
 
 ];
 

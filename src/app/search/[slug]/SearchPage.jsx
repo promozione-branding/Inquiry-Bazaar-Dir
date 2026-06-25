@@ -655,7 +655,7 @@ export default function SearchPage() {
       </div>
     </div>
 
-    {subCategory?.category?.faqs && (
+    {subCategory?.category?.faqs.length > 0 && (
       <FAQSection faqs={subCategory?.category?.faqs} />
     )}
 

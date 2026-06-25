@@ -20,7 +20,7 @@ const locationSlice = createSlice({
         state.city = savedLocation || "Delhi";
 
         if (!savedLocation) {
-          localStorage.setItem("location", "Delhi");
+          localStorage.setItem("location", "All India");  
         }
       }
     },

@@ -134,7 +134,7 @@ export default function Navbar2({ details, portfolio }) {
             </div>
           </Link>
 
-          <div className="w-auto hidden md:flex bg-slate-50 rounded-md md:rounded-2xl border border-slate-300 md:p-4 p-1">
+          <div className="w-auto hidden md:flex flex-col bg-slate-50 rounded-md md:rounded-2xl border border-slate-300 md:p-4 p-1">
             <h3 className="text-center md:font-bold leading-tight">
               <span className="text-blue-700 text-xs md:text-base">
                 INQUIRY BAZAAR

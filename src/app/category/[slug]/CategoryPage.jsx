@@ -53,7 +53,7 @@ export default function CategoryPage() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/categories/sub/${slug}/${location}`);
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/categories/sub/${slug}/${"India"}`);
         const data = res.data?.data;
         setSubCategory(data || []);
       } catch (err) {
@@ -169,7 +169,7 @@ export default function CategoryPage() {
     });
   }, [slug]);
 
-  // console.info(subCategory?.category);
+  console.info(subCategory?.category);
 
   return (<>
     <Navbar />
@@ -663,7 +663,7 @@ export default function CategoryPage() {
       </div>
     </div>
 
-    {subCategory?.category?.faqs && (
+    {subCategory?.category?.faqs.length > 0 && (
       <FAQSection faqs={subCategory?.category?.faqs} />
     )}
 

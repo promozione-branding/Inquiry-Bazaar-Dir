@@ -52,7 +52,7 @@ export default function Loaction() {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/categories/sub/${slug}/${location}`);
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/categories/sub/${slug}/${"India"}`);
                 const data = res.data?.data;
                 setSubCategory(data || []);
             } catch (err) {
@@ -666,7 +666,7 @@ export default function Loaction() {
             </div>
         </div>
 
-        {subCategory?.category?.faqs && (
+        {subCategory?.category?.faqs.length > 0 && (
             <FAQSection faqs={subCategory?.category?.faqs} />
         )}
 

@@ -75,8 +75,6 @@ export default function Navbar() {
 
     const handleFocus = () => {
         setShowDropdown(true);
-
-
     };
 
     return (
