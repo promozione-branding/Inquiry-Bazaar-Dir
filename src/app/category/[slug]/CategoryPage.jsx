@@ -663,7 +663,7 @@ export default function CategoryPage() {
       </div>
     </div>
 
-    {subCategory?.category?.faqs.length > 0 && (
+    {subCategory?.category?.faqs?.length > 0 && (
       <FAQSection faqs={subCategory?.category?.faqs} />
     )}
 

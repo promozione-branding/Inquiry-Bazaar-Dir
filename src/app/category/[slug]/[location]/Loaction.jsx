@@ -666,7 +666,7 @@ export default function Loaction() {
             </div>
         </div>
 
-        {subCategory?.category?.faqs.length > 0 && (
+        {subCategory?.category?.faqs?.length > 0 && (
             <FAQSection faqs={subCategory?.category?.faqs} />
         )}
 
