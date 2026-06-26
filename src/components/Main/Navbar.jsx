@@ -199,7 +199,7 @@ export default function Navbar() {
                 </button>
 
                 {user ?
-                    <div ref={profileRef} className="relative">
+                    <div ref={profileRef} className="block md:hidden relative">
                         <button onClick={() => setProfileOpen(!profileOpen)}
                             className="flex items-center gap-3 border rounded-full hover:bg-gray-50 border-gray-200"
                         >
