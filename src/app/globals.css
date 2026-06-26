@@ -55,3 +55,8 @@ section {
 .no-scrollbar {
   scrollbar-width: none;
 }
+
+
+.body {
+  content-visibility: auto;
+}
