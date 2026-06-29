@@ -64,7 +64,7 @@ export default function CategoryPage() {
         setLoadingMore(true);
       }
 
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/categories/sub/${slug}/${location}?page=${pageNo}&limit=10`);
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/categories/sub/${slug}/${"India"}?page=${pageNo}&limit=10`);
       const data = res?.data?.data;
 
       setSubCategory((prev) => ({
