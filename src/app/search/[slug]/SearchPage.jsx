@@ -238,7 +238,7 @@ export default function SearchPage() {
     await fetchData(nextPage, true);
   };
 
-  console.log(subCategory)
+  // console.log(subCategory) 
 
   return (<>
     <Navbar />
@@ -755,8 +755,8 @@ export default function SearchPage() {
       </div>
     </div>
 
-    {subCategory?.category?.faqs?.length > 0 && (
-      <FAQSection faqs={subCategory?.category?.faqs} />
+    {subCategory?.faqs?.length > 0 && (
+      <FAQSection faqs={subCategory?.faqs} />
     )}
 
     <ContactModal open={openPopup} setOpen={setOpenPopup} product={popupProduct} />

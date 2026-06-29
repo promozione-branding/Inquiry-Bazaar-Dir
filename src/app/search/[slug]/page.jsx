@@ -10,7 +10,7 @@ export async function generateMetadata({ params, }) {
         );
         const result = await res.json();
         const meta = result?.data;
-        console.log(result?.data)
+        // console.log(result?.data)
         if (!meta) {
             return {
                 title: "Inquiry Bazaar",
