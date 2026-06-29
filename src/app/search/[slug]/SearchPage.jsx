@@ -17,7 +17,12 @@ import {
   User,
   Link2,
   Funnel,
-  FileText
+  FileText,
+  Rocket,
+  TrendingUp,
+  Cog,
+  Gem,
+  ArrowDown
 } from "lucide-react";
 import {
   FaWhatsapp,
@@ -34,35 +39,73 @@ import React, { useEffect, useState } from 'react'
 import { BsTelegram } from 'react-icons/bs';
 import { FaXTwitter } from 'react-icons/fa6';
 import FAQSection from '@/components/Category/Category';
+import { useSelector } from 'react-redux';
 
 export default function SearchPage() {
   const { slug } = useParams()
+  const location = useSelector((state) => state.location.city);
   const [open, setOpen] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
   const [popupProduct, setPopupProduct] = useState({});
   const [subCategory, setSubCategory] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [loadingType, setLoadingType] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
+  const fetchData = async (pageNo = 1, append = false) => {
+    try {
+
+      if (pageNo === 1) {
+        setLoading(true);
+      } else {
+        setLoadingMore(true);
+      }
+
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/search/${slug}`,
+        { params: { location, page: pageNo, limit: 10, }, }
+      );
+
+      const data = res.data?.data;
+
+      setSubCategory((prev) => {
+
+        if (!append || !prev) {
+          return data;
+        }
+
+        return {
+          ...data,
+
+          products: [
+            ...(prev.products || []),
+            ...(data.products || []),
+          ],
+        };
+      });
+
+      setHasMore(
+        pageNo < data?.totalPages
+      );
+
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+      setLoadingMore(false);
+    }
+  };
+
+  // RESET WHEN SLUG / LOCATION CHANGE
   useEffect(() => {
     if (!slug) return;
+    setPage(1);
+    setHasMore(true);
+    setSubCategory(null);
 
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/search/${slug}`);
-        // console.log(res.data);
-        const data = res.data?.data;
-        setSubCategory(data || []);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [slug]);
+    fetchData(1, false);
+  }, [slug, location]);
 
   const trackEvent = async (eventType, productDetails) => {
     // console.log("Tracking Event:", eventType);
@@ -166,6 +209,36 @@ export default function SearchPage() {
       behavior: "smooth",
     });
   }, [slug]);
+
+  const membershipStyles = {
+    starter: {
+      bg: "from-blue-700 to-blue-500",
+      icon: Rocket,
+    },
+    growth: {
+      bg: "from-teal-600 to-green-500",
+      icon: TrendingUp,
+    },
+    pro: {
+      bg: "from-yellow-500 to-orange-500",
+      icon: Cog,
+    },
+    elite: {
+      bg: "from-purple-700 to-purple-500",
+      icon: Gem,
+    },
+  };
+
+  const handleLoadMore = async () => {
+    if (loadingMore || !hasMore) return;
+
+    const nextPage = page + 1;
+    setPage(nextPage);
+
+    await fetchData(nextPage, true);
+  };
+
+  console.log(subCategory)
 
   return (<>
     <Navbar />
@@ -393,7 +466,7 @@ export default function SearchPage() {
                 </div>
               </div>
 
-              <div className="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition border border-gray-200 hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="bg-white relative p-4 rounded-xl shadow-sm hover:shadow-md transition border border-gray-200 hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="w-full h-70 relative group" onClick={(e) => { e.preventDefault(); setOpenPopup(true); setPopupProduct(i); }}>
                   <Image
                     src={i.media?.[0]?.url || "/no-image.png"}
@@ -582,10 +655,37 @@ export default function SearchPage() {
                     </button>
                   </div>
                 </div>
+
+                {i?.supplier?.membership?.membershipStatus === "active" && (() => {
+                  const type = i?.supplier?.membership?.membershipType?.toLowerCase();
+                  const config = membershipStyles[type];
+                  const Icon = config?.icon || Rocket;
+
+                  return (
+                    <div className="absolute top-0 left-0 z-20">
+                      <div className={`flex items-center gap-1.5 px-3 py-1 text-sm font-bold uppercase text-white bg-gradient-to-r ${config?.bg} shadow-md `}
+                        style={{ clipPath: "polygon(0 0, 92% 0, 100% 50%, 92% 100%, 0 100%)", }}
+                      >
+                        <Icon size={15} />
+                        <span>{type}</span>
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
             </div>);
           }))}
         </div>
+
+        {/* pagination */}
+        {hasMore && subCategory?.products?.length > 0 && (
+          <div className='pt-5 flex justify-center'>
+            <button onClick={handleLoadMore} disabled={loadingMore} className="flex items-center justify-center px-4 py-2 bg-[#0A5B93] text-white rounded gap-2 cursor-pointer">
+              {loadingMore ? "Loading..." : "View More"}
+              <ArrowDown size={20} />
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="hidden lg:block lg:col-span-1">

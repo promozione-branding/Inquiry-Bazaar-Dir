@@ -17,7 +17,12 @@ import {
     User,
     Link2,
     Funnel,
-    FileText
+    FileText,
+    Rocket,
+    TrendingUp,
+    Cog,
+    Gem,
+    ArrowDown
 } from "lucide-react";
 import {
     FaWhatsapp,
@@ -45,25 +50,51 @@ export default function Loaction() {
     const [subCategory, setSubCategory] = useState([]);
     const [loading, setLoading] = useState(false);
     const [loadingType, setLoadingType] = useState(null);
+    const [loadingMore, setLoadingMore] = useState(false);
+    const [page, setPage] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
+
+    const fetchData = async (pageNo = 1, append = false) => {
+        try {
+            if (pageNo === 1) {
+                setLoading(true);
+            } else {
+                setLoadingMore(true);
+            }
+
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/categories/sub/${slug}/${location}?page=${pageNo}&limit=10`);
+            const data = res?.data?.data;
+
+            setSubCategory((prev) => ({
+                ...data,
+                products: append
+                    ? [
+                        ...(prev?.products || []),
+                        ...(data?.products || []),
+                    ]
+                    : (data?.products || []),
+            }));
+
+            setHasMore(pageNo < data?.totalPages);
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setLoading(false);
+            setLoadingMore(false);
+        }
+    };
 
     useEffect(() => {
         if (!slug) return;
+        setPage(1);
+        fetchData(1, false);
+    }, [slug, location]);
 
-        const fetchData = async () => {
-            try {
-                setLoading(true);
-                const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/categories/sub/${slug}/${"India"}`);
-                const data = res.data?.data;
-                setSubCategory(data || []);
-            } catch (err) {
-                console.error(err);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [slug]);
+    const handleLoadMore = () => {
+        const nextPage = page + 1;
+        setPage(nextPage);
+        fetchData(nextPage, true);
+    };
 
     const trackEvent = async (eventType, productDetails) => {
         // console.log("Tracking Event:", eventType);
@@ -168,38 +199,70 @@ export default function Loaction() {
         });
     }, [slug]);
 
+    const membershipStyles = {
+        starter: {
+            bg: "from-blue-700 to-blue-500",
+            icon: Rocket,
+        },
+        growth: {
+            bg: "from-teal-600 to-green-500",
+            icon: TrendingUp,
+        },
+        pro: {
+            bg: "from-yellow-500 to-orange-500",
+            icon: Cog,
+        },
+        elite: {
+            bg: "from-purple-700 to-purple-500",
+            icon: Gem,
+        },
+    };
+
     return (<>
         <Navbar />
 
         <div className="px-4 md:px-10 py-3 bg-white">
-            {/* Breadcrumb */}
-            <div className="flex items-center text-gray-800 gap-1 flex-wrap">
-                <Link href={"/"} className="font-bold">Home</Link>
-                {subCategory?.category?.industry?.name && (
-                    <>
-                        <p>/</p>
-                        <Link href={`/industries/${subCategory?.category?.industry?.slug}`} className="font-bold">
-                            {subCategory?.category?.industry?.name}
-                        </Link>
-                    </>
-                )}
-                {subCategory?.category?.parentCategory?.name && (
-                    <>
-                        <p>/</p>
-                        <Link href={`/categories/${subCategory?.category?.parentCategory?.slug}`} className="font-bold">
-                            {subCategory?.category?.parentCategory?.name}
-                        </Link>
-                    </>
-                )}
-                {subCategory?.category?.name && (
-                    <>
-                        <p>/</p>
-                        <Link href={`/category/${subCategory?.category?.slug}`} className="font-bold">{subCategory?.category?.name}</Link>
-                    </>
-                )}
-                <p>/</p>
-                <p className="text-gray-600 capitalize">{location}</p>
-            </div>
+            {loading ?
+                <div className="flex items-center gap-2 flex-wrap animate-pulse">
+                    <div className="h-4 w-14 bg-gray-200 rounded" />
+
+                    <span className="text-gray-300">/</span>
+                    <div className="h-4 w-24 bg-gray-200 rounded" />
+
+                    <span className="text-gray-300">/</span>
+                    <div className="h-4 w-20 bg-gray-200 rounded" />
+
+                    <span className="text-gray-300">/</span>
+                    <div className="h-4 w-28 bg-gray-200 rounded" />
+                </div>
+                :
+                <div className="flex items-center text-gray-800 gap-1 flex-wrap">
+                    <Link href={"/"} className="font-bold">Home</Link>
+                    {subCategory?.category?.industry?.name && (
+                        <>
+                            <p>/</p>
+                            <Link href={`/industries/${subCategory?.category?.industry?.slug}`} className="font-bold">
+                                {subCategory?.category?.industry?.name}
+                            </Link>
+                        </>
+                    )}
+                    {subCategory?.category?.parentCategory?.name && (
+                        <>
+                            <p>/</p>
+                            <Link href={`/categories/${subCategory?.category?.parentCategory?.slug}`} className="font-bold">
+                                {subCategory?.category?.parentCategory?.name}
+                            </Link>
+                        </>
+                    )}
+                    {subCategory?.category?.name && (
+                        <>
+                            <p>/</p>
+                            <Link href={`/category/${subCategory?.category?.slug}`} className="font-bold">{subCategory?.category?.name}</Link>
+                        </>
+                    )}
+                    <p>/</p>
+                    <p className="text-gray-600 capitalize">{location}</p>
+                </div>}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-6 bg-gray-200 py-4">
@@ -400,7 +463,7 @@ export default function Loaction() {
                                 </div>
                             </div>
 
-                            <div className="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition border border-gray-200 hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div className="bg-white relative p-4 rounded-xl shadow-sm hover:shadow-md transition border border-gray-200 hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 <div className="w-full h-70 relative group" onClick={(e) => { e.preventDefault(); setOpenPopup(true); setPopupProduct(i); }}>
                                     <Image
                                         src={i.media?.[0]?.url || "/no-image.png"}
@@ -593,10 +656,50 @@ export default function Loaction() {
                                         </button>
                                     </div>
                                 </div>
+
+                                {i?.supplier?.membership?.membershipStatus === "active" && (() => {
+                                    const type = i?.supplier?.membership?.membershipType?.toLowerCase();
+                                    const config = membershipStyles[type];
+                                    const Icon = config?.icon || Rocket;
+
+                                    return (
+                                        <div className="absolute top-0 left-0 z-20">
+                                            <div
+                                                className={`
+          flex items-center gap-1.5
+          px-3 py-1
+          text-sm
+          font-bold
+          uppercase
+          text-white
+          bg-gradient-to-r ${config?.bg}
+          shadow-md
+        `}
+                                                style={{
+                                                    clipPath:
+                                                        "polygon(0 0, 92% 0, 100% 50%, 92% 100%, 0 100%)",
+                                                }}
+                                            >
+                                                <Icon size={15} />
+                                                <span>{type}</span>
+                                            </div>
+                                        </div>
+                                    );
+                                })()}
                             </div>
                         </div>);
                     }))}
                 </div>
+
+                {/* pagination */}
+                {hasMore && subCategory?.products?.length > 0 && (
+                    <div className='pt-5 flex justify-center'>
+                        <button onClick={handleLoadMore} disabled={loadingMore} className="flex items-center justify-center px-4 py-2 bg-[#0A5B93] text-white rounded gap-2 cursor-pointer">
+                            {loadingMore ? "Loading..." : "View More"}
+                            <ArrowDown size={20} />
+                        </button>
+                    </div>
+                )}
             </div>
 
             <div className="hidden lg:block lg:col-span-1">

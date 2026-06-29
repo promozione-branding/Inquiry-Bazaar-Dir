@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-const initialState = { city: "Delhi" };
+const initialState = { city: localStorage.getItem("location") || "All India" };
 
 const locationSlice = createSlice({
   name: "location",
@@ -20,7 +20,7 @@ const locationSlice = createSlice({
         state.city = savedLocation || "Delhi";
 
         if (!savedLocation) {
-          localStorage.setItem("location", "All India");  
+          localStorage.setItem("location", "All India");
         }
       }
     },

@@ -1,32 +1,36 @@
 import React from 'react'
 import SearchPage from './SearchPage'
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params, }) {
     const { slug } = await params;
 
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_Backend_URL}api/search/${slug}`, { cache: "no-store" });
+        const res = await fetch(`${process.env.NEXT_PUBLIC_Backend_URL}api/search/${slug}`,
+            { cache: "no-store", }
+        );
         const result = await res.json();
-        const category = result?.data?.category || result?.data?.industry;
-        // console.log(result?.data)
-        if (!category) {
+        const meta = result?.data;
+        console.log(result?.data)
+        if (!meta) {
             return {
-                title: "Category Not Found",
-                description: "No category found",
+                title: "Inquiry Bazaar",
+                description: "Browse products",
             };
         }
 
         return {
-            title: category.metaTitle || category.name,
-            description:
-                category.metaDescription ||
-                category.description?.replace(/<[^>]+>/g, "").slice(0, 150),
+            title: meta.metaTitle,
+            description: meta.metaDescription,
+            openGraph: {
+                title: meta.title,
+                description: meta.description
+            },
         };
 
-    } catch (err) {
+    } catch {
         return {
-            title: "Category - Inquiry Bazaar",
-            description: "Category page",
+            title: "Inquiry Bazaar",
+            description: "Browse products",
         };
     }
 }
