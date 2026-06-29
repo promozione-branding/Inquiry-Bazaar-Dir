@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-const initialState = { city: localStorage.getItem("location") || "All India" };
+const initialState = { city: "All India" };
 
 const locationSlice = createSlice({
   name: "location",
