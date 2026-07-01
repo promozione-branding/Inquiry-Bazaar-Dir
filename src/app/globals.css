@@ -60,3 +60,119 @@ section {
 .body {
   content-visibility: auto;
 }
+
+.jodit-content {
+  color: #334155;
+  /* line-height: 1.8; */
+  font-size: 16px;
+}
+
+/* Headings */
+.jodit-content h1,
+.jodit-content h2,
+.jodit-content h3,
+.jodit-content h4,
+.jodit-content h5,
+.jodit-content h6 {
+  color: #0f172a;
+  font-weight: 600;
+  /* margin: 1.5rem 0 1rem; */
+}
+
+/* Paragraph */
+.jodit-content p {
+  /* margin-bottom: 1rem; */
+}
+
+/* Lists */
+.jodit-content ul,
+.jodit-content ol {
+  /* margin: 1rem 0; */
+  padding-left: 2rem;
+}
+
+.jodit-content ul {
+  list-style-type: disc;
+}
+
+.jodit-content ol {
+  list-style-type: decimal;
+}
+
+.jodit-content li {
+  /* margin-bottom: 0.5rem; */
+}
+
+/* Nested Lists */
+.jodit-content ul ul {
+  list-style-type: circle;
+}
+
+.jodit-content ul ul ul {
+  list-style-type: square;
+}
+
+/* Table */
+.jodit-content table {
+  width: 100%;
+  border-collapse: collapse;
+  /* margin: 1.5rem 0; */
+}
+
+.jodit-content table,
+.jodit-content th,
+.jodit-content td {
+  border: 1px solid #d1d5db;
+}
+
+.jodit-content th {
+  /* background: #f8fafc; */
+  font-weight: 600;
+  text-align: left;
+  padding: 5px;
+}
+
+.jodit-content td {
+  padding: 5px;
+}
+
+.jodit-content tr:nth-child(even) {
+  /* background: #f9fafb; */
+}
+
+/* Links */
+.jodit-content a {
+  /* color: #2563eb; */
+  text-decoration: underline;
+}
+
+/* Images */
+.jodit-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  /* margin: 1rem 0; */
+}
+
+/* Blockquote */
+.jodit-content blockquote {
+  border-left: 4px solid #3b82f6;
+  padding-left: 1rem;
+  color: #475569;
+  /* margin: 1.5rem 0; */
+  font-style: italic;
+}
+
+.jodit-content ul {
+  list-style: disc !important;
+  padding-left: 24px !important;
+}
+
+.jodit-content ol {
+  list-style: decimal !important;
+  padding-left: 24px !important;
+}
+
+.jodit-content li {
+  display: list-item !important;
+}

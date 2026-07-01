@@ -97,6 +97,8 @@ export default function SearchPage() {
     }
   };
 
+
+
   // RESET WHEN SLUG / LOCATION CHANGE
   useEffect(() => {
     if (!slug) return;
@@ -238,7 +240,9 @@ export default function SearchPage() {
     await fetchData(nextPage, true);
   };
 
-  // console.log(subCategory) 
+  console.log(subCategory) 
+      const CateDesc=subCategory?.categoryDescription;
+
 
   return (<>
     <Navbar />
@@ -754,6 +758,19 @@ export default function SearchPage() {
         </div>
       </div>
     </div>
+
+     {CateDesc && <div className="max-w-5xl text-black mx-auto px-4 py-8">
+  <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+    {/* Header */}
+   
+
+    {/* Content */}
+    <div
+  className="jodit-content px-6 py-6"
+  dangerouslySetInnerHTML={{ __html: CateDesc }}
+/>
+  </div>
+</div>}
 
     {subCategory?.faqs?.length > 0 && (
       <FAQSection faqs={subCategory?.faqs} />

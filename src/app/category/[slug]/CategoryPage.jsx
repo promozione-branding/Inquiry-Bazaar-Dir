@@ -86,6 +86,8 @@ export default function CategoryPage() {
     }
   };
 
+  const CateDesc=subCategory?.category?.categoryDescription;
+
   useEffect(() => {
     if (!slug) return;
     setPage(1);
@@ -220,7 +222,7 @@ export default function CategoryPage() {
     },
   };
 
-  // console.info(subCategory);
+  console.info(subCategory);
 
   return (<>
     <Navbar />
@@ -770,8 +772,21 @@ export default function CategoryPage() {
       </div>
     </div>
 
+    {CateDesc && <div className="max-w-5xl text-black mx-auto px-4 py-8">
+  <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+    {/* Header */}
+   
+
+    {/* Content */}
+    <div
+  className="jodit-content px-6 py-6"
+  dangerouslySetInnerHTML={{ __html: CateDesc }}
+/>
+  </div>
+</div>}
+
     {subCategory?.category?.faqs?.length > 0 && (
-      <FAQSection faqs={subCategory?.category?.faqs} />
+      <FAQSection faqs={subCategory?.category?.faqs}  />
     )}
 
     <ContactModal open={openPopup} setOpen={setOpenPopup} product={popupProduct} />
