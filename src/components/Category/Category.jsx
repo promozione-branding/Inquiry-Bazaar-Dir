@@ -12,7 +12,7 @@ const FAQSection = ({ faqs}) => {
     return (
         <div className="py-6 px-2 md:px-0">
           
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-5xl mx-auto">
                 <h2 className="text-3xl font-bold text-center mb-5 text-black">
                     Frequently Asked Questions
                 </h2>

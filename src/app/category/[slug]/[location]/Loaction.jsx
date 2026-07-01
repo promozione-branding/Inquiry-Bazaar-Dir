@@ -703,6 +703,23 @@ export default function Loaction() {
                         </button>
                     </div>
                 )}
+
+                {CateDesc && <div className="max-w-6xl text-black mx-auto px-4 py-8">
+  <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+    {/* Header */}
+   
+
+    {/* Content */}
+    <div
+  className="jodit-content px-6 py-6"
+  dangerouslySetInnerHTML={{ __html: CateDesc }}
+/>
+  </div>
+</div>}
+
+        {subCategory?.category?.faqs?.length > 0 && (
+            <FAQSection faqs={subCategory?.category?.faqs} />
+        )}
             </div>
 
             <div className="hidden lg:block lg:col-span-1">
@@ -772,22 +789,7 @@ export default function Loaction() {
             </div>
         </div>
 
-         {CateDesc && <div className="max-w-5xl text-black mx-auto px-4 py-8">
-  <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
-    {/* Header */}
-   
-
-    {/* Content */}
-    <div
-  className="jodit-content px-6 py-6"
-  dangerouslySetInnerHTML={{ __html: CateDesc }}
-/>
-  </div>
-</div>}
-
-        {subCategory?.category?.faqs?.length > 0 && (
-            <FAQSection faqs={subCategory?.category?.faqs} />
-        )}
+         
 
         <ContactModal open={openPopup} setOpen={setOpenPopup} product={popupProduct} />
         <Footer />
