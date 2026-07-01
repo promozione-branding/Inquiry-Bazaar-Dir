@@ -43,6 +43,7 @@ export default function Products() {
                     router.replace("/");
                     return;
                 }
+                console.log(res.data.data);
                 setProducts(res.data.data?.products || []);
                 setDetails(res.data.data);
             } catch (err) {
@@ -64,7 +65,7 @@ export default function Products() {
 
     const groupedProducts = products.reduce((acc, product) => {
         const categoryName = product.subCategoryId?.name || "Uncategorized";
-
+        
         if (!acc[categoryName]) {
             acc[categoryName] = [];
         }
@@ -73,6 +74,8 @@ export default function Products() {
 
         return acc;
     }, {});
+
+    console.log(products);
 
     const categories = Object.keys(groupedProducts);
 
@@ -219,8 +222,10 @@ export default function Products() {
                         </div>
 
                         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-6 gap-3">
-                            {groupedProducts[selectedCategory]?.map((product) => (
-                                <Link href={`/${portfolio}/${product?.slug}`} key={product._id}
+                            {groupedProducts[selectedCategory]?.map((product) => {
+                                console.log(selectedCategory);
+                                return (
+                                    <Link href={`/${portfolio}/${product?.slug}`} key={product._id}
                                     className="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                                 >
                                     <div className="relative md:h-75 overflow-hidden">
@@ -279,7 +284,9 @@ export default function Products() {
                                         </p>
                                     </div>
                                 </Link>
-                            ))}
+                                )
+                                
+})}
                         </div>
                     </>
                 )}

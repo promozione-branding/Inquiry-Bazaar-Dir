@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { getProductReviews } from "@/utils/getProductReviews";
 import {
     Building2,
     MapPin,
@@ -60,6 +61,8 @@ export default function ProductPage() {
     const [relatedProducts, setRelatedProducts] = useState([]);
     const [loadingType, setLoadingType] = useState(null);
 
+    const [productReviews, setProductReviews] = useState([]);
+
     useEffect(() => {
         if (!slug) return;
 
@@ -76,6 +79,20 @@ export default function ProductPage() {
 
         fetchData();
     }, [slug]);
+
+    useEffect(() => {
+    if (!productDetails?._id) return;
+
+    const assignedReviews = getProductReviews(productDetails._id);
+
+    setProductReviews(assignedReviews);
+}, [productDetails?._id]);
+
+    useEffect(() => {
+    if (productDetails?.media?.length) {
+        setActiveIndex(0);
+    }
+}, [productDetails]);
 
     useEffect(() => {
         if (productDetails?.media?.length) {
@@ -666,7 +683,7 @@ export default function ProductPage() {
                 </div>
             </div>
 
-            <RatingsUI />
+            <RatingsUI productReviews={productReviews} />
 
             {relatedProducts.length != 0 &&
                 <div className="my-5 px-4 md:px-10">

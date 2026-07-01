@@ -24,6 +24,8 @@ export default function ProductSlider({ products, loading1, details, setOpen, po
         return repeated;
     }, [products]);
 
+   
+
     return (
         <section className="bg-gray-100 md:py-6 py-0 md:px-12 px-2">
             <h1 className="text-black md:text-4xl text-3xl font-bold py-2 md:text-start text-center">Featured Products</h1>

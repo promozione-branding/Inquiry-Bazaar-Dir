@@ -15,6 +15,10 @@ import Navbar3 from '@/components/Webpage/Layout3/Navbar';
 import Navbar2 from '@/components/Webpage/Layout/Navbar';
 import Link from 'next/link';
 
+import { getProductReviews } from "@/utils/getProductReviews";
+
+
+
 export default function Product() {
     const router = useRouter();
     const { portfolio } = useParams()
@@ -27,6 +31,9 @@ export default function Product() {
     const [openPopup, setOpenPopup] = useState(false);
     const [popupProduct, setPopupProduct] = useState({});
     const [products, setProducts] = useState([]);
+
+    const [productReviews, setProductReviews] = useState([]);
+
 
     useEffect(() => {
         if (!slug) return;
@@ -79,6 +86,12 @@ export default function Product() {
 
         fetchData();
     }, [portfolio]);
+
+     useEffect(() => {
+  if (!product?._id) return;
+
+  setProductReviews(getProductReviews(product._id));
+}, [product?._id]);
 
     const navLinks = [
         { name: "Home", href: `/${portfolio}#home`, icon: Home },
@@ -493,8 +506,9 @@ export default function Product() {
         </div>
 
         <div className='xl:px-18 pb-10'>
-            <RatingsUI />
+            <RatingsUI productReviews={productReviews} />
         </div>
+       
 
         <StickyButtons details={details} />
         <Stickyfooter details={details} portfolio={portfolio} />
