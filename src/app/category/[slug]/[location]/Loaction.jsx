@@ -40,10 +40,17 @@ import { BsTelegram } from 'react-icons/bs';
 import { FaXTwitter } from 'react-icons/fa6';
 import CategoryPopup from '@/components/Main/CategoryPopup';
 import FAQSection from '@/components/Category/Category';
+import { setLocation } from "@/redux/slices/locationSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { locations } from '../../../../../data';
 
 export default function Loaction() {
+    const router = useRouter();
     const { slug } = useParams()
+    const dispatch = useDispatch();
     const { location } = useParams()
+    const location1 = useSelector((state) => state.location.city);
     const [open, setOpen] = useState(false);
     const [openPopup, setOpenPopup] = useState(false);
     const [popupProduct, setPopupProduct] = useState({});
@@ -53,6 +60,7 @@ export default function Loaction() {
     const [loadingMore, setLoadingMore] = useState(false);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
+    const [locationReady, setLocationReady] = useState(false);
 
     const fetchData = async (pageNo = 1, append = false) => {
         try {
@@ -62,7 +70,8 @@ export default function Loaction() {
                 setLoadingMore(true);
             }
 
-            const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/categories/sub/${slug}/${"India"}?page=${pageNo}&limit=10`);
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/categories/sub/${slug}/${"All India"}?page=${pageNo}&limit=10`);
+            // const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/categories/sub/${slug}/${location1.name}?page=${pageNo}&limit=10`);
             const data = res?.data?.data;
 
             setSubCategory((prev) => ({
@@ -85,10 +94,11 @@ export default function Loaction() {
     };
 
     useEffect(() => {
-        if (!slug) return;
+        if (!slug || !locationReady) return;
+
         setPage(1);
         fetchData(1, false);
-    }, [slug, location]);
+    }, [slug, location1, locationReady]);
 
     const handleLoadMore = () => {
         const nextPage = page + 1;
@@ -218,8 +228,36 @@ export default function Loaction() {
         },
     };
 
-        const CateDesc=subCategory?.category?.categoryDescription;
+    useEffect(() => {
+        if (!location) {
+            setLocationReady(true);
+            return;
+        }
 
+        const city = locations
+            .flatMap((state) => state.cities)
+            .find((c) => c.id === location);
+
+        if (!city) {
+            dispatch(setLocation({
+                name: "All India",
+                id: "all-india",
+            }));
+
+            router.replace(`/category/${slug}`);
+            return;
+        }
+
+        if (location1.id !== city.id) {
+            dispatch(setLocation(city));
+        }
+
+        setLocationReady(true);
+    }, [location]);
+
+    const CateDesc = subCategory?.category?.categoryDescription;
+
+    // console.log(subCategory, location1, location1)
 
     return (<>
         <Navbar />
@@ -704,22 +742,18 @@ export default function Loaction() {
                     </div>
                 )}
 
-                {CateDesc && <div className="max-w-6xl text-black mx-auto px-4 py-8">
-  <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
-    {/* Header */}
-   
+                {CateDesc?.toString().length > 100 && <div className="max-w-6xl text-black mx-auto px-4 py-8">
+                    <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+                        <div
+                            className="jodit-content px-6 py-6"
+                            dangerouslySetInnerHTML={{ __html: CateDesc }}
+                        />
+                    </div>
+                </div>}
 
-    {/* Content */}
-    <div
-  className="jodit-content px-6 py-6"
-  dangerouslySetInnerHTML={{ __html: CateDesc }}
-/>
-  </div>
-</div>}
-
-        {subCategory?.category?.faqs?.length > 0 && (
-            <FAQSection faqs={subCategory?.category?.faqs} />
-        )}
+                {subCategory?.category?.faqs?.length > 0 && (
+                    <FAQSection faqs={subCategory?.category?.faqs} />
+                )}
             </div>
 
             <div className="hidden lg:block lg:col-span-1">
@@ -789,7 +823,7 @@ export default function Loaction() {
             </div>
         </div>
 
-         
+
 
         <ContactModal open={openPopup} setOpen={setOpenPopup} product={popupProduct} />
         <Footer />

@@ -52,7 +52,7 @@ export default function HeroSection() {
                         </p>
 
                         {/* Search */}
-                        <div className="mt-2 max-w-2xl">
+                        <div className="mt-4 max-w-2xl">
                             <SearchBar handleFocus={handleFocus} showDropdown={showDropdown} setShowDropdown={setShowDropdown} />
                         </div>
 

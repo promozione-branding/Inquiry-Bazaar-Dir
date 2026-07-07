@@ -240,8 +240,8 @@ export default function SearchPage() {
     await fetchData(nextPage, true);
   };
 
-  console.log(subCategory) 
-      const CateDesc=subCategory?.categoryDescription;
+  console.log(subCategory)
+  const CateDesc = subCategory?.categoryDescription;
 
 
   return (<>
@@ -691,22 +691,18 @@ export default function SearchPage() {
           </div>
         )}
 
-        {CateDesc && <div className="max-w-6xl text-black mx-auto px-4 py-8">
-  <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
-    {/* Header */}
-   
+        {CateDesc?.toString().length > 100 && <div className="max-w-6xl text-black mx-auto px-4 py-8">
+          <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+            <div
+              className="jodit-content px-6 py-6"
+              dangerouslySetInnerHTML={{ __html: CateDesc }}
+            />
+          </div>
+        </div>}
 
-    {/* Content */}
-    <div
-  className="jodit-content px-6 py-6"
-  dangerouslySetInnerHTML={{ __html: CateDesc }}
-/>
-  </div>
-</div>}
-
-    {subCategory?.faqs?.length > 0 && (
-      <FAQSection faqs={subCategory?.faqs} />
-    )}
+        {subCategory?.faqs?.length > 0 && (
+          <FAQSection faqs={subCategory?.faqs} />
+        )}
       </div>
 
       <div className="hidden lg:block lg:col-span-1">
@@ -776,7 +772,7 @@ export default function SearchPage() {
       </div>
     </div>
 
-     
+
 
     <ContactModal open={openPopup} setOpen={setOpenPopup} product={popupProduct} />
     <Footer />

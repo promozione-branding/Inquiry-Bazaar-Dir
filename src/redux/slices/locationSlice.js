@@ -1,5 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-const initialState = { city: "All India" };
+
+const defaultCity = {
+  name: "All India",
+  id: "all-india",
+};
+
+const initialState = {
+  city: defaultCity,
+};
 
 const locationSlice = createSlice({
   name: "location",
@@ -10,22 +18,24 @@ const locationSlice = createSlice({
       state.city = action.payload;
 
       if (typeof window !== "undefined") {
-        localStorage.setItem("location", action.payload);
+        localStorage.setItem("location", JSON.stringify(action.payload));
       }
     },
 
     initializeLocation: (state) => {
       if (typeof window !== "undefined") {
-        const savedLocation = localStorage.getItem("location");
-        state.city = savedLocation || "Delhi";
+        const saved = localStorage.getItem("location");
 
-        if (!savedLocation) {
-          localStorage.setItem("location", "All India");
+        if (saved) {
+          state.city = JSON.parse(saved);
+        } else {
+          state.city = defaultCity;
+          localStorage.setItem("location", JSON.stringify(defaultCity));
         }
       }
     },
   },
 });
 
-export const { setLocation, initializeLocation, } = locationSlice.actions;
+export const { setLocation, initializeLocation } = locationSlice.actions;
 export default locationSlice.reducer;

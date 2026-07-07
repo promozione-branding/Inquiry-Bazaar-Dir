@@ -56,7 +56,7 @@ export default function CTA() {
       >
         {/* Heading */}
         <h2 className="text-2xl md:text-3xl font-semibold mb-6">
-          Get free quotes from multiple sellers
+          Get free quote as per your customised requirement
         </h2>
 
         {/* Form */}

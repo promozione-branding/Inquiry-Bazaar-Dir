@@ -11,11 +11,23 @@ export default function Sidebar({ open, setOpen, slug }) {
     const dispatch = useDispatch();
     const location = useSelector((state) => state.location.city);
     const router = useRouter();
-    const handleSelect = (e) => {
-        const city = e.target.value;
+    // const handleSelect = (e) => {
+    //     const city = e.target.value;
 
-        if (city) {
-            router.push(`/category/${slug}/${encodeURIComponent(city)}`);
+    //     if (city) {
+    //         router.push(`/category/${slug}/${encodeURIComponent(city)}`);
+    //     }
+    // };
+
+    const handleSelect = (city) => {
+        dispatch(setLocation(city));
+
+        setOpen(false);
+
+        if (city.id === "all-india") {
+            router.push(`/category/${slug}`);
+        } else {
+            router.push(`/category/${slug}/${city.id}`);
         }
     };
 
@@ -51,13 +63,22 @@ export default function Sidebar({ open, setOpen, slug }) {
                             size={18}
                         />
 
-                        <select onChange={(e) => { dispatch(setLocation(e.target.value)); handleSelect(e) }} value={location}
+                        <select value={location.id}
+                            onChange={(e) => {
+                                const city = locations
+                                    .flatMap((state) => state.cities)
+                                    .find((c) => c.id === e.target.value);
+
+                                if (city) {
+                                    handleSelect(city);
+                                }
+                            }}
                             className="w-full appearance-none border border-gray-200 text-gray-800 pl-8 pr-4 py-2 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-300 bg-white shadow-sm">
                             {/* <option>All India</option> */}
                             {locations.flatMap((state) =>
                                 state.cities.map((city) => (
-                                    <option key={`${state.state}-${city}`} value={city}>
-                                        {city}
+                                    <option key={`${state.state}-${city.id}`} value={city.id}>
+                                        {city.name}
                                     </option>
                                 ))
                             )}

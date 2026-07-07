@@ -86,13 +86,13 @@ export default function CategoryPage() {
     }
   };
 
-  const CateDesc=subCategory?.category?.categoryDescription;
+  const CateDesc = subCategory?.category?.categoryDescription;
 
   useEffect(() => {
     if (!slug) return;
     setPage(1);
     fetchData(1, false);
-  }, [slug, location]);
+  }, [slug]);
 
   const handleLoadMore = () => {
     const nextPage = page + 1;
@@ -222,7 +222,7 @@ export default function CategoryPage() {
     },
   };
 
-  console.info(subCategory);
+  // console.info(subCategory, location);
 
   return (<>
     <Navbar />
@@ -703,22 +703,19 @@ export default function CategoryPage() {
             </button>
           </div>
         )}
-        {CateDesc && <div className="max-w-7xl text-black mx-auto px-4 py-8">
-  <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
-    {/* Header */}
-   
 
-    {/* Content */}
-    <div
-  className="jodit-content px-6 py-6"
-  dangerouslySetInnerHTML={{ __html: CateDesc }}
-/>
-  </div>
-</div>}
+        {CateDesc?.toString().length > 100 && <div className="max-w-7xl text-black mx-auto px-4 py-8">
+          <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+            <div
+              className="jodit-content px-6 py-6"
+              dangerouslySetInnerHTML={{ __html: CateDesc }}
+            />
+          </div>
+        </div>}
 
-    {subCategory?.category?.faqs?.length > 0 && (
-      <FAQSection faqs={subCategory?.category?.faqs}  />
-    )}
+        {subCategory?.category?.faqs?.length > 0 && (
+          <FAQSection faqs={subCategory?.category?.faqs} />
+        )}
       </div>
 
       <div className="hidden lg:block lg:col-span-1">
@@ -787,8 +784,6 @@ export default function CategoryPage() {
         </div>
       </div>
     </div>
-
-    
 
     <ContactModal open={openPopup} setOpen={setOpenPopup} product={popupProduct} />
     <Footer />

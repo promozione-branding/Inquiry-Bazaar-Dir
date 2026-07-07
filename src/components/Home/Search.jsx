@@ -6,7 +6,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export default function SearchBar({handleFocus,setShowDropdown,showDropdown}) {
+export default function SearchBar({ handleFocus, setShowDropdown, showDropdown }) {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState(null);
     const searchRef = useRef(null);
@@ -114,7 +114,7 @@ export default function SearchBar({handleFocus,setShowDropdown,showDropdown}) {
 
     return (
         <div ref={searchRef} className="w-full relative">
-            <div className="mt-4 flex items-center bg-white shadow-md rounded-xl px-4 py-3">
+            <div className="flex items-center bg-white shadow-md rounded-xl px-4 py-3">
                 <Search
                     className="text-orange-600 mr-2"
                     size={20}
@@ -132,7 +132,7 @@ export default function SearchBar({handleFocus,setShowDropdown,showDropdown}) {
             </div>
 
             {showDropdown && (
-                <div className="mt-4 w-full max-h-60 absolute z-10 bg-white rounded-xl shadow-lg border overflow-auto no-scrollbar">
+                <div className="mt-2 w-full max-h-60 absolute z-10 bg-white rounded-xl shadow-lg border overflow-auto no-scrollbar">
                     {!query ? (
                         <div className="p-4 text-gray-500">
                             Start typing...
@@ -140,7 +140,7 @@ export default function SearchBar({handleFocus,setShowDropdown,showDropdown}) {
                     ) : searchItems.length > 0 ? (
                         searchItems.map((item, index) => (
                             <div key={item.id} ref={(el) => (itemRefs.current[index] = el)}
-                                onMouseEnter={() => setSelectedIndex(index)} className={`border-b cursor-pointer text-black ${selectedIndex === index ? "bg-blue-50" : "hover:bg-blue-50"}`}>
+                                onMouseEnter={() => setSelectedIndex(index)} className={`border-b border-b-gray-300 cursor-pointer text-black ${selectedIndex === index ? "bg-blue-50" : "hover:bg-blue-50"}`}>
                                 <Link href={`/search/${item.slug}`} className="px-4! py-2! block">
                                     {item.name}
                                 </Link>

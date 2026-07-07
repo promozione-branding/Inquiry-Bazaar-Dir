@@ -1,6 +1,53 @@
-# Allow all crawlers
 User-agent: *
-Disallow:
 
-# Sitemap location
+# Authentication
+Disallow: /login
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /logout
+
+# User Area
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /account
+
+# Admin
+Disallow: /admin
+
+# Internal Search
+Disallow: /search
+
+# API
+Disallow: /api/
+
+# Temporary/System
+Disallow: /tmp/
+Disallow: /temp/
+Disallow: /cache/
+
+# Sitemap
 Sitemap: https://dir.inquirybazaar.com/sitemap.xml
+
+# AI Crawlers
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+# Google Ads
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: Adsbot-Google
+Allow: /
