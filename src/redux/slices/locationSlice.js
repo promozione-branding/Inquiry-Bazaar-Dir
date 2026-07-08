@@ -23,16 +23,42 @@ const locationSlice = createSlice({
     },
 
     initializeLocation: (state) => {
-      if (typeof window !== "undefined") {
-        const saved = localStorage.getItem("location");
+      if (typeof window === "undefined") return;
 
-        if (saved) {
-          state.city = JSON.parse(saved);
-        } else {
-          state.city = defaultCity;
-          localStorage.setItem("location", JSON.stringify(defaultCity));
-        }
+      const saved = localStorage.getItem("location");
+
+      // No saved location
+      if (!saved) {
+        state.city = defaultCity;
+        localStorage.setItem("location", JSON.stringify(defaultCity));
+        return;
       }
+
+      try {
+        const parsed = JSON.parse(saved);
+
+        // ✅ New format
+        if (parsed && typeof parsed === "object" && parsed.name && parsed.id) {
+          state.city = parsed;
+          return;
+        }
+      } catch (err) {
+        // Ignore JSON parse error (old format)
+      }
+
+      // ✅ Old format (e.g. "Delhi")
+      const oldCityName = saved;
+
+      const city = {
+        name: oldCityName,
+        id: oldCityName === "All India"
+          ? "all-india" : oldCityName.toLowerCase().replace(/\s+/g, "-"),
+      };
+
+      state.city = city;
+
+      // Upgrade old localStorage automatically
+      localStorage.setItem("location", JSON.stringify(city));
     },
   },
 });
