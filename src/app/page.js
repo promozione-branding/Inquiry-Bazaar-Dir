@@ -1,3 +1,4 @@
+"use client"
 import IndustrySection from "@/components/Home/AllCategorySection";
 import Category from "@/components/Home/Category";
 import ClienteleSlider from "@/components/Home/ClientSlider";
@@ -9,8 +10,10 @@ import Locations from "@/components/Home/Locations";
 import CategoryPopup from "@/components/Main/CategoryPopup";
 import Footer from "@/components/Main/Footer";
 import Navbar from "@/components/Main/Navbar";
+import { useState } from "react";
 
 export default function Home() {
+  const [open, setOpen] = useState(false)
   return (
     <div className="flex flex-col flex-1">
       <Navbar />
@@ -22,7 +25,7 @@ export default function Home() {
       <CTA />
       <Locations />
       <Footer />
-      <HomePopup productImage={"/image.jpg"} />
+      <HomePopup productImage={"/image.jpg"} setOpen={setOpen} open={open} />
     </div>
   );
 }

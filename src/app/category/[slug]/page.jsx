@@ -31,8 +31,16 @@ export async function generateMetadata({ params }) {
     }
 }
 
-export default async function page() {
+export default async function Page({ params }) {
+    const { slug } = await params;
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_Backend_URL}api/categories/sub/${slug}/India?page=1&limit=10`,
+        { cache: "no-store", }
+    );
+
+    const result = await res.json();
+
     return (
-        <CategoryPage />
-    )
+        <CategoryPage initialData={result.data} />
+    );
 }

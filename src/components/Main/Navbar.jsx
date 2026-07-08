@@ -13,12 +13,14 @@ import SearchBar from "../Home/Search";
 import { FaFacebookF, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { BsQuestionCircle } from "react-icons/bs";
+import HomePopup from "../Home/HomePopup";
 
 export default function Navbar() {
     const dispatch = useDispatch();
     const location = useSelector((state) => state.location.city);
     const user = useSelector((state) => state.user.user);
     const [open, setOpen] = useState(false);
+    const [openPopup, setOpenPopup] = useState(false);
     const [profileOpen, setProfileOpen] = useState(false);
     const [searchOpen, setSearchOpen] = useState(false);
     const [locationOpen, setLocationOpen] = useState(false);
@@ -231,7 +233,7 @@ export default function Navbar() {
                         </motion.button>
                     </div>
 
-                    <button className="border-2 border-[#183B63] text-[#183B63] px-4 py-2 text-sm font-medium rounded-lg">
+                    <button onClick={() => setOpenPopup(true)} className="border-2 border-[#183B63] text-[#183B63] px-4 py-2 text-sm font-medium rounded-lg">
                         Request a Quote
                     </button>
 
@@ -296,23 +298,20 @@ export default function Navbar() {
                                 </div>
                             )}
                         </div>
-                    </div>) :
-                        (
-                            <>
-                                <Link href="https://seller.inquirybazaar.com/register" className="px-4 py-2.5 text-sm font-medium border text-white rounded-lg bg-[#f45a06] hover:bg-[#eb5505]">
-                                    Register as Supplier
-                                </Link>
+                    </div>) : (<>
+                        <Link href="https://seller.inquirybazaar.com/register" className="px-4 py-2.5 text-sm font-medium border text-white rounded-lg bg-[#f45a06] hover:bg-[#eb5505]">
+                            Register as Supplier
+                        </Link>
 
-                                <Link href="https://buyer.inquirybazaar.com/register" className="px-4 py-2.5 text-sm border font-medium text-white bg-[#1e3a56] rounded-lg hover:bg-[#0b426a]">
-                                    Register as Buyer
-                                </Link>
+                        <Link href="https://buyer.inquirybazaar.com/register" className="px-4 py-2.5 text-sm border font-medium text-white bg-[#1e3a56] rounded-lg hover:bg-[#0b426a]">
+                            Register as Buyer
+                        </Link>
 
-                                <Link href="/login" className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                                    <LogIn size={18} />
-                                    Sign In
-                                </Link>
-                            </>
-                        )}
+                        <Link href="/login" className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                            <LogIn size={18} />
+                            Sign In
+                        </Link>
+                    </>)}
                 </div>
 
                 <button className="md:hidden bg-blue-600 px-3 py-2 rounded-md mr-2" onClick={() => setSearchOpen(!searchOpen)}>
@@ -467,7 +466,7 @@ export default function Navbar() {
 
                                     {locations.flatMap((state) =>
                                         state.cities.map((city) => (
-                                            <option key={`${state.state}-${city.id}`} value={city.name}>
+                                            <option key={`${state.state}-${city.id}`} value={city.id}>
                                                 {city.name}
                                             </option>
                                         ))
@@ -481,6 +480,7 @@ export default function Navbar() {
                 </div>
             )}
 
+            <HomePopup setOpen={setOpenPopup} open={openPopup} />
         </nav>
     );
 }

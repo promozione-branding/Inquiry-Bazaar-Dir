@@ -43,18 +43,20 @@ import CategoryPopup from '@/components/Main/CategoryPopup';
 import { useSelector } from 'react-redux';
 import FAQSection from '@/components/Category/Category';
 
-export default function CategoryPage() {
+export default function CategoryPage({ initialData }) {
   const { slug } = useParams()
   const location = useSelector((state) => state.location.city);
   const [open, setOpen] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
   const [popupProduct, setPopupProduct] = useState({});
-  const [subCategory, setSubCategory] = useState([]);
+  const [subCategory, setSubCategory] = useState(initialData);
   const [page, setPage] = useState(1);
   const [loadingType, setLoadingType] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(!initialData);
   const [loadingMore, setLoadingMore] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(
+    initialData?.page < initialData?.totalPages
+  );
 
   const fetchData = async (pageNo = 1, append = false) => {
     try {
@@ -88,11 +90,11 @@ export default function CategoryPage() {
 
   const CateDesc = subCategory?.category?.categoryDescription;
 
-  useEffect(() => {
-    if (!slug) return;
-    setPage(1);
-    fetchData(1, false);
-  }, [slug]);
+ 
+  //   if (!slug) return;
+  //   setPage(1);
+  //   fetchData(1, false);
+  // }, [slug]);
 
   const handleLoadMore = () => {
     const nextPage = page + 1;

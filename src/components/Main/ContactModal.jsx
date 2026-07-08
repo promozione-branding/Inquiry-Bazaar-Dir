@@ -57,7 +57,7 @@ export default function ContactModal({ open, setOpen, product }) {
         }
     };
 
-    console.log(product)
+    // console.log(product)
 
     return (
         <AnimatePresence>
