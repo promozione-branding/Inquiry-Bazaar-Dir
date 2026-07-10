@@ -31,7 +31,6 @@ export default function IndustrySection() {
 
     return (
         <section className="px-2 md:px-10 py-10 bg-gray-200 space-y-6">
-
             {loading ? ([...Array(2)].map((_, index) => (
                 <div key={index}
                     className="hidden lg:block p-4 bg-white rounded-lg animate-pulse"
@@ -106,12 +105,12 @@ export default function IndustrySection() {
                                         <h2 className="text-white text-2xl font-bold leading-">
                                             {industry.name.split(" ")[0]}
                                             <br />
-                                            <span className="text-[#ff6500] text-nowrap">
+                                            <span className="text-[#EC771C] text-nowrap">
                                                 {industry.name.split(" ").slice(1).join(" ")}
                                             </span>
                                         </h2>
 
-                                        <div className="w-14 h-[3px] bg-[#ff6500] mt-2"></div>
+                                        <div className="w-14 h-[3px] bg-[#EC771C] mt-2"></div>
 
                                         <div className="space-y-1 mt-10">
                                             {industry.categories?.slice(0, 5).map((cat) => (
@@ -119,7 +118,7 @@ export default function IndustrySection() {
                                                     key={cat._id}
                                                     className="flex text-nowrap items-center gap-3 text-white text-"
                                                 >
-                                                    <div className="w-2 h-2 rounded-full bg-[#ff6500]" />
+                                                    <div className="w-2 h-2 rounded-full bg-[#EC771C]" />
                                                     <p>{cat.name}</p>
                                                 </div>
                                             ))}
@@ -128,7 +127,7 @@ export default function IndustrySection() {
                                         <div className="flex justify-center">
                                             <Link
                                                 href={`/industries/${industry.slug}`}
-                                                className="mt-6 inline-flex items-center justify-center gap-3 bg-[#ff6500] hover:bg-[#e65a00] text-white px-7 py-3 rounded-xl font-semibold text-lg"
+                                                className="mt-6 inline-flex items-center justify-center gap-3 bg-[#EC771C] hover:bg-[#d05508] text-white px-7 py-3 rounded-xl font-semibold text-lg"
                                             >
                                                 View All
                                                 <ArrowRight size={20} />
@@ -158,7 +157,7 @@ export default function IndustrySection() {
                                         <div className="flex-1">
                                             <Link
                                                 href={`/categories/${cat.slug}`}
-                                                className="text-sm font-bold text-black hover:text-[#ff6500]"
+                                                className="text-sm font-bold text-black hover:text-[#EC771C]"
                                             >
                                                 {cat.name}
                                             </Link>
@@ -168,7 +167,7 @@ export default function IndustrySection() {
                                                     <Link
                                                         key={sub._id}
                                                         href={`/category/${sub.slug}`}
-                                                        className="flex font-medium items-center gap-2 text-sm text-[#ff6500]"
+                                                        className="flex font-medium items-center gap-2 text-sm text-[#EC771C]"
                                                     >
                                                         <Dot size={18} />
                                                         {sub.name}
@@ -177,7 +176,7 @@ export default function IndustrySection() {
                                             </div>
 
                                             <Link href={`/categories/${cat.slug}`}
-                                                className="inline-flex items-center text-sm gap-2 text-[#ff6500] font-semibold"
+                                                className="inline-flex items-center text-sm gap-2 text-[#EC771C] font-semibold"
                                             >
                                                 View All
                                                 <ArrowRight size={18} />
@@ -190,7 +189,7 @@ export default function IndustrySection() {
 
                         {/* ================= DESKTOP OLD DESIGN ================= */}
                         <div className="hidden lg:block p-4 bg-white rounded-lg">
-                            <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-[#f45a06]">
+                            <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-[#082C62]">
                                 {industry.name}
                             </h2>
 
@@ -214,7 +213,7 @@ export default function IndustrySection() {
                                         <div className="mt-4 flex justify-center items-center">
                                             <Link
                                                 href={`/industries/${industry.slug}`}
-                                                className="bg-[#f45a06] flex gap-2 hover:bg-[#e75506] text-white px-4 py-2 rounded text-sm w-fit"
+                                                className="bg-[#EC771C] flex gap-2 hover:bg-[#e06c14] text-white px-4 py-2 rounded text-sm w-fit"
                                             >
                                                 View All   <ArrowRight size={20} />
                                             </Link>
@@ -240,7 +239,7 @@ export default function IndustrySection() {
                                             <div>
                                                 <Link
                                                     href={`/categories/${cat.slug}`}
-                                                    className="font-bold text-black hover:text-orange-600 text-sm"
+                                                    className="font-bold text-black hover:text-[#EC771C] text-sm"
                                                 >
                                                     {cat.name}
                                                 </Link>
@@ -250,7 +249,7 @@ export default function IndustrySection() {
                                                         <Link
                                                             key={sub._id}
                                                             href={`/category/${sub.slug}`}
-                                                            className="block hover:text-orange-500"
+                                                            className="block hover:text-[#EC771C]"
                                                         >
                                                             ● {sub.name}
                                                         </Link>
@@ -258,7 +257,7 @@ export default function IndustrySection() {
 
                                                     <Link
                                                         href={`/categories/${cat.slug}`}
-                                                        className="flex items-center gap-1 hover:text-orange-500"
+                                                        className="flex items-center gap-1 hover:text-[#EC771C]"
                                                     >
                                                         View All <ArrowRight size={15} />
                                                     </Link>
@@ -271,7 +270,6 @@ export default function IndustrySection() {
                         </div>
                     </div>
                 )))}
-
         </section>
     );
 }

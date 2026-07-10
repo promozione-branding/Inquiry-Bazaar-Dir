@@ -146,7 +146,7 @@ export default function CTA() {
   };
 
   return (
-    <section className="bg-[#0A5B93] py-10 px-4 flex justify-center">
+    <section className="bg-[#082C62] py-10 px-4 flex justify-center">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -204,7 +204,7 @@ export default function CTA() {
                 disabled={sendingOtp}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center justify-center gap-2 bg-[#0A5B93] text-white px-6 py-2 rounded-lg font-medium"
+                className="flex items-center justify-center gap-2 bg-[#082C62] text-white px-6 py-2 rounded-lg font-medium"
               >
                 <Send size={16} />
                 {sendingOtp ? "Sending OTP..." : "Send OTP"}

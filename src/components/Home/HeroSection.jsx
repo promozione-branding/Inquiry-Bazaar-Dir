@@ -19,9 +19,7 @@ export default function HeroSection() {
             {/* Background */}
             <div
                 className="absolute inset-0 bg-cover bg-center"
-                style={{
-                    backgroundImage: "url('/banner.webp')",
-                }}
+                style={{ backgroundImage: "url('/banner.webp')", }}
             />
 
             {/* Dark overlay like first screenshot */}
@@ -36,7 +34,7 @@ export default function HeroSection() {
                                 India’s Smart
                             </span>
 
-                            <div className="flex lg:flex-row flex-col gap-4.5 text-orange-500 text-5xl md:text-7xl whitespace-nowrap">
+                            <div className="flex lg:flex-row flex-col gap-4.5 text-[#EC771C] text-5xl md:text-7xl whitespace-nowrap">
                                 Industrial B2B
                                 <span className="text-white">
                                     Marketplace

@@ -66,7 +66,7 @@ export default function Category() {
 
       <div className="md:px-4 px-2 py-4 bg-white rounded-lg">
         <h2 className="text-xl font-semibold mb-2 text-gray-800">
-          {category?.categoryDescription}
+          {category?.name}
         </h2>
         {loading ? (Array.from({ length: 4 }).map((_, idx) => (
           <div key={idx}
@@ -110,7 +110,7 @@ export default function Category() {
               </div>
 
               <Link href={`/category/${i?.slug}`}
-                className="md:text-base text-xs text-center font-semibold text-gray-800 hover:text-orange-500"
+                className="md:text-base text-xs text-center font-semibold text-gray-800 hover:text-[#EC771C]"
               >
                 {i.name}
               </Link>
@@ -131,13 +131,13 @@ export default function Category() {
                       />
                     </div>
 
-                    <p className="text-sm font-medium text-gray-800 group-hover:text-orange-500 transition">
+                    <p className="text-sm font-medium text-gray-800 group-hover:text-[#EC771C] transition">
                       {product.name}
                     </p>
 
                     {/* Price */}
                     {product.price && (
-                      <p className="text-sm text-orange-500 mt-1">
+                      <p className="text-sm text-[#082C62] mt-1">
                         ₹{product.price}
                       </p>
                     )}
@@ -148,7 +148,7 @@ export default function Category() {
               {i?.products?.length > 5 && (
                 <div className="hidden md:flex justify-center mt-4">
                   <Link href={`/category/${i?.slug}`}
-                    className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded text-sm"
+                    className="bg-[#EC771C] hover:bg-[#e06e17] text-white px-6 py-2 rounded text-sm"
                   >
                     View More ↓
                   </Link>

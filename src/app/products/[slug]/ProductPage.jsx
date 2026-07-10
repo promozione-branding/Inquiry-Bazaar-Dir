@@ -81,18 +81,18 @@ export default function ProductPage() {
     }, [slug]);
 
     useEffect(() => {
-    if (!productDetails?._id) return;
+        if (!productDetails?._id) return;
 
-    const assignedReviews = getProductReviews(productDetails._id);
+        const assignedReviews = getProductReviews(productDetails._id);
 
-    setProductReviews(assignedReviews);
-}, [productDetails?._id]);
+        setProductReviews(assignedReviews);
+    }, [productDetails?._id]);
 
     useEffect(() => {
-    if (productDetails?.media?.length) {
-        setActiveIndex(0);
-    }
-}, [productDetails]);
+        if (productDetails?.media?.length) {
+            setActiveIndex(0);
+        }
+    }, [productDetails]);
 
     useEffect(() => {
         if (productDetails?.media?.length) {
@@ -263,7 +263,7 @@ export default function ProductPage() {
                                         href={media.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="w-20 h-20 flex flex-col text-[9px] items-center text-[#0A5B93] justify-center rounded-lg cursor-pointer border border-[#0A5B93] bg-gray-100 transition-all duration-200 hover:scale-105"
+                                        className="w-20 h-20 flex flex-col text-[9px] items-center text-[#082C62] justify-center rounded-lg cursor-pointer border border-[#082C62] bg-gray-100 transition-all duration-200 hover:scale-105"
                                     >
                                         <FaFilePdf size={30} className="mb-1" />
                                         Product Brochure
@@ -292,7 +292,7 @@ export default function ProductPage() {
                         <p className="text-sm text-gray-900 mt-1 flex items-center gap-1">
                             <Tag size={15} />
                             Brand:{" "}
-                            <span className="text-[#0A5B93] font-medium">
+                            <span className="text-[#082C62] font-medium">
                                 {productDetails?.brandName}
                             </span>
                         </p>
@@ -318,7 +318,7 @@ export default function ProductPage() {
                             <span className="flex items-center gap-2">
                                 <Layers size={14} /> Category
                             </span>
-                            <span className="text-[#0A5B93] font-medium">
+                            <span className="text-[#082C62] font-medium">
                                 {productDetails?.categoryId?.name}
                             </span>
                         </div>
@@ -327,7 +327,7 @@ export default function ProductPage() {
                             <span className="flex items-center gap-2">
                                 <Layers size={14} /> Sub Category
                             </span>
-                            <span className="text-[#0A5B93] font-medium">
+                            <span className="text-[#082C62] font-medium">
                                 {productDetails?.subCategoryId?.name}
                             </span>
                         </div>
@@ -336,7 +336,7 @@ export default function ProductPage() {
                             <span className="flex items-center gap-2">
                                 <IndianRupee size={14} /> Price Type
                             </span>
-                            <span className="text-[#0A5B93] font-medium">
+                            <span className="text-[#082C62] font-medium">
                                 {productDetails?.priceType}
                             </span>
                         </div>
@@ -345,7 +345,7 @@ export default function ProductPage() {
                             <span className="flex items-center gap-2">
                                 <Package size={14} /> MOQ
                             </span>
-                            <span className="text-[#0A5B93] font-medium">
+                            <span className="text-[#082C62] font-medium">
                                 {productDetails?.minOrderQty}
                             </span>
                         </div>
@@ -354,7 +354,7 @@ export default function ProductPage() {
                             <span className="flex items-center gap-2">
                                 <Truck size={14} /> Delivery Time
                             </span>
-                            <span className="text-[#0A5B93] font-medium">
+                            <span className="text-[#082C62] font-medium">
                                 {productDetails?.deliveryTime}
                             </span>
                         </div>
@@ -363,7 +363,7 @@ export default function ProductPage() {
                             <span className="flex items-center gap-2">
                                 <CreditCard size={14} /> Payment Terms
                             </span>
-                            <span className="text-[#0A5B93] font-medium">
+                            <span className="text-[#082C62] font-medium">
                                 {productDetails?.paymentTerms}
                             </span>
                         </div>
@@ -372,7 +372,7 @@ export default function ProductPage() {
                             <span className="flex items-center gap-2">
                                 <Package size={14} /> Packaging
                             </span>
-                            <span className="text-[#0A5B93] font-medium text-right max-w-[60%] wrap-break-word">
+                            <span className="text-[#082C62] font-medium text-right max-w-[60%] wrap-break-word">
                                 {productDetails?.packagingDetails}
                             </span>
                         </div>
@@ -381,14 +381,14 @@ export default function ProductPage() {
                             <span className="flex items-center gap-2">
                                 <Layers size={14} /> Supply Ability
                             </span>
-                            <span className="text-[#0A5B93] font-medium">
+                            <span className="text-[#082C62] font-medium">
                                 {productDetails?.supplyAbility || "-"}
                             </span>
                         </div>
 
                     </div>
 
-                    <button onClick={(e) => { e.preventDefault(); setOpenPopup(true); setPopupProduct(productDetails) }} className="w-full bg-linear-to-r from-[#0A5B93] to-[#084b7b] text-white py-3 rounded-xl font-medium transition hover:opacity-90 hover:shadow-md">
+                    <button onClick={(e) => { e.preventDefault(); setOpenPopup(true); setPopupProduct(productDetails) }} className="w-full bg-linear-to-r from-[#082C62] to-[#084b7b] text-white py-3 rounded-xl font-medium transition hover:opacity-90 hover:shadow-md">
                         Send Inquiry
                     </button>
                 </motion.div>
@@ -399,7 +399,7 @@ export default function ProductPage() {
                     className="bg-white rounded-2xl shadow-md p-4 h-fit"
                 >
                     <div className="flex gap-3">
-                        <div className="w-20 h-20 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center text-lg font-bold text-[#0A5B93]">
+                        <div className="w-20 h-20 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center text-lg font-bold text-[#082C62]">
                             {productDetails?.supplier?.profileImage ? (
                                 <img
                                     src={productDetails.supplier?.profileImage}
@@ -458,8 +458,8 @@ export default function ProductPage() {
 
                     <div className="space-y-2 mt-2">
                         <button onClick={handleCallClick} disabled={loadingType !== null}
-                            className={`w-full border bg-blue-50 border-[#0A5B93] text-[#0A5B93] py-2 rounded-lg flex items-center justify-center gap-2 transition
-                            ${loadingType === "call" ? "opacity-50 cursor-not-allowed" : "hover:text-white hover:bg-[#0A5B93]"}`}>
+                            className={`w-full border bg-blue-50 border-[#082C62] text-[#082C62] py-2 rounded-lg flex items-center justify-center gap-2 transition
+                            ${loadingType === "call" ? "opacity-50 cursor-not-allowed" : "hover:text-white hover:bg-[#082C62]"}`}>
                             <Phone size={20} />
                             {loadingType === "call" ? "Please wait..." : "Call Now"}
                         </button>
@@ -474,7 +474,7 @@ export default function ProductPage() {
 
                     <div className="grid grid-cols-2 gap-2 text-sm mt-2">
                         <div className="flex items-start gap-2">
-                            <FaPhoneAlt className="text-[#0A5B93] mt-1" size={14} />
+                            <FaPhoneAlt className="text-[#082C62] mt-1" size={14} />
                             <div>
                                 <p className="text-gray-500">Phone</p>
                                 <p className="font-medium text-gray-800">
@@ -484,7 +484,7 @@ export default function ProductPage() {
                         </div>
 
                         <div title={productDetails.supplier?.email} className="flex items-start gap-2 overflow-hidden">
-                            <FaEnvelope className="text-[#0A5B93] mt-1" size={14} />
+                            <FaEnvelope className="text-[#082C62] mt-1" size={14} />
                             <div>
                                 <p className="text-gray-500">Email</p>
                                 <p className="font-medium text-gray-800 wrap-break-word">
@@ -496,7 +496,7 @@ export default function ProductPage() {
                         </div>
 
                         <div className="flex items-start gap-2">
-                            <FaPhoneAlt className="text-[#0A5B93] mt-1" size={14} />
+                            <FaPhoneAlt className="text-[#082C62] mt-1" size={14} />
                             <div>
                                 <p className="text-gray-500">Alt Number</p>
                                 <p className="font-medium text-gray-800">
@@ -506,7 +506,7 @@ export default function ProductPage() {
                         </div>
 
                         <div title={productDetails.supplier?.otherEmail} className="flex items-start gap-2 overflow-hidden">
-                            <FaEnvelope className="text-[#0A5B93] mt-1" size={14} />
+                            <FaEnvelope className="text-[#082C62] mt-1" size={14} />
                             <div>
                                 <p className="text-gray-500">Alt Email</p>
                                 <p className="font-medium text-gray-800 wrap-break-word">
@@ -518,7 +518,7 @@ export default function ProductPage() {
                         </div>
 
                         <div className="flex items-start gap-2">
-                            <FaIndustry className="text-[#0A5B93] mt-1" size={14} />
+                            <FaIndustry className="text-[#082C62] mt-1" size={14} />
                             <div>
                                 <p className="text-gray-500">Business Type</p>
                                 <p className="font-medium text-gray-800">
@@ -528,7 +528,7 @@ export default function ProductPage() {
                         </div>
 
                         <div className="flex items-start gap-2">
-                            <FaBuilding className="text-[#0A5B93] mt-1" size={14} />
+                            <FaBuilding className="text-[#082C62] mt-1" size={14} />
                             <div>
                                 <p className="text-gray-500">Ownership</p>
                                 <p className="font-medium text-gray-800">
@@ -538,7 +538,7 @@ export default function ProductPage() {
                         </div>
 
                         <div className="flex items-start gap-2">
-                            <FaUsers className="text-[#0A5B93] mt-1" size={14} />
+                            <FaUsers className="text-[#082C62] mt-1" size={14} />
                             <div>
                                 <p className="text-gray-500">Employees</p>
                                 <p className="font-medium text-gray-800">
@@ -548,7 +548,7 @@ export default function ProductPage() {
                         </div>
 
                         <div className="flex items-start gap-2">
-                            <FaIndustry className="text-[#0A5B93] mt-1" size={14} />
+                            <FaIndustry className="text-[#082C62] mt-1" size={14} />
                             <div>
                                 <p className="text-gray-500">Turnover</p>
                                 <p className="font-medium text-gray-800">
@@ -646,7 +646,7 @@ export default function ProductPage() {
                         <button
                             onClick={() => setTab("desc")}
                             className={`flex items-center gap-2 px-6 py-3 font-medium ${tab === "desc"
-                                ? "text-[#0A5B93] border-b-2 border-[#0A5B93]"
+                                ? "text-[#082C62] border-b-2 border-[#082C62]"
                                 : "text-gray-500"
                                 }`}
                         >
@@ -665,7 +665,7 @@ export default function ProductPage() {
                                         className="flex justify-between p-3 border rounded-lg border-gray-300"
                                     >
                                         <span className="text-gray-600">{spec.key}</span>
-                                        <span className="font-medium text-[#0A5B93]">{spec.value}</span>
+                                        <span className="font-medium text-[#082C62]">{spec.value}</span>
                                     </motion.div>
                                 ))}
                             </div>

@@ -29,7 +29,7 @@ export default function Navbar() {
     const bellRef = useRef(null);
     const router = useRouter();
     const pathname = usePathname()
-    const [showSearch, setShowSearch] = useState(false);
+    const [showSearch, setShowSearch] = useState(true);
 
     const handleSelect = (city) => {
         const middleName = pathname.split("/")[2];
@@ -161,7 +161,7 @@ export default function Navbar() {
                         />
                     </Link>
                     <div className="hidden md:flex relative">
-                        <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-[#f45a06] pointer-events-none" size={18} />
+                        <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-[#EC771C] pointer-events-none" size={18} />
 
                         <select value={location.id}
                             onChange={(e) => {
@@ -176,7 +176,7 @@ export default function Navbar() {
                                 }
                             }}
                             className=" w-full appearance-none rounded-xl border border-orange-300 bg-white py-2.5 pl-10 pr-10
-      text-sm font-medium text-gray-700 shadow-sm transition-all duration-200 outline-none hover:border-[#f45a06] focus:border-[#f45a06] focus:ring-1 focus:ring-orange-100 cursor-pointer">
+      text-sm font-medium text-gray-700 shadow-sm transition-all duration-200 outline-none hover:border-[#EC771C] focus:border-[#EC771C] focus:ring-1 focus:ring-orange-100 cursor-pointer">
 
                             {locations.flatMap((state) =>
                                 state.cities.map((city) => (
@@ -193,31 +193,31 @@ export default function Navbar() {
                 </div>
 
                 <div className="hidden md:flex items-center gap-2">
-                    <div className="flex items-center gap-2">
-                        <AnimatePresence>
-                            {showSearch && (
-                                <motion.div
-                                    initial={{ width: 0, opacity: 0, x: 30 }}
-                                    animate={{ width: "300px", opacity: 1, x: 0 }}
-                                    exit={{ width: 0, opacity: 0, x: 30 }}
-                                    transition={{
-                                        duration: 0.35,
-                                        ease: "easeInOut",
-                                    }}
-                                    className="overflow-"
-                                >
-                                    <SearchBar showDropdown={showDropdown} setShowDropdown={setShowDropdown} handleFocus={handleFocus} />
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
+                    <div className="flex items-center gap- border border-orange-500 rounded-lg ">
+                        {/* <AnimatePresence> */}
+                        {/* {showSearch && ( */}
+                        <motion.div
+                            // initial={{ width: 0, opacity: 0, x: 30 }}
+                            // animate={{ width: "300px", opacity: 1, x: 0 }}
+                            // exit={{ width: 0, opacity: 0, x: 30 }}
+                            // transition={{
+                            //     duration: 0.35,
+                            //     ease: "easeInOut",
+                            // }}
+                            className=""
+                        >
+                            <SearchBar showDropdown={showDropdown} setShowDropdown={setShowDropdown} handleFocus={handleFocus} />
+                        </motion.div>
+                        {/* )} */}
+                        {/* </AnimatePresence> */}
 
-                        <motion.button
+                        {/* <motion.button
                             whileTap={{ scale: 0.9 }}
                             whileHover={{ scale: 1.05 }}
                             animate={{ rotate: showSearch ? 180 : 0 }}
                             transition={{ duration: 0.3 }}
                             onClick={() => setShowSearch(!showSearch)}
-                            className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-orange-500 bg-orange-50 text-orange-500 hover:bg-orange-500 hover:text-white transition-colors"
+                            className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-[#EC771C] bg-orange-50 text-[#EC771C] hover:bg-[#dc6f1b] hover:text-white transition-colors"
                         >
                             <AnimatePresence mode="wait">
                                 <motion.div
@@ -227,13 +227,13 @@ export default function Navbar() {
                                     exit={{ opacity: 0, rotate: 90 }}
                                     transition={{ duration: 0.2 }}
                                 >
-                                    {showSearch ? <X size={22} /> : <Search size={22} />}
+                                    {!showSearch ? <X size={22} /> : <Search size={22} />}
                                 </motion.div>
                             </AnimatePresence>
-                        </motion.button>
+                        </motion.button> */}
                     </div>
 
-                    <button onClick={() => setOpenPopup(true)} className="border-2 border-[#183B63] text-[#183B63] px-4 py-2 text-sm font-medium rounded-lg">
+                    <button onClick={() => setOpenPopup(true)} className="border-2 border-[#082C62] text-[#082C62] px-4 py-2 text-sm font-medium rounded-lg">
                         Request a Quote
                     </button>
 
@@ -299,11 +299,11 @@ export default function Navbar() {
                             )}
                         </div>
                     </div>) : (<>
-                        <Link href="https://seller.inquirybazaar.com/register" className="px-4 py-2.5 text-sm font-medium border text-white rounded-lg bg-[#f45a06] hover:bg-[#eb5505]">
+                        <Link href="https://seller.inquirybazaar.com/register" className="px-4 py-2.5 text-sm font-medium border text-white rounded-lg bg-[#EC771C] hover:bg-[#e15306]">
                             Register as Supplier
                         </Link>
 
-                        <Link href="https://buyer.inquirybazaar.com/register" className="px-4 py-2.5 text-sm border font-medium text-white bg-[#1e3a56] rounded-lg hover:bg-[#0b426a]">
+                        <Link href="https://buyer.inquirybazaar.com/register" className="px-4 py-2.5 text-sm border font-medium text-white bg-[#082C62] rounded-lg hover:bg-[#062656]">
                             Register as Buyer
                         </Link>
 
@@ -318,7 +318,7 @@ export default function Navbar() {
                     <Search size={20} />
                 </button>
 
-                <button className="md:hidden bg-[#1e3a56] px-3 py-2 rounded-md mr-2" onClick={() => setLocationOpen(!locationOpen)}>
+                <button className="md:hidden bg-[#082C62] px-3 py-2 rounded-md mr-2" onClick={() => setLocationOpen(!locationOpen)}>
                     <MapPin size={20} />
                 </button>
 
@@ -379,7 +379,7 @@ export default function Navbar() {
                             </div>
                         )}
                     </div> :
-                    <button className="md:hidden bg-[#f45a06] px-3 py-2 rounded-md" onClick={() => setOpen(!open)}>
+                    <button className="md:hidden bg-[#EC771C] px-3 py-2 rounded-md" onClick={() => setOpen(!open)}>
                         {open ? <X size={20} /> : <Menu size={20} />}
                     </button>}
             </div>
@@ -389,13 +389,13 @@ export default function Navbar() {
                     <div className="p-4 space-y-3">
 
                         <Link href="https://seller.inquirybazaar.com/register" onclick={() => setOpen(false)}
-                            className="block w-full text-center py-3 rounded-lg bg-[#f45a06] text-white"
+                            className="block w-full text-center py-3 rounded-lg bg-[#EC771C] text-white"
                         >
                             Register as Supplier
                         </Link>
 
                         <Link href="https://buyer.inquirybazaar.com/register" onclick={() => setOpen(false)}
-                            className="block w-full text-center py-3 rounded-lg bg-[#1e3a56] text-white"
+                            className="block w-full text-center py-3 rounded-lg bg-[#082C62] text-white"
                         >
                             Register as Buyer
                         </Link>

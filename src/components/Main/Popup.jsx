@@ -91,13 +91,13 @@ export default function Popup({ open, setOpen, details }) {
                                     </p>
                                 </div>
                             ) : (<form onSubmit={handleSubmit} className="space-y-4">
-                                <h2 className="mb-6 font-semibold text-3xl text-[#0A5B93] flex flex-col justify-center items-center">
+                                <h2 className="mb-6 font-semibold text-3xl text-[#082C62] flex flex-col justify-center items-center">
                                     Contact Supplier
-                                    <div className="w-15 h-1 rounded-2xl bg-[#0A5B93] mt-1"></div>
+                                    <div className="w-15 h-1 rounded-2xl bg-[#082C62] mt-1"></div>
                                 </h2>
 
                                 <div className="flex items-center border rounded-lg px-2 border-gray-400">
-                                    <User size={16} className="text-[#0A5B93]" />
+                                    <User size={16} className="text-[#082C62]" />
                                     <input
                                         name="contactPerson"
                                         type="text"
@@ -107,7 +107,7 @@ export default function Popup({ open, setOpen, details }) {
                                 </div>
 
                                 <div className="flex items-center border rounded-lg px-2 border-gray-400">
-                                    <Package size={16} className="text-[#0A5B93]" />
+                                    <Package size={16} className="text-[#082C62]" />
                                     <input
                                         name="product"
                                         type="text"
@@ -118,7 +118,7 @@ export default function Popup({ open, setOpen, details }) {
 
                                 <div className="flex justify-between items-center gap-2">
                                     <div className="w-full flex items-center border rounded-lg px-2 border-gray-400">
-                                        <Mail size={16} className="text-[#0A5B93]" />
+                                        <Mail size={16} className="text-[#082C62]" />
                                         <input
                                             name="email"
                                             type="email"
@@ -128,7 +128,7 @@ export default function Popup({ open, setOpen, details }) {
                                     </div>
 
                                     <div className="w-full flex items-center border rounded-lg px-2 border-gray-400">
-                                        <Phone size={16} className="text-[#0A5B93]" />
+                                        <Phone size={16} className="text-[#082C62]" />
                                         <input
                                             maxLength={10}
                                             minLength={10}
@@ -141,7 +141,7 @@ export default function Popup({ open, setOpen, details }) {
                                 </div>
 
                                 <div className="flex items-start border rounded-lg px-2 border-gray-400">
-                                    <MessageCircle size={16} className="text-[#0A5B93] mt-3" />
+                                    <MessageCircle size={16} className="text-[#082C62] mt-3" />
                                     <textarea
                                         name="message"
                                         rows={5}
@@ -150,7 +150,7 @@ export default function Popup({ open, setOpen, details }) {
                                     />
                                 </div>
 
-                                <button disabled={loading} className="w-full bg-[#0A5B93] text-white py-2 rounded-lg">
+                                <button disabled={loading} className="w-full bg-[#082C62] text-white py-2 rounded-lg">
                                     {loading ? "Submitting..." : "Submit Inquiry"}
                                 </button>
                             </form>)}

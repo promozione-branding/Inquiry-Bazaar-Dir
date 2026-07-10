@@ -253,7 +253,7 @@ export default function HomePopup({ productImage, setOpen, open }) {
                             ) : (!showOtpScreen ?
                                 (<form onSubmit={handleSendOTP} className="space-y-4">
                                     <div className="text-center">
-                                        <h2 className="text-3xl font-bold text-[#0A5B93]">
+                                        <h2 className="text-3xl font-bold text-[#082C62]">
                                             Looking for?
                                         </h2>
 
@@ -310,14 +310,14 @@ export default function HomePopup({ productImage, setOpen, open }) {
                                         />
                                     </div>
 
-                                    <button disabled={sendingOtp} className="w-full bg-[#0A5B93] hover:bg-[#074f83] text-white py-2 rounded-lg">
+                                    <button disabled={sendingOtp} className="w-full bg-[#082C62] hover:bg-[#074f83] text-white py-2 rounded-lg">
                                         {sendingOtp ? "Sending OTP..." : "Send OTP"}
                                     </button>
                                 </form>)
                                 :
                                 (<div className="space-y-4 flex flex-col justify-center">
                                     <div className="text-center">
-                                        <h2 className="text-3xl font-bold text-[#0A5B93]">
+                                        <h2 className="text-3xl font-bold text-[#082C62]">
                                             Verify Mobile Number
                                         </h2>
 

@@ -117,7 +117,7 @@ export default function CategoryPopup({ productImage }) {
                                 </div>
                             ) : (
                                 <form onSubmit={handleSubmit} className="space-y-4">
-                                    <h2 className="font-semibold text-3xl text-[#0A5B93] text-center">
+                                    <h2 className="font-semibold text-3xl text-[#082C62] text-center">
                                         Get a Free Quote
                                     </h2>
                                     <div className="flex items-center border rounded-lg px-2 border-gray-300 shadow-sm">
@@ -163,7 +163,7 @@ export default function CategoryPopup({ productImage }) {
                                         />
                                     </div>
 
-                                    <button disabled={loading} className="w-full bg-[#0A5B93] hover:bg-[#074f83] text-white py-2 rounded-lg">
+                                    <button disabled={loading} className="w-full bg-[#082C62] hover:bg-[#074f83] text-white py-2 rounded-lg">
                                         {loading ? "Submitting..." : "Submit Inquiry"}
                                     </button>
                                 </form>)}

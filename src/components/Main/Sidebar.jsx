@@ -48,7 +48,7 @@ export default function Sidebar({ open, setOpen, slug }) {
             <div className={`fixed lg:relative z-50 top-0 left-0 lg:w-auto w-64 bg-white p-4 lg:h-full h-screen
     transform transition-transform duration-300 ${open ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}>
                 <div className="flex justify-between items-center mb-4 lg:hidden">
-                    <h2 className="font-semibold text-[#0A5B93]">Filters</h2>
+                    <h2 className="font-semibold text-[#082C62]">Filters</h2>
                     <button className="text-black" onClick={() => setOpen(false)}>
                         <X />
                     </button>
@@ -59,7 +59,7 @@ export default function Sidebar({ open, setOpen, slug }) {
 
                     <div className="relative">
                         <MapPin
-                            className="absolute left-2 top-1/2 -translate-y-1/2 text-[#0A5B93]"
+                            className="absolute left-2 top-1/2 -translate-y-1/2 text-[#082C62]"
                             size={18}
                         />
 
@@ -91,7 +91,7 @@ export default function Sidebar({ open, setOpen, slug }) {
 
                     <div className="relative">
                         <IndianRupee
-                            className="absolute left-2 top-3 text-[#0A5B93]"
+                            className="absolute left-2 top-3 text-[#082C62]"
                             size={18}
                         />
 
@@ -106,7 +106,7 @@ export default function Sidebar({ open, setOpen, slug }) {
                         type="range"
                         min="0"
                         max="10000"
-                        className="w-full accent-[#0a5b93]"
+                        className="w-full accent-[#082C62]"
                     />
 
                     <div className="flex justify-between text-xs text-gray-800">
@@ -136,7 +136,7 @@ export default function Sidebar({ open, setOpen, slug }) {
                                     className="accent-orange-600"
                                 />
 
-                                <Briefcase size={16} className="text-[#0a5b93]" />
+                                <Briefcase size={16} className="text-[#082C62]" />
 
                                 {type}
                             </label>
@@ -144,7 +144,7 @@ export default function Sidebar({ open, setOpen, slug }) {
                     </div>
                 </div>
 
-                <button className="w-full bg-[#0a5b93] cursor-pointer text-white py-2 rounded-lg hover:opacity-90 transition">
+                <button className="w-full bg-[#082C62] cursor-pointer text-white py-2 rounded-lg hover:opacity-90 transition">
                     Apply Filters
                 </button>
             </div >

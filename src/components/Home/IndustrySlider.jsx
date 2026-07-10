@@ -44,7 +44,7 @@ export default function IndustrySlider() {
         <div className="w-full px-4 md:px-6 md:pt-10 pt-5 overflow-hidden bg-linear-to-b from-white to-orange-50">
             <div className="flex items-center justify-between">
                 <div>
-                    <p className="text-sm font-semibold text-orange-500 uppercase tracking-wider">
+                    <p className="text-sm font-semibold text-[#EC771C] uppercase tracking-wider">
                         Explore
                     </p>
 
@@ -54,13 +54,13 @@ export default function IndustrySlider() {
                 </div>
 
                 <Link href="/industries"
-                    className="text-[#f45a06] flex items-center gap-2 hover:underline"
+                    className="text-[#EC771C] flex items-center gap-2 hover:underline"
                 >
                     View All
 
                     <ArrowRight
                         size={22}
-                        className="bg-[#f45a06] p-1 rounded-full text-white"
+                        className="bg-[#EC771C] p-1 rounded-full text-white"
                     />
                 </Link>
             </div>
@@ -131,7 +131,7 @@ export default function IndustrySlider() {
                                     <div className="absolute top-2 right-2 md:top-4 md:right-4 bg-white/90 backdrop-blur-md p-2 rounded-full shadow-md">
                                         <BriefcaseBusiness
                                             size={18}
-                                            className="text-orange-500"
+                                            className="text-[#EC771C]"
                                         />
                                     </div>
 
@@ -152,7 +152,7 @@ export default function IndustrySlider() {
                                     </span>
 
                                     <motion.div whileHover={{ rotate: 45 }}
-                                        className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-orange-100 text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-all"
+                                        className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-orange-100 text-[#EC771C] group-hover:bg-[#EC771C] group-hover:text-white transition-all"
                                     >
                                         <ArrowUpRight size={18} />
                                     </motion.div>

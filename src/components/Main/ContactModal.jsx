@@ -94,7 +94,7 @@ export default function ContactModal({ open, setOpen, product }) {
                                         className="w-full h-full object"
                                     />
                                 </div>
-                                <Link href={`/products/${product?.slug}`} className="hover:underline text-center font-semibold mt-2 text-[#0A5B93]">
+                                <Link href={`/products/${product?.slug}`} className="hover:underline text-center font-semibold mt-2 text-[#082C62]">
                                     {product.name}
                                 </Link>
 
@@ -200,9 +200,9 @@ export default function ContactModal({ open, setOpen, product }) {
                                 </div>
                             ) : (
                                 <form onSubmit={handleSubmit} className="space-y-4">
-                                    <h2 className="mb-6 font-semibold text-3xl text-[#0A5B93] flex flex-col justify-center items-center">
+                                    <h2 className="mb-6 font-semibold text-3xl text-[#082C62] flex flex-col justify-center items-center">
                                         Contact Supplier
-                                        <div className="w-15 h-1 rounded-2xl bg-[#0A5B93] mt-1"></div>
+                                        <div className="w-15 h-1 rounded-2xl bg-[#082C62] mt-1"></div>
                                     </h2>
 
                                     <div className="flex items-center border rounded-lg px-2 border-gray-300 shadow-sm">
@@ -248,7 +248,7 @@ export default function ContactModal({ open, setOpen, product }) {
                                         />
                                     </div>
 
-                                    <button disabled={loading} className="w-full bg-[#0A5B93] hover:bg-[#074f83] text-white py-3 rounded-lg">
+                                    <button disabled={loading} className="w-full bg-[#082C62] hover:bg-[#074f83] text-white py-3 rounded-lg">
                                         {loading ? "Submitting..." : "Submit Inquiry"}
                                     </button>
                                 </form>)}

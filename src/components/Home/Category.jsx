@@ -34,7 +34,7 @@ export default function Category() {
 
             <div className="relative z-10 mb-6 flex md:items-center items-start justify-between">
                 <div>
-                    <p className="text-sm uppercase tracking-[4px] font-semibold text-orange-500">
+                    <p className="text-sm uppercase tracking-[4px] font-semibold text-[#EC771C]">
                         Discover
                     </p>
 
@@ -44,13 +44,13 @@ export default function Category() {
                 </div>
 
                 <Link href="/categories"
-                    className="text-[#f45a06] flex text-nowrap items-center gap-2 hover:underline"
+                    className="text-[#EC771C] flex text-nowrap items-center gap-2 hover:underline"
                 >
                     View All
 
                     <ArrowRight
                         size={22}
-                        className="bg-[#f45a06] p-1 rounded-full text-white"
+                        className="bg-[#EC771C] p-1 rounded-full text-white"
                     />
                 </Link>
             </div>

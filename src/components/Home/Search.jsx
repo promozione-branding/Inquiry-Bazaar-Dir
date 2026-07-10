@@ -114,7 +114,7 @@ export default function SearchBar({ handleFocus, setShowDropdown, showDropdown }
 
     return (
         <div ref={searchRef} className="w-full relative">
-            <div className="flex items-center bg-white shadow-md rounded-xl px-4 py-3">
+            <div className="flex items-center bg-white shadow-md rounded-xl px-4 py-2">
                 <Search
                     className="text-orange-600 mr-2"
                     size={20}
@@ -127,7 +127,7 @@ export default function SearchBar({ handleFocus, setShowDropdown, showDropdown }
                     onKeyDown={handleKeyDown}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search products..."
-                    className="w-full outline-none text-gray-700 bg-transparent"
+                    className="w-full outline-none text-gray-700 bg-transparent placeholder:text-gray-600"
                 />
             </div>
 

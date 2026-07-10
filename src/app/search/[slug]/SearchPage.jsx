@@ -285,7 +285,7 @@ export default function SearchPage() {
 
       <div className="col-span-1 lg:col-span-4 px-2">
         <button onClick={() => setOpen(true)}
-          className="lg:hidden flex items-center gap-2 mb-4 px-4 py-2 bg-[#0A5B93] text-white rounded"
+          className="lg:hidden flex items-center gap-2 mb-4 px-4 py-2 bg-[#082C62] text-white rounded"
         >
           Filters <Funnel size={16} />
         </button>
@@ -310,7 +310,7 @@ export default function SearchPage() {
               <div className="md:hidden bg-white rounded-xl shadow-sm border border-gray-200">
                 <div className="pt-3 px-3 border-b">
                   <Link href={`/products/${i?.slug}`}
-                    className="font-semibold text-[#0A5B93] text-base line-clamp-2"
+                    className="font-semibold text-[#082C62] text-base line-clamp-2"
                   >
                     {i.name}
                   </Link>
@@ -356,7 +356,7 @@ export default function SearchPage() {
                 </div>
 
                 <div className="px-3 border-t">
-                  <h3 className="font-semibold text-[#0A5B93]">
+                  <h3 className="font-semibold text-[#082C62]">
                     {supplier?.companyName}
                   </h3>
 
@@ -462,7 +462,7 @@ export default function SearchPage() {
                   </button>
 
                   <button onClick={() => handleCallClick(i, i?.supplier?.phone)}
-                    className="h-11 rounded-lg bg-[#0A5B93] text-white font-semibold flex items-center justify-center gap-2"
+                    className="h-11 rounded-lg bg-[#082C62] text-white font-semibold flex items-center justify-center gap-2"
                   >
                     <Phone size={20} />
                     Call Now
@@ -484,7 +484,7 @@ export default function SearchPage() {
                       href={i.media?.find(m => m.type === "pdf").url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="absolute flex gap-1 text-[10px] items-center justify-center -bottom-2 right-0 bg-[#0A5B93] text-white p-2 rounded-md transition"
+                      className="absolute flex gap-1 text-[10px] items-center justify-center -bottom-2 right-0 bg-[#082C62] text-white p-2 rounded-md transition"
                     >
                       <FaFilePdf size={14} className="-mt-0.5" /> Product Brochure
                     </a>
@@ -531,7 +531,7 @@ export default function SearchPage() {
                     ))}
 
                     <Link href={`/products/${i?.slug}`}
-                      className="block text-center text-sm text-[#0A5B93] hover:text-[#085082] font-medium py-2.5 hover:bg-blue-50  transition"
+                      className="block text-center text-sm text-[#082C62] hover:text-[#085082] font-medium py-2.5 hover:bg-blue-50  transition"
                     >
                       View more details →
                     </Link>
@@ -646,7 +646,7 @@ export default function SearchPage() {
 
                   <div className="space-y-2 mt-auto">
                     <button onClick={() => handleCallClick(i, i?.supplier?.phone)} disabled={loadingType !== null}
-                      className="cursor-pointer w-full flex items-center justify-center gap-2 bg-[#0A5B93] hover:bg-[#085082] text-white py-2 rounded-lg">
+                      className="cursor-pointer w-full flex items-center justify-center gap-2 bg-[#082C62] hover:bg-[#085082] text-white py-2 rounded-lg">
                       <Phone size={14} />
                       {loadingType === "call" ? "Opening..." : " View Number"}
                     </button>
@@ -684,7 +684,7 @@ export default function SearchPage() {
         {/* pagination */}
         {hasMore && subCategory?.products?.length > 0 && (
           <div className='pt-5 flex justify-center'>
-            <button onClick={handleLoadMore} disabled={loadingMore} className="flex items-center justify-center px-4 py-2 bg-[#0A5B93] text-white rounded gap-2 cursor-pointer">
+            <button onClick={handleLoadMore} disabled={loadingMore} className="flex items-center justify-center px-4 py-2 bg-[#082C62] text-white rounded gap-2 cursor-pointer">
               {loadingMore ? "Loading..." : "View More"}
               <ArrowDown size={20} />
             </button>
@@ -721,7 +721,7 @@ export default function SearchPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="bg-white p-2 rounded-xl">
-              <h2 className="font-semibold text-lg text-[#0A5B93] text-center mb-2">
+              <h2 className="font-semibold text-lg text-[#082C62] text-center mb-2">
                 Contact Supplier
               </h2>
 
@@ -764,7 +764,7 @@ export default function SearchPage() {
                 />
               </div>
 
-              <button disabled={loading1} className="w-full bg-[#0A5B93] hover:bg-[#085082] text-white py-2 rounded-lg">
+              <button disabled={loading1} className="w-full bg-[#082C62] hover:bg-[#085082] text-white py-2 rounded-lg">
                 {loading1 ? "Submitting..." : "Send Inquiry"}
               </button>
             </form>)}
