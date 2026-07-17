@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { getProductReviews } from "@/utils/getProductReviews";
+import { getSupplierStats, renderStars } from "@/utils/getProductReviews";
 import {
     Building2,
     MapPin,
@@ -61,8 +61,6 @@ export default function ProductPage() {
     const [relatedProducts, setRelatedProducts] = useState([]);
     const [loadingType, setLoadingType] = useState(null);
 
-    const [productReviews, setProductReviews] = useState([]);
-
     useEffect(() => {
         if (!slug) return;
 
@@ -79,14 +77,6 @@ export default function ProductPage() {
 
         fetchData();
     }, [slug]);
-
-    useEffect(() => {
-        if (!productDetails?._id) return;
-
-        const assignedReviews = getProductReviews(productDetails._id);
-
-        setProductReviews(assignedReviews);
-    }, [productDetails?._id]);
 
     useEffect(() => {
         if (productDetails?.media?.length) {
@@ -164,6 +154,8 @@ export default function ProductPage() {
         const videoId = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/)?.[1];
         return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
     };
+
+    const { rating, reviews } = getSupplierStats(productDetails.supplier?.phone);
 
     // console.log(productDetails, "details", relatedProducts);
 
@@ -442,13 +434,12 @@ export default function ProductPage() {
                     </div>
 
                     <div className="flex items-center justify-between text-sm">
-                        <div className="flex items-center gap-1 text-yellow-500">
-                            <Star size={16} fill="currentColor" />
-                            <Star size={16} fill="currentColor" />
-                            <Star size={16} fill="currentColor" />
-                            <Star size={16} fill="currentColor" />
-                            <Star size={16} className="text-gray-300" />
-                            <span className="text-gray-600 ml-1">4.4 <span className="text-blue-500 underline">(20)</span></span>
+                        <div className="flex items-center gap-1 text-sm mt-0.5">
+                            {renderStars(Number(rating))}
+
+                            <span className="ml-1 text-gray-800">
+                                {rating} • {reviews} reviews
+                            </span>
                         </div>
 
                         <span className="text-gray-600">
@@ -683,7 +674,7 @@ export default function ProductPage() {
                 </div>
             </div>
 
-            <RatingsUI productReviews={productReviews} />
+            <RatingsUI rating={rating} reviews={reviews} />
 
             {relatedProducts.length != 0 &&
                 <div className="my-5 px-4 md:px-10">

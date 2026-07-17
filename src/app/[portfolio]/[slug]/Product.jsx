@@ -15,7 +15,7 @@ import Navbar3 from '@/components/Webpage/Layout3/Navbar';
 import Navbar2 from '@/components/Webpage/Layout/Navbar';
 import Link from 'next/link';
 
-import { getProductReviews } from "@/utils/getProductReviews";
+import { getSupplierStats } from "@/utils/getProductReviews";
 
 
 
@@ -31,8 +31,6 @@ export default function Product() {
     const [openPopup, setOpenPopup] = useState(false);
     const [popupProduct, setPopupProduct] = useState({});
     const [products, setProducts] = useState([]);
-
-    const [productReviews, setProductReviews] = useState([]);
 
 
     useEffect(() => {
@@ -86,12 +84,6 @@ export default function Product() {
 
         fetchData();
     }, [portfolio]);
-
-     useEffect(() => {
-  if (!product?._id) return;
-
-  setProductReviews(getProductReviews(product._id));
-}, [product?._id]);
 
     const navLinks = [
         { name: "Home", href: `/${portfolio}#home`, icon: Home },
@@ -178,7 +170,7 @@ export default function Product() {
                 ? Navbar2
                 : Navbar;
 
-    // console.log(products)
+    const { rating, reviews } = getSupplierStats(details?.user?.phone);
 
     return (<>
         <NavbarComponent
@@ -506,9 +498,9 @@ export default function Product() {
         </div>
 
         <div className='xl:px-18 pb-10'>
-            <RatingsUI productReviews={productReviews} />
+            <RatingsUI rating={rating} reviews={reviews} />
         </div>
-       
+
 
         <StickyButtons details={details} />
         <Stickyfooter details={details} portfolio={portfolio} />

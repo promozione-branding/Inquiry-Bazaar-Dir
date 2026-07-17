@@ -42,6 +42,7 @@ import { FaXTwitter } from 'react-icons/fa6';
 import CategoryPopup from '@/components/Main/CategoryPopup';
 import { useSelector } from 'react-redux';
 import FAQSection from '@/components/Category/Category';
+import { getSupplierStats, renderStars } from '@/utils/getProductReviews';
 
 export default function CategoryPage({ initialData }) {
   const { slug } = useParams()
@@ -302,6 +303,7 @@ export default function CategoryPage({ initialData }) {
             ))
           ) : (subCategory?.products?.map((i, idx) => {
             const supplier = i?.supplier?.business;
+            const { rating, reviews } = getSupplierStats(i?.supplier?.phone);
             return (<div key={idx}>
               <div className="md:hidden bg-white rounded-xl shadow-sm border border-gray-200">
                 <div className="pt-3 px-3 border-b">
@@ -360,24 +362,12 @@ export default function CategoryPage({ initialData }) {
                     {supplier?.address || "India"}
                   </div>
 
-                  <div className="flex items-center justify-between mt-1">
-                    <div className="flex items-center gap-0.5">
-                      {[...Array(4)].map((_, idx) => (
-                        <Star
-                          key={idx}
-                          size={15}
-                          className="text-yellow-400 fill-yellow-400"
-                        />
-                      ))}
-                      <Star
-                        size={15}
-                        className="text-gray-300"
-                      />
+                  <div className="flex items-center gap-1 text-sm mt-0.5">
+                    {renderStars(Number(rating))}
 
-                      <span className="ml-1 text-sm font-medium text-gray-800">
-                        4.2
-                      </span>
-                    </div>
+                    <span className="ml-1 text-gray-800">
+                      {rating} • {reviews} reviews
+                    </span>
                   </div>
                 </div>
 
@@ -555,11 +545,11 @@ export default function CategoryPage({ initialData }) {
                     </div>
 
                     <div className="flex items-center gap-1 text-sm mt-0.5">
-                      {[...Array(4)].map((_, idx) => (
-                        <Star key={idx} size={14} className="text-yellow-400 fill-yellow-400 -mt-0.5" />
-                      ))}
-                      <Star size={14} className="text-gray-300 -mt-0.5" />
-                      <span className="ml-1 text-gray-800 ">4.2 • 38 reviews</span>
+                      {renderStars(Number(rating))}
+
+                      <span className="ml-1 text-gray-800">
+                        {rating} • {reviews} reviews
+                      </span>
                     </div>
                   </div>
 

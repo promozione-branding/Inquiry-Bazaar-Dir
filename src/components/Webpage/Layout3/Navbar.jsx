@@ -33,11 +33,11 @@ export default function Navbar3({ details, portfolio }) {
               </div>
 
               <span className="font-semibold text-xs text-gray-800">
-                4.8
+                4.2
               </span>
 
               <span className="text-gray-500 text-xs">
-                (128 Reviews)
+                (17 Reviews)
               </span>
             </div>
 

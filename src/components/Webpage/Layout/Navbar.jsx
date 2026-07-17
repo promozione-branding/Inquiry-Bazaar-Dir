@@ -117,11 +117,11 @@ export default function Navbar2({ details, portfolio }) {
                 </div>
 
                 <span className="font-semibold text-xs md:text-base text-gray-800">
-                  4.8
+                  4.7
                 </span>
 
                 <span className="text-gray-500 text-xs md:text-sm">
-                  (128 Reviews)
+                  (37 Reviews)
                 </span>
               </div>
 
