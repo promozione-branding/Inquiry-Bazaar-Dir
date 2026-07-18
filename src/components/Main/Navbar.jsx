@@ -160,7 +160,7 @@ export default function Navbar() {
                             className="object-contain h-12 sm:w-50 w-40"
                         />
                     </Link>
-                    <div className="hidden md:flex relative w-full">
+                    <div className="hidden md:flex relative">
                         <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-[#EC771C] pointer-events-none" size={18} />
 
                         <select value={location.id}
@@ -192,7 +192,7 @@ export default function Navbar() {
                     </div>
                 </div>
 
-                <div className="hidden xl:flex items-center gap-2 w-full justify-end">
+                <div className="hidden xl:flex items-center gap-2 flex-1 justify-end">
                     <div className="flex items-center gap- border border-orange-500 rounded-lg ">
                         {/* <AnimatePresence> */}
                         {/* {showSearch && ( */}
@@ -383,6 +383,7 @@ export default function Navbar() {
                             {open ? <X size={20} /> : <Menu size={20} />}
                         </button>}
                 </div>
+
             </div>
 
             {open && (
