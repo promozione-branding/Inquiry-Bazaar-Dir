@@ -489,7 +489,7 @@ export default function CategoryPage({ initialData }) {
                       {i.price ? (
                         <p className="text-lg font-semibold">
                           ₹{i.price}
-                          <span className="text-sm font-normal">/Piece</span>
+                          <span className="text-sm font-normal">{`/${i.unit}` || "/Piece"}</span>
                         </p>
                       ) : (
                         <span className="bg-green-500 text-xs text-white px-2 py-1 rounded-xl">
@@ -498,11 +498,11 @@ export default function CategoryPage({ initialData }) {
                       )}
                     </div>
 
-                    {i.brandName && (
+                    {/* {i.brandName && (
                       <div className="bg-[#082C62] text-xs text-white px-2 py-1 rounded-xl">
                         {i.brandName}
                       </div>
-                    )}
+                    )} */}
                   </div>
 
                   <div className="mt-4 border border-gray-200 rounded-lg overflow-hidden">
@@ -541,7 +541,7 @@ export default function CategoryPage({ initialData }) {
 
                     <div className="flex items-center gap-1 mt-0.5 text-sm text-gray-800">
                       <MapPin size={14} className="text-orange-500 -mt-0.5" />
-                      <span>{supplier?.address || "India"}</span>
+                      <span className='line-clamp-2'>{supplier?.address || "India"}</span>
                     </div>
 
                     <div className="flex items-center gap-1 text-sm mt-0.5">

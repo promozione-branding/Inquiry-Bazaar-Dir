@@ -30,7 +30,7 @@ export default function IndustrySection() {
     }, []);
 
     return (
-        <section className="px-2 md:px-10 py-10 bg-gray-200 space-y-6">
+        <section className="px-2 lg:px-4 xl:px-10 py-10 bg-gray-200 space-y-6">
             {loading ? ([...Array(2)].map((_, index) => (
                 <div key={index}
                     className="hidden lg:block p-4 bg-white rounded-lg animate-pulse"

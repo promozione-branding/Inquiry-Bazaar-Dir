@@ -40,7 +40,7 @@ export default function IndustryPage() {
   return (<>
     <Navbar />
 
-    <div className='px-4 md:px-10 py-5 bg-gray-200'>
+    <div className='px-4 xl:px-10 py-5 bg-gray-200'>
       <div className='md:flex hidden items-center text-gray-800 gap-1'>
         <Link href={"/"} className='text-gray-800 font-bold'>
           Home {" "}
@@ -58,7 +58,7 @@ export default function IndustryPage() {
       <div className='px-4 py-3 bg-white mt-2 rounded-lg'>
         <h2 className='text-black text-3xl mb-2'>{industry?.name}</h2>
 
-        <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 rounded-lg'>
+        <div className='grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-5 rounded-lg'>
           {loading ? ([...Array(8)].map((_, index) => (
             <div key={index}
               className="bg-white border border-gray-200 rounded-lg p-2 flex flex-col gap-3 h-fit"

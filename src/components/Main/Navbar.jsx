@@ -160,7 +160,7 @@ export default function Navbar() {
                             className="object-contain h-12 sm:w-50 w-40"
                         />
                     </Link>
-                    <div className="hidden md:flex relative">
+                    <div className="hidden md:flex relative w-full">
                         <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-[#EC771C] pointer-events-none" size={18} />
 
                         <select value={location.id}
@@ -192,7 +192,7 @@ export default function Navbar() {
                     </div>
                 </div>
 
-                <div className="hidden md:flex items-center gap-2">
+                <div className="hidden xl:flex items-center gap-2 w-full justify-end">
                     <div className="flex items-center gap- border border-orange-500 rounded-lg ">
                         {/* <AnimatePresence> */}
                         {/* {showSearch && ( */}
@@ -314,78 +314,79 @@ export default function Navbar() {
                     </>)}
                 </div>
 
-                <button className="md:hidden bg-blue-600 px-3 py-2 rounded-md mr-2" onClick={() => setSearchOpen(!searchOpen)}>
-                    <Search size={20} />
-                </button>
+                <div className="flex">
+                    <button className="xl:hidden bg-blue-600 px-3 py-2 rounded-md mr-2" onClick={() => setSearchOpen(!searchOpen)}>
+                        <Search size={20} />
+                    </button>
 
-                <button className="md:hidden bg-[#082C62] px-3 py-2 rounded-md mr-2" onClick={() => setLocationOpen(!locationOpen)}>
-                    <MapPin size={20} />
-                </button>
+                    <button className="md:hidden bg-[#082C62] px-3 py-2 rounded-md mr-2" onClick={() => setLocationOpen(!locationOpen)}>
+                        <MapPin size={20} />
+                    </button>
+                    {user ?
+                        <div className="block xl:hidden relative">
+                            <button onClick={() => setProfileOpen(!profileOpen)}
+                                className="flex items-center gap-3 border rounded-full hover:bg-gray-50 border-gray-200"
+                            >
+                                <Image
+                                    src={user.profileImage || "/profile.png"}
+                                    alt={user.name}
+                                    width={40}
+                                    height={40}
+                                    className="rounded-full object-cover w-22 h-12"
+                                />
+                            </button>
 
-                {user ?
-                    <div className="block md:hidden relative">
-                        <button onClick={() => setProfileOpen(!profileOpen)}
-                            className="flex items-center gap-3 border rounded-full hover:bg-gray-50 border-gray-200"
-                        >
-                            <Image
-                                src={user.profileImage || "/profile.png"}
-                                alt={user.name}
-                                width={40}
-                                height={40}
-                                className="rounded-full object-cover w-22 h-12"
-                            />
-                        </button>
+                            {profileOpen && (
+                                <div className="absolute right-0 mt-1 w-72 bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden">
+                                    <div className="px-4 py-2 border-b border-gray-200">
+                                        <div className="flex flex-col justify-center items-center">
+                                            <h3 className="font-semibold text-black">
+                                                {user.name}
+                                            </h3>
 
-                        {profileOpen && (
-                            <div className="absolute right-0 mt-1 w-72 bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden">
-                                <div className="px-4 py-2 border-b border-gray-200">
-                                    <div className="flex flex-col justify-center items-center">
-                                        <h3 className="font-semibold text-black">
-                                            {user.name}
-                                        </h3>
+                                            <p className="text-sm text-gray-800">
+                                                {user.email}
+                                            </p>
+                                        </div>
+                                    </div>
 
-                                        <p className="text-sm text-gray-800">
-                                            {user.email}
-                                        </p>
+                                    <div className="p-2">
+                                        {user.role == "supplier" && <>
+                                            <Link href="https://seller.inquirybazaar.com/profile"
+                                                className="px-4 py-3 rounded-lg hover:bg-gray-100 text-black flex gap-2 items-center"
+                                            >
+                                                <User size={18} className="-mt-0.5" />  Profile
+                                            </Link>
+                                            <Link href="https://seller.inquirybazaar.com/dashboard"
+                                                className="px-4 py-3 rounded-lg hover:bg-gray-100 text-black flex gap-2 items-center"
+                                            >
+                                                <Layers size={18} className="-mt-0.5" />  Dashboard
+                                            </Link>
+                                        </>}
+                                        {user.role == "buyer" && <>
+                                            <Link href="https://buyer.inquirybazaar.com/profile"
+                                                className="px-4 py-3 rounded-lg hover:bg-gray-100 text-black flex gap-2 items-center"
+                                            >
+                                                <User size={18} className="-mt-0.5" />  Profile
+                                            </Link>
+                                            <Link href="https://buyer.inquirybazaar.com/dashboard"
+                                                className="px-4 py-3 rounded-lg hover:bg-gray-100 text-black flex gap-2 items-center"
+                                            >
+                                                <Layers size={18} className="-mt-0.5" />  Dashboard
+                                            </Link>
+                                        </>}
                                     </div>
                                 </div>
-
-                                <div className="p-2">
-                                    {user.role == "supplier" && <>
-                                        <Link href="https://seller.inquirybazaar.com/profile"
-                                            className="px-4 py-3 rounded-lg hover:bg-gray-100 text-black flex gap-2 items-center"
-                                        >
-                                            <User size={18} className="-mt-0.5" />  Profile
-                                        </Link>
-                                        <Link href="https://seller.inquirybazaar.com/dashboard"
-                                            className="px-4 py-3 rounded-lg hover:bg-gray-100 text-black flex gap-2 items-center"
-                                        >
-                                            <Layers size={18} className="-mt-0.5" />  Dashboard
-                                        </Link>
-                                    </>}
-                                    {user.role == "buyer" && <>
-                                        <Link href="https://buyer.inquirybazaar.com/profile"
-                                            className="px-4 py-3 rounded-lg hover:bg-gray-100 text-black flex gap-2 items-center"
-                                        >
-                                            <User size={18} className="-mt-0.5" />  Profile
-                                        </Link>
-                                        <Link href="https://buyer.inquirybazaar.com/dashboard"
-                                            className="px-4 py-3 rounded-lg hover:bg-gray-100 text-black flex gap-2 items-center"
-                                        >
-                                            <Layers size={18} className="-mt-0.5" />  Dashboard
-                                        </Link>
-                                    </>}
-                                </div>
-                            </div>
-                        )}
-                    </div> :
-                    <button className="md:hidden bg-[#EC771C] px-3 py-2 rounded-md" onClick={() => setOpen(!open)}>
-                        {open ? <X size={20} /> : <Menu size={20} />}
-                    </button>}
+                            )}
+                        </div> :
+                        <button className="xl:hidden bg-[#EC771C] px-3 py-2 rounded-md" onClick={() => setOpen(!open)}>
+                            {open ? <X size={20} /> : <Menu size={20} />}
+                        </button>}
+                </div>
             </div>
 
             {open && (
-                <div className="md:hidden border-t bg-white absolute w-full">
+                <div className="xl:hidden border-t bg-white absolute w-full">
                     <div className="p-4 space-y-3">
 
                         <Link href="https://seller.inquirybazaar.com/register" onclick={() => setOpen(false)}
