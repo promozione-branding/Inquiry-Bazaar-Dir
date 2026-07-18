@@ -25,6 +25,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <head>
+
         <Script
           id="microsoft-clarity"
           strategy="afterInteractive"
@@ -43,6 +44,42 @@ export default function RootLayout({ children }) {
           `}
         </Script>
         <meta name="google-site-verification" content="6bbu4UfJBXU6bw_utiN0GWbpnttBceKaSZe77oyWJME" />
+
+        <Script id="organization-schema" type="application/ld+json"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": "https://inquirybazaar.com/#organization",
+                  name: "Inquiry Bazaar",
+                  url: "https://inquirybazaar.com/",
+                  logo: {
+                    "@type": "ImageObject",
+                    url: "https://inquirybazaar.com/logo.png",
+                  },
+                  sameAs: [
+                    "https://www.facebook.com/profile.php?id=61562989183794",
+                    "https://www.linkedin.com/company/inquiry-bazaar/?viewAsMember=true",
+                    "https://www.instagram.com/inquirybazaar/",
+                  ],
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": "https://inquirybazaar.com/#website",
+                  url: "https://inquirybazaar.com/",
+                  name: "Inquiry Bazaar",
+                  publisher: {
+                    "@id": "https://inquirybazaar.com/#organization",
+                  },
+                },
+              ],
+            }),
+          }}
+        />
+
       </head>
       <body className="min-h-full flex flex-col">
         <Providers>{children}</Providers>
