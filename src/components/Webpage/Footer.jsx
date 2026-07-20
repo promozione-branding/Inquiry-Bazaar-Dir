@@ -15,13 +15,19 @@ export default function Footer({ details, portfolio, navLinks }) {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
                     <div>
                         <div className="bg- p- rounded-lg w-fit">
-                            <Image
-                                src={details?.user?.profileImage || "/no-image.webp"}
-                                alt="Business Logo"
-                                width={200}
-                                height={200}
-                                className="h-16 w-auto rounded-lg"
-                            />
+                            {details?.user?.profileImage ? (
+                                <Image
+                                    width={200}
+                                    height={200}
+                                    src={details.user.profileImage}
+                                    alt="Logo"
+                                    className="w-18 h-18 border border-gray-200 rounded-lg object-cover"
+                                />
+                            ) : (
+                                <div className="w-18 h-18 border border-gray-200 rounded-lg bg-gray-100 flex items-center justify-center text-5xl font-bold text-gray-800 uppercase">
+                                    {details?.user?.business?.companyName?.charAt(0) || "..."}
+                                </div>
+                            )}
                         </div>
 
                         <p className='mt-2'>

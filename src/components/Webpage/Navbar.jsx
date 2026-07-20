@@ -47,13 +47,19 @@ export default function Navbar({ details, portfolio, navLinks }) {
         <section className="w-full bg-gray-50 border-b border-b-gray-300 shadow-sm sticky top-0 z-50">
             <div className="flex justify-between items-center md:px-4 px-2 py-2">
                 <Link href={`/${portfolio}`} className="p-1 flex gap-2 items-center">
-                    <Image
-                        width={200}
-                        height={200}
-                        src={details?.user?.profileImage || "/no-image.webp"}
-                        alt="Logo"
-                        className="w-auto h-18 border border-gray-200 rounded-lg"
-                    />
+                    {details?.user?.profileImage ? (
+                        <Image
+                            width={200}
+                            height={200}
+                            src={details.user.profileImage}
+                            alt="Logo"
+                            className="w-18 h-18 border border-gray-200 rounded-lg object-cover"
+                        />
+                    ) : (
+                        <div className="w-18 h-18 border border-gray-200 rounded-lg bg-gray-100 flex items-center justify-center text-4xl font-bold text-blue-500 uppercase">
+                            {details?.user?.business?.companyName?.charAt(0) || "..."}
+                        </div>
+                    )}
                     <div>
                         <p className='text-xl md:text-2xl font-semibold' style={{ color: details?.hero?.color || "black" }}>
                             {details?.user?.business?.companyName}
