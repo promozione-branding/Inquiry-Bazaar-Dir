@@ -6,6 +6,7 @@ import Navbar from "@/components/Main/Navbar";
 import Footer from "@/components/Main/Footer";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Stickyfooter from "@/components/Main/StickyFooter";
 
 export default function Industries() {
   const [industries, setIndustries] = useState([]);
@@ -101,7 +102,7 @@ export default function Industries() {
               <div className="relative h-[350px]">
                 <Image
                   src={industry.imageUrl}
-                  alt={industry.name}
+                  alt={industry.imageAlt || industry.name}
                   fill
                   className="object-cover"
                 />
@@ -156,7 +157,7 @@ export default function Industries() {
                     <div className="relative w-[80px] h-[80px] rounded-xl overflow-hidden shrink-0">
                       <Image
                         src={cat.imageUrl}
-                        alt={cat.name}
+                        alt={cat.imageAlt || cat.name}
                         fill
                         className="object-cover"
                       />
@@ -206,7 +207,7 @@ export default function Industries() {
                 <div className="relative h-75 rounded-lg overflow-hidden">
                   <Image
                     src={industry.imageUrl}
-                    alt={industry.name}
+                    alt={industry?.imageAlt || industry.name}
                     fill
                     className="object-cover"
                   />
@@ -239,7 +240,7 @@ export default function Industries() {
                       <div className="w-20 h-20 relative shrink-0">
                         <Image
                           src={cat.imageUrl}
-                          alt={cat.name}
+                          alt={cat?.imageAlt || cat.name}
                           fill
                           className="object-contain"
                         />
@@ -280,7 +281,7 @@ export default function Industries() {
           </div>
         )))}
     </section>
-
+    <Stickyfooter />
     <Footer />
   </>)
 }

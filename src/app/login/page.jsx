@@ -11,6 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Main/Navbar";
 import Footer from "@/components/Main/Footer";
+import Stickyfooter from "@/components/Main/StickyFooter";
 // import { sendFirebaseOtp, verifyFirebaseOtp, } from "@/utils/firebaseOtp";
 
 export default function LoginPage() {
@@ -287,7 +288,7 @@ export default function LoginPage() {
             </div>
             <div id="recaptcha-container"></div>
         </div>
-
+        <Stickyfooter />
         <Footer />
     </>);
 }

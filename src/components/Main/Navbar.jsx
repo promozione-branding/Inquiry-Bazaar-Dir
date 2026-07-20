@@ -314,7 +314,7 @@ export default function Navbar() {
                     </>)}
                 </div>
 
-                <div className="flex">
+                <div className="flex items-center">
                     <button className="xl:hidden bg-blue-600 px-3 py-2 rounded-md mr-2" onClick={() => setSearchOpen(!searchOpen)}>
                         <Search size={20} />
                     </button>
@@ -322,7 +322,7 @@ export default function Navbar() {
                     <button className="md:hidden bg-[#082C62] px-3 py-2 rounded-md mr-2" onClick={() => setLocationOpen(!locationOpen)}>
                         <MapPin size={20} />
                     </button>
-                    {user ?
+                    {/* {user ?
                         <div className="block xl:hidden relative">
                             <button onClick={() => setProfileOpen(!profileOpen)}
                                 className="flex items-center gap-3 border rounded-full hover:bg-gray-50 border-gray-200"
@@ -332,7 +332,7 @@ export default function Navbar() {
                                     alt={user.name}
                                     width={40}
                                     height={40}
-                                    className="rounded-full object-cover w-22 h-12"
+                                    className="rounded-full object-cover w-12 h-12"
                                 />
                             </button>
 
@@ -381,7 +381,7 @@ export default function Navbar() {
                         </div> :
                         <button className="xl:hidden bg-[#EC771C] px-3 py-2 rounded-md" onClick={() => setOpen(!open)}>
                             {open ? <X size={20} /> : <Menu size={20} />}
-                        </button>}
+                        </button>} */}
                 </div>
 
             </div>
@@ -457,18 +457,27 @@ export default function Navbar() {
                             {/* Close Button */}
 
                             <div className="flex relative">
-                                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-[#f45a06] pointer-events-none" size={18} />
+                                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-[#EC771C] pointer-events-none" size={18} />
 
-                                <select onChange={(e) => { dispatch(setLocation(e.target.value)); (pathname.startsWith("/category") || pathname.startsWith("/search")) && handleSelect(e) }} value={location}
+                                <select value={location.id}
+                                    onChange={(e) => {
+                                        const city = locations
+                                            .flatMap((state) => state.cities)
+                                            .find((c) => c.id === e.target.value);
+
+                                        dispatch(setLocation(city));
+
+                                        if (pathname.startsWith("/category")) {
+                                            handleSelect(city);
+                                        }
+                                    }}
                                     className=" w-full appearance-none rounded-xl border border-orange-300 bg-white py-2.5 pl-10 pr-10
-      text-sm font-medium text-gray-700 shadow-sm transition-all duration-200 outline-none hover:border-[#f45a06] focus:border-[#f45a06] focus:ring-1 focus:ring-orange-100 cursor-pointer">
-                                    {/* <option value="All India">
-                                All India
-                            </option> */}
+      text-sm font-medium text-gray-700 shadow-sm transition-all duration-200 outline-none hover:border-[#EC771C] focus:border-[#EC771C] focus:ring-1 focus:ring-orange-100 cursor-pointer">
 
                                     {locations.flatMap((state) =>
                                         state.cities.map((city) => (
-                                            <option key={`${state.state}-${city.id}`} value={city.id}>
+                                            <option key={`${state.state}-${city.id}`}
+                                                value={city.id}>
                                                 {city.name}
                                             </option>
                                         ))

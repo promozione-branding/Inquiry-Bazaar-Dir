@@ -25,7 +25,7 @@ export default function IndustrySlider() {
             try {
                 setLoading(true);
                 const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/industries`);
-                // console.log("Fetched Industries:", res);
+                // console.log("Fetched Industries:", res.data.data);
                 setIndustries(res?.data?.data || []);
             } catch (err) {
                 console.error(err);
@@ -126,7 +126,7 @@ export default function IndustrySlider() {
                                 <div className="relative h-40 md:h-60 overflow-hidden">
                                     <img
                                         src={item?.imageUrl}
-                                        alt={item?.name}
+                                        alt={item?.imageAlt || item?.name}
                                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                     />
 

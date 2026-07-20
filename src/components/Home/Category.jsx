@@ -14,7 +14,7 @@ export default function Category() {
             try {
                 setLoading(true);
                 const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/categories/main`);
-                // console.log(res?.data);
+                // console.log(res?.data?.data);
                 setCategories(res?.data?.data || []);
             } catch (err) {
                 console.error(err);
@@ -83,7 +83,7 @@ export default function Category() {
                             <div className="relative h-40 md:h-72 overflow-hidden">
                                 <img
                                     src={item?.imageUrl}
-                                    alt={item?.name}
+                                    alt={item?.imageAlt || item?.name}
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 />
 

@@ -1,6 +1,7 @@
 "use client"
 import Footer from '@/components/Main/Footer'
 import Navbar from '@/components/Main/Navbar'
+import Stickyfooter from '@/components/Main/StickyFooter'
 import axios from 'axios'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -20,7 +21,7 @@ export default function Category() {
       try {
         setLoading(true);
         const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_URL}api/categories/${slug}`);
-        // console.log(res.data);
+        console.log(res.data.data);
         const data = res.data?.data;
         setCategory(data?.category || null);
         setSubCategory(data?.subCategories || []);
@@ -103,7 +104,7 @@ export default function Category() {
               <div className="w-28 h-28 relative mb-2">
                 <Image
                   src={i.imageUrl}
-                  alt={i.name}
+                  alt={i?.imageAlt || i.name}
                   fill
                   className="object-contain"
                 />
@@ -125,7 +126,7 @@ export default function Category() {
                     <div className="w-24 h-24 relative mb-2">
                       <Image
                         src={product.media?.[0]?.url || "/noimage.png"}
-                        alt={product.name}
+                        alt={product?.media?.[0]?.altName || product.name}
                         fill
                         className="object-contain group-hover:scale-105 transition"
                       />
@@ -159,7 +160,7 @@ export default function Category() {
         )))}
       </div>
     </div>
-
+    <Stickyfooter />
     <Footer />
   </>
   )

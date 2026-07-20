@@ -6,6 +6,7 @@ import Navbar from "@/components/Main/Navbar";
 import Footer from "@/components/Main/Footer";
 import axios from "axios";
 import { ArrowUpRight } from "lucide-react";
+import Stickyfooter from "@/components/Main/StickyFooter";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
@@ -66,7 +67,7 @@ export default function Categories() {
               <div className="relative h-40 md:h-72 overflow-hidden">
                 <img
                   src={item?.imageUrl}
-                  alt={item?.name}
+                  alt={item?.imageAlt || item?.name}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
 
@@ -106,7 +107,7 @@ export default function Categories() {
         ))}
       </div>
     </section>
-
+    <Stickyfooter />
     <Footer />
   </>)
 }

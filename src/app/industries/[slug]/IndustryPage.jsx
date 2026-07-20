@@ -1,6 +1,7 @@
 "use client"
 import Footer from '@/components/Main/Footer'
 import Navbar from '@/components/Main/Navbar'
+import Stickyfooter from '@/components/Main/StickyFooter'
 import axios from 'axios'
 import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
@@ -96,7 +97,7 @@ export default function IndustryPage() {
                 <div className="w-30 h-30 border border-gray-200 relative shrink-0">
                   <Image
                     src={cat.imageUrl}
-                    alt={cat.name}
+                    alt={cat.imageAlt || cat.name}
                     fill
                     className="object-contain"
                   />
@@ -133,7 +134,7 @@ export default function IndustryPage() {
         </div>
       </div>
     </div>
-
+    <Stickyfooter />
     <Footer />
   </>)
 }

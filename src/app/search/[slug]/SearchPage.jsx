@@ -41,6 +41,7 @@ import { FaXTwitter } from 'react-icons/fa6';
 import FAQSection from '@/components/Category/Category';
 import { useSelector } from 'react-redux';
 import { getSupplierStats, renderStars } from '@/utils/getProductReviews';
+import Stickyfooter from '@/components/Main/StickyFooter';
 
 export default function SearchPage() {
   const { slug } = useParams()
@@ -241,14 +242,14 @@ export default function SearchPage() {
     await fetchData(nextPage, true);
   };
 
-  console.log(subCategory)
+  // console.log(subCategory)
   const CateDesc = subCategory?.categoryDescription;
 
 
   return (<>
     <Navbar />
 
-    <div className="px-4 md:px-10 py-3 bg-white">
+    <div className="px-4 md:px-10 py-3 bg-white md:flex hidden">
       {/* Breadcrumb */}
       <div className="flex items-center text-gray-800 gap-1 flex-wrap">
         <Link href={"/"} className="font-bold">Home</Link>
@@ -273,7 +274,7 @@ export default function SearchPage() {
       </div>
     </div>
 
-    <div className="grid grid-cols-1 lg:grid-cols-6 bg-gray-200 py-4">
+    <div className="grid grid-cols-1 lg:grid-cols-6 bg-gray-200 md:py-4 py-2">
       <div className="hidden lg:block lg:col-span-1">
         <div className="lg:sticky top-20">
           <Sidebar open={open} setOpen={setOpen} slug={slug} />
@@ -286,12 +287,12 @@ export default function SearchPage() {
 
       <div className="col-span-1 lg:col-span-4 px-2">
         <button onClick={() => setOpen(true)}
-          className="lg:hidden flex items-center gap-2 mb-4 px-4 py-2 bg-[#082C62] text-white rounded"
+          className="lg:hidden flex items-center text-sm gap-2 mb-2 px-3 py-2 bg-[#082C62] text-white rounded"
         >
-          Filters <Funnel size={16} />
+          Filters <Funnel size={12} />
         </button>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col md:gap-4 gap-2">
           {loading ? (
             Array.from({ length: 2 }).map((_, idx) => (
               <div
@@ -309,16 +310,16 @@ export default function SearchPage() {
             const supplier = i?.supplier?.business;
             const { rating, reviews } = getSupplierStats(i?.supplier?.phone);
             return (<div key={idx}>
-              <div className="md:hidden bg-white rounded-xl shadow-sm border border-gray-200">
-                <div className="pt-3 px-3 border-b">
+              <div className="md:hidden relative bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                {/* <div className="pt-2 px-3 border-b relative">
                   <Link href={`/products/${i?.slug}`}
                     className="font-semibold text-[#082C62] text-base line-clamp-2"
                   >
                     {i.name}
                   </Link>
-                </div>
+                </div> */}
 
-                <div className="flex gap-3 p-3">
+                <div className="flex gap-3 p-2">
                   <div className="relative w-32 h-32 shrink-0"
                     onClick={(e) => {
                       e.preventDefault();
@@ -328,24 +329,25 @@ export default function SearchPage() {
                   >
                     <Image
                       src={i.media?.[0]?.url || "/no-image.png"}
-                      alt={i.name}
+                      alt={i.media?.[0]?.altName || i.name}
                       fill
                       className="object-contain"
                     />
                   </div>
 
                   <div className="flex-1 min-w-0">
-                    <div className="text-2xl font-bold text-black">
+                    <Link href={`/products/${i?.slug}`}
+                      className="font-semibold text-[#082C62] text-base line-clamp-2"
+                    >
+                      {i.name}
+                    </Link>
+                    <div className="font-bold text-black">
                       {i.price ? `₹ ${i.price}` : "Price on Request"}
-                      {i.price && (
-                        <span className="text-base font-normal text-gray-600">
-                          /Piece
-                        </span>
-                      )}
+                      <span className="text-sm font-normal">{i.unit ? `/${i.unit}` : "/Piece"}</span>
                     </div>
 
                     {i.specifications?.slice(0, 4).map((spec, idx) => (
-                      <div key={idx} className="text-sm mt-1">
+                      <div key={idx} className="text-xs line-clamp-1 mb-0.5">
                         <span className="text-gray-800">
                           {spec.key}:
                         </span>{" "}
@@ -357,25 +359,34 @@ export default function SearchPage() {
                   </div>
                 </div>
 
-                <div className="px-3 border-t">
-                  <h3 className="font-semibold text-[#082C62]">
+                <div className="px-2 border-t">
+                  {/* <h3 className="font-semibold text-[#082C62]">
                     {supplier?.companyName}
-                  </h3>
+                  </h3> */}
+                  {i?.supplier?.webpage?.slug ? (
+                    <Link href={`/${i.supplier.webpage?.slug}`} className="hover:underline text-md font-semibold line-clamp-1 flex items-center gap-1 cursor-pointer group text-blue-500 transition">
+                      {supplier?.companyName || "-"}
+                    </Link>)
+                    :
+                    <h2 className="text-md font-semibold text-gray-800 flex items-center gap-1 group transition line-clamp-1">
+                      {supplier?.companyName || "-"}
+                    </h2>}
+                  <div className='flex items-center justify-between gap-2'>
+                    <div className="text-sm text-gray-800 line-clamp-1">
+                      {supplier?.address || "India"}
+                    </div>
 
-                  <div className="text-sm text-gray-800 line-clamp-1">
-                    {supplier?.address || "India"}
-                  </div>
+                    <div className="flex flex-nowrap items-center gap-1 text-sm">
+                      {renderStars(Number(rating))}
 
-                  <div className="flex items-center gap-1 text-sm mt-0.5">
-                    {renderStars(Number(rating))}
-
-                    <span className="ml-1 text-gray-800">
-                      {rating} • {reviews} reviews
-                    </span>
+                      <span className="text-gray-800 text-nowrap">
+                        {rating} • ({reviews})
+                      </span>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex gap-5 justify-center mt-3">
+                <div className="flex gap-5 justify-center">
                   {supplier?.social?.linkedin && (
                     <a
                       href={supplier.social.linkedin}
@@ -383,7 +394,7 @@ export default function SearchPage() {
                       rel="noopener noreferrer"
                       title="LinkedIn"
                     >
-                      <FaLinkedin size={25} className="text-blue-700" />
+                      <FaLinkedin size={25} className="text-blue-700 mt-1" />
                     </a>
                   )}
 
@@ -394,7 +405,7 @@ export default function SearchPage() {
                       rel="noopener noreferrer"
                       title="Instagram"
                     >
-                      <FaInstagram size={25} className="text-pink-600" />
+                      <FaInstagram size={25} className="text-pink-600 mt-1" />
                     </a>
                   )}
 
@@ -405,7 +416,7 @@ export default function SearchPage() {
                       rel="noopener noreferrer"
                       title="Facebook"
                     >
-                      <FaFacebook size={25} className="text-blue-600" />
+                      <FaFacebook size={25} className="text-blue-600 mt-1" />
                     </a>
                   )}
 
@@ -416,7 +427,7 @@ export default function SearchPage() {
                       rel="noopener noreferrer"
                       title="YouTube"
                     >
-                      <FaYoutube size={25} className="text-red-600" />
+                      <FaYoutube size={25} className="text-red-600 mt-1" />
                     </a>
                   )}
 
@@ -427,7 +438,7 @@ export default function SearchPage() {
                       rel="noopener noreferrer"
                       title="Telegram"
                     >
-                      <BsTelegram size={25} className="text-blue-600" />
+                      <BsTelegram size={25} className="text-blue-600 mt-1" />
                     </a>
                   )}
 
@@ -438,7 +449,7 @@ export default function SearchPage() {
                       rel="noopener noreferrer"
                       title="Twitter"
                     >
-                      <FaXTwitter size={25} className="text-black" />
+                      <FaXTwitter size={25} className="text-black mt-1" />
                     </a>
                   )}
                 </div>
@@ -458,20 +469,52 @@ export default function SearchPage() {
                     Call Now
                   </button>
                 </div>
+
+                {i?.supplier?.membership?.membershipStatus === "active" && (() => {
+                  const type =
+                    i?.supplier?.membership?.membershipType?.toLowerCase();
+
+                  const config = membershipStyles[type];
+                  const Icon = config?.icon || Rocket;
+
+                  return (
+                    <div className="absolute top-0 left-0 z-20">
+                      <div
+                        className={`
+          flex items-center gap-1
+          px-2 py-1
+          text-xs
+          font-bold
+          uppercase
+          text-white
+          bg-gradient-to-r ${config?.bg}
+          shadow-md
+        `}
+                        style={{
+                          clipPath:
+                            "polygon(0 0, 92% 0, 100% 50%, 92% 100%, 0 100%)",
+                        }}
+                      >
+                        <Icon size={10} />
+                        <span>{type}</span>
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
 
-              <div className="bg-white relative p-4 rounded-xl shadow-sm hover:shadow-md transition border border-gray-200 hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="bg-white overflow-hidden p-4 rounded-xl shadow-sm hover:shadow-md transition border border-gray-200 hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 relative">
                 <div className="w-full h-70 relative group" onClick={(e) => { e.preventDefault(); setOpenPopup(true); setPopupProduct(i); }}>
                   <Image
                     src={i.media?.[0]?.url || "/no-image.png"}
-                    alt={i?.name}
+                    alt={i.media?.[0]?.altName || i?.name}
                     fill
                     className="object-contain group-hover:scale-105 transition"
                   />
-                  {i?.media?.find(m => m.type === "pdf") && (
+                  {i?.media.find(m => m.type === "pdf") && (
                     <a
                       onClick={(e) => e.stopPropagation()}
-                      href={i.media?.find(m => m.type === "pdf").url}
+                      href={i.media.find(m => m.type === "pdf").url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="absolute flex gap-1 text-[10px] items-center justify-center -bottom-2 right-0 bg-[#082C62] text-white p-2 rounded-md transition"
@@ -493,7 +536,7 @@ export default function SearchPage() {
                       {i.price ? (
                         <p className="text-lg font-semibold">
                           ₹{i.price}
-                          <span className="text-sm font-normal">/Piece</span>
+                          <span className="text-sm font-normal">{i.unit ? `/${i.unit}` : "/Piece"}</span>
                         </p>
                       ) : (
                         <span className="bg-green-500 text-xs text-white px-2 py-1 rounded-xl">
@@ -502,7 +545,11 @@ export default function SearchPage() {
                       )}
                     </div>
 
-
+                    {/* {i.brandName && (
+                      <div className="bg-[#082C62] text-xs text-white px-2 py-1 rounded-xl">
+                        {i.brandName}
+                      </div>
+                    )} */}
                   </div>
 
                   <div className="mt-4 border border-gray-200 rounded-lg overflow-hidden">
@@ -541,7 +588,7 @@ export default function SearchPage() {
 
                     <div className="flex items-center gap-1 mt-0.5 text-sm text-gray-800">
                       <MapPin size={14} className="text-orange-500 -mt-0.5" />
-                      <span>{supplier?.address || "India"}</span>
+                      <span className='line-clamp-2'>{supplier?.address || "India"}</span>
                     </div>
 
                     <div className="flex items-center gap-1 text-sm mt-0.5">
@@ -651,14 +698,29 @@ export default function SearchPage() {
                 </div>
 
                 {i?.supplier?.membership?.membershipStatus === "active" && (() => {
-                  const type = i?.supplier?.membership?.membershipType?.toLowerCase();
+                  const type =
+                    i?.supplier?.membership?.membershipType?.toLowerCase();
+
                   const config = membershipStyles[type];
                   const Icon = config?.icon || Rocket;
 
                   return (
                     <div className="absolute top-0 left-0 z-20">
-                      <div className={`flex items-center gap-1.5 px-3 py-1 text-sm font-bold uppercase text-white bg-gradient-to-r ${config?.bg} shadow-md `}
-                        style={{ clipPath: "polygon(0 0, 92% 0, 100% 50%, 92% 100%, 0 100%)", }}
+                      <div
+                        className={`
+          flex items-center gap-1.5
+          px-3 py-1
+          text-sm
+          font-bold
+          uppercase
+          text-white
+          bg-gradient-to-r ${config?.bg}
+          shadow-md
+        `}
+                        style={{
+                          clipPath:
+                            "polygon(0 0, 92% 0, 100% 50%, 92% 100%, 0 100%)",
+                        }}
                       >
                         <Icon size={15} />
                         <span>{type}</span>
@@ -673,7 +735,7 @@ export default function SearchPage() {
 
         {/* pagination */}
         {hasMore && subCategory?.products?.length > 0 && (
-          <div className='pt-5 flex justify-center'>
+          <div className='md:pt-5 pt-2 flex justify-center'>
             <button onClick={handleLoadMore} disabled={loadingMore} className="flex items-center justify-center px-4 py-2 bg-[#082C62] text-white rounded gap-2 cursor-pointer">
               {loadingMore ? "Loading..." : "View More"}
               <ArrowDown size={20} />
@@ -681,7 +743,7 @@ export default function SearchPage() {
           </div>
         )}
 
-        {CateDesc?.toString().length > 100 && <div className="max-w-6xl text-black mx-auto px-4 py-8">
+        {CateDesc?.toString().length > 100 && <div className="max-w-7xl text-black mx-auto md:py-8 py-4">
           <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
             <div
               className="jodit-content px-6 py-6"
@@ -690,8 +752,8 @@ export default function SearchPage() {
           </div>
         </div>}
 
-        {subCategory?.faqs?.length > 0 && (
-          <FAQSection faqs={subCategory?.faqs} />
+        {subCategory?.category?.faqs?.length > 0 && (
+          <FAQSection faqs={subCategory?.category?.faqs} />
         )}
       </div>
 
@@ -762,8 +824,7 @@ export default function SearchPage() {
       </div>
     </div>
 
-
-
+    <Stickyfooter />
     <ContactModal open={openPopup} setOpen={setOpenPopup} product={popupProduct} />
     <Footer />
   </>)

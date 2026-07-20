@@ -10,6 +10,7 @@ import Locations from "@/components/Home/Locations";
 import CategoryPopup from "@/components/Main/CategoryPopup";
 import Footer from "@/components/Main/Footer";
 import Navbar from "@/components/Main/Navbar";
+import StickyFooter from "@/components/Main/StickyFooter";
 import { useState } from "react";
 
 export default function Home() {
@@ -26,6 +27,7 @@ export default function Home() {
       <Locations />
       <Footer />
       <HomePopup productImage={"/image.jpg"} setOpen={setOpen} open={open} />
+      <StickyFooter />
     </div>
   );
 }

@@ -92,7 +92,7 @@ export default function IndustrySection() {
                             <div className="relative h-[350px]">
                                 <Image
                                     src={industry.imageUrl}
-                                    alt={industry.name}
+                                    alt={industry?.imageAlt || industry.name}
                                     fill
                                     className="object-cover"
                                 />
@@ -119,7 +119,7 @@ export default function IndustrySection() {
                                                     className="flex text-nowrap items-center gap-3 text-white text-"
                                                 >
                                                     <div className="w-2 h-2 rounded-full bg-[#EC771C]" />
-                                                    <p>{cat.name}</p>
+                                                    <p className="line-clamp-1">{cat.name}</p>
                                                 </div>
                                             ))}
                                         </div>
@@ -147,7 +147,7 @@ export default function IndustrySection() {
                                         <div className="relative w-[80px] h-[80px] rounded-xl overflow-hidden shrink-0">
                                             <Image
                                                 src={cat.imageUrl}
-                                                alt={cat.name}
+                                                alt={cat?.imageAlt || cat.name}
                                                 fill
                                                 className="object-cover"
                                             />
@@ -197,7 +197,7 @@ export default function IndustrySection() {
                                 <div className="relative h-75 rounded-lg overflow-hidden">
                                     <Image
                                         src={industry.imageUrl}
-                                        alt={industry.name}
+                                        alt={industry?.imageAlt || industry.name}
                                         fill
                                         className="object-cover"
                                     />
@@ -230,7 +230,7 @@ export default function IndustrySection() {
                                             <div className="w-20 h-20 relative shrink-0">
                                                 <Image
                                                     src={cat.imageUrl}
-                                                    alt={cat.name}
+                                                    alt={cat?.imageAlt || cat.name}
                                                     fill
                                                     className="object-contain"
                                                 />

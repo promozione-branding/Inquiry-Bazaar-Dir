@@ -48,6 +48,7 @@ import Navbar from "@/components/Main/Navbar";
 import Footer from "@/components/Main/Footer";
 import { useParams } from "next/navigation";
 import axios from "axios";
+import Stickyfooter from "@/components/Main/StickyFooter";
 
 export default function ProductPage() {
     const { slug } = useParams()
@@ -157,7 +158,7 @@ export default function ProductPage() {
 
     const { rating, reviews } = getSupplierStats(productDetails.supplier?.phone);
 
-    // console.log(productDetails, "details", relatedProducts);
+    console.log(productDetails);
 
     return (<>
         <Navbar />
@@ -213,8 +214,9 @@ export default function ProductPage() {
                             {productDetails?.media?.filter((img) => img.type === "image").map((img) => (
                                 <SwiperSlide key={img._id}>
                                     <img
+                                        alt={img.altName || productDetails?.name}
                                         src={img.url}
-                                        className="w-full h-90 object-cover hover:scale-105 transition duration-300"
+                                        className="w-full h-90 object-coer hover:scale-105 transition duration-300"
                                     />
                                 </SwiperSlide>
                             ))}
@@ -226,6 +228,7 @@ export default function ProductPage() {
                                 {media.type === "image" && (
                                     <img
                                         src={media.url}
+                                        alt={media.altName || productDetails?.name}
                                         onClick={() => {
                                             setShowYoutube(false);
                                             setActiveIndex(index);
@@ -235,7 +238,6 @@ export default function ProductPage() {
                                             ? "border-orange-500"
                                             : "border-transparent"
                                             }`}
-                                        alt=""
                                     />
                                 )}
 
@@ -689,15 +691,15 @@ export default function ProductPage() {
                                     Math.round(((item.oldPrice - item.price) / item.oldPrice) * 100) : 0;
 
                                 return (
-                                    <Link href={""} key={item?._id}
+                                    <Link href={item.slug} key={item?._id}
                                         className="group bg-white rounded-2xl border shadow-md border-gray-200 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                                     >
                                         {/* Image */}
                                         <div className="relative bg-slate-50 md:h-70 overflow-hidden">
                                             <img
                                                 src={item?.media?.[0]?.url || "/placeholder-product.jpg"}
-                                                alt={item?.name}
-                                                className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                                                alt={item?.media?.[0]?.altName || item?.name}
+                                                className="w-full h-full object-coer group-hover:scale-105 transition duration-500"
                                             />
 
                                             {discount > 0 && (
@@ -758,6 +760,7 @@ export default function ProductPage() {
                 </div>}
         </div>
 
+        <Stickyfooter />
         <Footer />
         <ContactModal open={openPopup} setOpen={setOpenPopup} product={popupProduct} />
     </>);
