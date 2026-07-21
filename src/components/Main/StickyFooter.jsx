@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import {
     House,
     LayoutGrid,
-    Search,
     User,
     FileText,
     Layers,
@@ -17,6 +16,7 @@ import { useSelector } from "react-redux";
 const Stickyfooter = () => {
     const pathname = usePathname();
     const [openPopup, setOpenPopup] = useState(false);
+
     const user = useSelector((state) => state.user.user);
 
     const menus = [
@@ -26,8 +26,7 @@ const Stickyfooter = () => {
             icon: House,
         },
         {
-            href: "/products",
-            label: "Quote",
+            label: "Request Quote",
             icon: FileText,
             center: true,
         },
@@ -37,12 +36,20 @@ const Stickyfooter = () => {
             icon: LayoutGrid,
         },
         {
-            href: `${!user ? "/login" : user.role == "supplier" ? "https://seller.inquirybazaar.com/dashboard" : "https://buyer.inquirybazaar.com/dashboard"}`,
+            href: !user
+                ? "/login"
+                : user.role === "supplier"
+                    ? "https://seller.inquirybazaar.com/dashboard"
+                    : "https://buyer.inquirybazaar.com/dashboard",
             label: "Dashboard",
             icon: Layers,
         },
         {
-            href: `${!user ? "/login" : user.role == "supplier" ? "https://seller.inquirybazaar.com/profile" : "https://buyer.inquirybazaar.com/profile"}`,
+            href: !user
+                ? "/login"
+                : user.role === "supplier"
+                    ? "https://seller.inquirybazaar.com/profile"
+                    : "https://buyer.inquirybazaar.com/profile",
             label: "Account",
             icon: User,
         },
@@ -50,38 +57,99 @@ const Stickyfooter = () => {
 
     return (
         <>
-            <div className="fixed -bottom-0.5 left-0 right-0 z-50 md:hidden bg-white border-t border-gray-200 shadow-[0_-2px_12px_rgba(0,0,0,.08)]">
-                <div className="grid grid-cols-5 gap-2 h-16">
+            <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white border-t border-gray-200 shadow-[0_-2px_12px_rgba(0,0,0,.08)]">
+                <div className="grid grid-cols-5 h-16">
 
-                    {menus.map((item) => {
+                    {menus.map((item, index) => {
                         const Icon = item.icon;
-                        const active = pathname === item.href;
 
-                        return item.center ? (
-                            <button key={item.href} onClick={() => setOpenPopup(true)}
+                        // Request Quote Button
+                        if (item.center) {
+                            return (
+                                <button
+                                    key={index}
+                                    onClick={() => setOpenPopup(true)}
+                                    className="flex flex-col items-center justify-center gap-1"
+                                >
+                                    <Icon
+                                        size={22}
+                                        strokeWidth={2.2}
+                                        className={
+                                            openPopup
+                                                ? "text-[#EC771C]"
+                                                : "text-[#082C62]"
+                                        }
+                                    />
+
+                                    <span
+                                        className={`text-[10px] font-medium ${openPopup
+                                                ? "text-[#EC771C]"
+                                                : "text-[#082C62]"
+                                            }`}
+                                    >
+                                        {item.label}
+                                    </span>
+                                </button>
+                            );
+                        }
+
+                        const isExternal =
+                            item.href.startsWith("http");
+
+                        const active =
+                            !isExternal && pathname === item.href;
+
+                        if (isExternal) {
+                            return (
+                                <a
+                                    key={index}
+                                    href={item.href}
+                                    className="flex flex-col items-center justify-center gap-1"
+                                >
+                                    <Icon
+                                        size={22}
+                                        strokeWidth={2.2}
+                                        className={
+                                            active
+                                                ? "text-[#EC771C]"
+                                                : "text-[#082C62]"
+                                        }
+                                    />
+
+                                    <span
+                                        className={`text-[10px] font-medium ${active
+                                                ? "text-[#EC771C]"
+                                                : "text-[#082C62]"
+                                            }`}
+                                    >
+                                        {item.label}
+                                    </span>
+                                </a>
+                            );
+                        }
+
+                        return (
+                            <Link
+                                key={index}
+                                href={item.href}
                                 className="flex flex-col items-center justify-center gap-1"
                             >
                                 <Icon
                                     size={22}
                                     strokeWidth={2.2}
-                                    className={active ? "text-[#EC771C]" : "text-[#082C62]"}
+                                    className={
+                                        active
+                                            ? "text-[#EC771C]"
+                                            : "text-[#082C62]"
+                                    }
                                 />
 
-                                <span className={`text-[10px] font-medium ${active ? "text-[#EC771C]" : "text-[#082C62]"}`}>
-                                    Request Quote
-                                </span>
-                            </button>
-                        ) : (
-                            <Link key={item.href} href={item.href}
-                                className="flex flex-col items-center justify-center gap-1"
-                            >
-                                <Icon
-                                    size={22}
-                                    strokeWidth={2.2}
-                                    className={active ? "text-[#EC771C]" : "text-[#082C62]"}
-                                />
-
-                                <span className={`text-[10px] font-medium ${active ? "text-[#EC771C]" : "text-[#082C62]"}`}>
+                                <span
+                                    className={`text-[10px] font-medium ${active
+                                            ? "text-[#EC771C]"
+                                            : "text-[#082C62]"
+                                        }`}
+                                >
                                     {item.label}
                                 </span>
                             </Link>
@@ -90,7 +158,10 @@ const Stickyfooter = () => {
                 </div>
             </div>
 
-            <HomePopup open={openPopup} setOpen={setOpenPopup} />
+            <HomePopup
+                open={openPopup}
+                setOpen={setOpenPopup}
+            />
         </>
     );
 };
