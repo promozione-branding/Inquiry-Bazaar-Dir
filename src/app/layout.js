@@ -1,3 +1,4 @@
+
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Main/Navbar";
@@ -16,16 +17,42 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Business Directory India | Companies, Manufacturers & Suppliers Directory | Inquiry Bazaar",
-  description: "Explore India's comprehensive business directory featuring manufacturers, suppliers, exporters, traders, dealers, service providers, and companies across multiple industries. Discover verified business profiles and send inquiries directly through Inquiry Bazaar.",
-
+  title:
+    "Business Directory India | Companies, Manufacturers & Suppliers Directory | Inquiry Bazaar",
+  description:
+    "Explore India's comprehensive business directory featuring manufacturers, suppliers, exporters, traders, dealers, service providers, and companies across multiple industries. Discover verified business profiles and send inquiries directly through Inquiry Bazaar.",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    >
       <head>
+        {/* Google Tag Manager - HEAD */}
+        <Script
+          id="google-tag-manager"
+          strategy="beforeInteractive"
+        >
+          {`
+            (function(w,d,s,l,i){
+              w[l]=w[l]||[];
+              w[l].push({
+                'gtm.start': new Date().getTime(),
+                event:'gtm.js'
+              });
+              var f=d.getElementsByTagName(s)[0],
+                  j=d.createElement(s),
+                  dl=l!='dataLayer'?'&l='+l:'';
+              j.async=true;
+              j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+              f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-PQSVK9SL');
+          `}
+        </Script>
 
+        {/* Microsoft Clarity */}
         <Script
           id="microsoft-clarity"
           strategy="afterInteractive"
@@ -43,9 +70,17 @@ export default function RootLayout({ children }) {
             })(window, document, "clarity", "script", "x7v7eroeqz");
           `}
         </Script>
-        <meta name="google-site-verification" content="6bbu4UfJBXU6bw_utiN0GWbpnttBceKaSZe77oyWJME" />
 
-        <Script id="organization-schema" type="application/ld+json"
+        {/* Google Site Verification */}
+        <meta
+          name="google-site-verification"
+          content="6bbu4UfJBXU6bw_utiN0GWbpnttBceKaSZe77oyWJME"
+        />
+
+        {/* Organization Schema */}
+        <Script
+          id="organization-schema"
+          type="application/ld+json"
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
@@ -53,7 +88,8 @@ export default function RootLayout({ children }) {
               "@graph": [
                 {
                   "@type": "Organization",
-                  "@id": "https://inquirybazaar.com/#organization",
+                  "@id":
+                    "https://inquirybazaar.com/#organization",
                   name: "Inquiry Bazaar",
                   url: "https://inquirybazaar.com/",
                   logo: {
@@ -68,20 +104,36 @@ export default function RootLayout({ children }) {
                 },
                 {
                   "@type": "WebSite",
-                  "@id": "https://inquirybazaar.com/#website",
+                  "@id":
+                    "https://inquirybazaar.com/#website",
                   url: "https://inquirybazaar.com/",
                   name: "Inquiry Bazaar",
                   publisher: {
-                    "@id": "https://inquirybazaar.com/#organization",
+                    "@id":
+                      "https://inquirybazaar.com/#organization",
                   },
                 },
               ],
             }),
           }}
         />
-
       </head>
+
       <body className="min-h-full flex flex-col">
+        {/* Google Tag Manager - BODY */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-PQSVK9SL"
+            height="0"
+            width="0"
+            style={{
+              display: "none",
+              visibility: "hidden",
+            }}
+            title="Google Tag Manager"
+          />
+        </noscript>
+
         <Providers>{children}</Providers>
       </body>
     </html>

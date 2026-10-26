@@ -57,7 +57,7 @@ const Stickyfooter = () => {
 
     return (
         <>
-            <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white border-t border-gray-200 shadow-[0_-2px_12px_rgba(0,0,0,.08)]">
+            <div className="fixed -bottom-0.5 left-0 right-0 z-50 md:hidden bg-white border-t border-gray-200 shadow-[0_-2px_12px_rgba(0,0,0,.08)]">
                 <div className="grid grid-cols-5 h-16">
 
                     {menus.map((item, index) => {
@@ -83,8 +83,8 @@ const Stickyfooter = () => {
 
                                     <span
                                         className={`text-[10px] font-medium ${openPopup
-                                                ? "text-[#EC771C]"
-                                                : "text-[#082C62]"
+                                            ? "text-[#EC771C]"
+                                            : "text-[#082C62]"
                                             }`}
                                     >
                                         {item.label}
@@ -118,8 +118,8 @@ const Stickyfooter = () => {
 
                                     <span
                                         className={`text-[10px] font-medium ${active
-                                                ? "text-[#EC771C]"
-                                                : "text-[#082C62]"
+                                            ? "text-[#EC771C]"
+                                            : "text-[#082C62]"
                                             }`}
                                     >
                                         {item.label}
@@ -146,8 +146,8 @@ const Stickyfooter = () => {
 
                                 <span
                                     className={`text-[10px] font-medium ${active
-                                            ? "text-[#EC771C]"
-                                            : "text-[#082C62]"
+                                        ? "text-[#EC771C]"
+                                        : "text-[#082C62]"
                                         }`}
                                 >
                                     {item.label}
