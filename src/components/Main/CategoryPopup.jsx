@@ -19,7 +19,7 @@ export default function CategoryPopup({ productImage }) {
 
         const timer = setTimeout(() => {
             setOpen(true);
-        }, 10000);
+        }, 7000);
 
         return () => clearTimeout(timer);
     }, [productImage?.category]);
