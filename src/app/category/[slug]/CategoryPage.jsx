@@ -53,7 +53,7 @@ export default function CategoryPage({ initialData }) {
   const [popupProduct, setPopupProduct] = useState({});
   const [subCategory, setSubCategory] = useState(initialData);
   const [page, setPage] = useState(1);
-  const [loadingType, setLoadingType] = useState(false);
+  const [loadingType, setLoadingType] = useState(null);
   const [loading, setLoading] = useState(!initialData);
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(
@@ -121,6 +121,7 @@ export default function CategoryPage({ initialData }) {
   };
 
   const handleWhatsappClick = async (product, link) => {
+    // console.log(product, link)
     if (loadingType) return;
 
     try {
@@ -140,8 +141,8 @@ export default function CategoryPage({ initialData }) {
   };
 
   const handleCallClick = async (product, link) => {
+    // console.log(product, link)
     if (loadingType) return;
-
     try {
       setLoadingType("call");
 
